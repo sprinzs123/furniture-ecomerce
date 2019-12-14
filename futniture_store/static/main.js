@@ -1,29 +1,32 @@
-const name = document.getElementById('name')
-const email = document.getElementById('email')
-const phone = document.getElementById('phone')
-const text = document.getElementById('text')
-const errorElement = document.getElementById('error')
+// drop down windows in store menu
+var button = document.getElementsByClassName('click')
 
+for (let i=0; i<button.length; i++){
+    let clickedButton = button[i];
+    let main = clickedButton.parentElement.parentElement;
+    let list = main.children[1];
+    // console.log(list)
 
-form.addEventListener('submit', (e) => {
-    let messages = []
-    if(name.value === '' || name.value == 'null'){
-        messages.push('name')
-    }
-    if(email.value === '' || email.value == 'null'){
-        messages.push('emal')
-    }
-    if(phone.value === '' || phone.value == 'null'){
-        messages.push('phone')
-    }
-    if(text.value === '' || text.value == 'null'){
-        messages.push('text')
-    }
+    clickedButton.onclick = function(){
+        // console.log(list)
 
-    if (messages.length > 0){
-        e.preventDefault()
-        errorElement.innerText = messages.join(', ') + ' reqired'
+        if(list.className == 'box'){
+            // console.log('shrink');
+            list.className = 'hidden';
+            clickedButton.className = 'fas fa-chevron-down click';
+        }
+        else{
+        // console.log('expand')    
+        list.className = 'box';
+        clickedButton.className = 'fas fa-chevron-up click';   
+        }
     }
+    
+}
 
-
-})
+// option button toggle
+let fabric1 = document.getElementById('fabric-1')
+let fabric1 = document.getElementById('fabric-1')
+clickedButton.onclick = function(){
+    
+}

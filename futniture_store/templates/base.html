@@ -24,7 +24,7 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
       <a href="index.html" class="navbar-brand">
-        <img src="img/logo.png" alt="main logo">
+        <img src="{% static 'img/logo.png' %}" alt="main logo">
       </a>
       <button class="navbar-toggler" type='button' data-toggle='collapse' data-target='#myNavbar'>
         <i class="fas fa-bars"></i>
@@ -34,12 +34,11 @@
           <li class="nav-item mx-2">
             <div class="dropdown">
               <a href="/providers" class='nav-link text-light'>
-                <h3 class="nav-link  nav-active">SHOWER</h3>
+                <h6 class="nav-link">SHOWER</h4>
               </a>
               <div class="dropdown-content text-start">
                 <a href="#">Mirrors</a>
                 <a href="#">Sinks</a>
-                <a href="#">Shower Curtains</a>
 
               </div>
             </div>
@@ -47,7 +46,7 @@
           <li class="nav-item mx-2">
             <div class="dropdown">
               <a href="/providers" class='nav-link text-light'>
-                <h3 class="nav-link">BEDROOM</h3>
+                <h6 class="nav-link">BEDROOM</h6>
               </a>
               <div class="dropdown-content text-start">
                 <a href="#">Bed frames</a>
@@ -61,7 +60,7 @@
           <li class="nav-item mx-2">
             <div class="dropdown">
               <a href="/providers" class='nav-link text-light'>
-                <h3 class="nav-link">LIVING ROOM</h3>
+                <h6 class="nav-link">LIVING ROOM</h6>
               </a>
               <div class="dropdown-content text-start">
                 <a href="#">Sofas</a>
@@ -70,8 +69,8 @@
               </div>
             </div>
           </li>
-          <li class="nav-item mx-2">
-              <a href="singleproduct.html" class="nav-link">STORE</a>
+          <li class="nav-item mx-2 my-auto">
+              <a href="singleproduct.html" class="nav-link my-auto"><h6 class="nav-active">STORE</h6></a>
             </li>
         </ul>
       </div>
@@ -127,13 +126,13 @@
             <!-- end singe icon -->
           </div>
           <!-- end footer icons -->
-          <p class="text-muted text-capitalize w-75 mx-auto text-left">
+          <p class="text-capitalize w-75 mx-auto text-left t-grey">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae unde sunt ipsum, ratione reprehenderit minus
             autem nobis. Nisi mollitia quod libero repudiandae.
           </p>
           <div class="row">
-            <div class="col-3 footer-col text-left footer-list">
-              <h5 class='mb-2'>Help</h5>
+            <div class="col-sm-6 col-md-3 footer-col text-left footer-list">
+              <h5 class='mb-2 t-grey'>HELP</h5>
               <ul class=''>
                 <li><a href="#">SHIPPING</a></li>
                 <li><a href="#">RETURNS</a></li>
@@ -141,8 +140,8 @@
               </ul>
 
             </div>
-            <div class="col-3 footer-col text-left footer-list">
-              <h5 class='mb-2'>EXPLORE</h5>
+            <div class="col-sm-6 col-md-3 footer-col text-left footer-list">
+              <h5 class='mb-2 t-grey'>EXPLORE</h5>
               <ul class=''>
                 <li><a href="#">BLOG</a></li>
                 <li><a href="#">GIFT CARDS</a></li>
@@ -153,15 +152,15 @@
 
               </ul>
             </div>
-            <div class="col-3 footer-col text-left footer-list">
-              <h5 class='mb-2'>CONTACT</h5>
+            <div class="col-sm-6 col-md-3 footer-col text-left footer-list">
+              <h5 class='mb-2 t-grey'>CONTACT</h5>
               <ul class=''>
                 <li><a href="#">CONTACT US</a></li>
                 <li><a href="#">CUSTOMER SERVICE</a></li>
               </ul>
             </div>
-            <div class="col-3 footer-col text-left footer-list">
-              <h5 class='mb-2'>ACCOUNT</h5>
+            <div class="col-sm-6 col-md-3 footer-col text-left footer-list">
+              <h5 class='mb-2 t-grey'>ACCOUNT</h5>
               <ul class=''>
                 <li><a href="#">LOGIN/REGISTER</a></li>
               </ul>
@@ -186,8 +185,8 @@
             <!-- single contact -->
             <div class="text-capitalize footer-contact">
               <span class='footer-icon'>
-                <i class=""></i>
-              </span>email@email.com
+                  <i class="fas fa-envelope-open"></i>
+                </span>email@email.com
             </div>
             <!-- end single contact -->
           </div>
