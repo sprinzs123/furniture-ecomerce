@@ -3,13 +3,19 @@
 :root {
   --mainYellow: #fdbe02;
   --mainWhite: #fff;
-  --mainBlack: #071013;
+  --mainBlack: #282c2e;
   --mainGrey: #9b9999;
   --TransGrey: rgba(0, 0, 0, 0.1);
   --SecondGrey: #6a666a;
 }
-.h1,h2,h3,h4,h5,h6{
+
+.h1,h2,h3,h4{
   letter-spacing: 0.25rem;
+  color: var(--mainBlack);
+}
+.h5,h6{
+  letter-spacing: 0.1rem;
+  color: var(--mainBlack);
 }
 ul{
   list-style-type: none;
@@ -17,6 +23,12 @@ ul{
 }
 .text-orange{
   color: orangered;
+}
+.t-grey{
+  color: var(--mainGrey);
+}
+.grey2{
+  color: var(--SecondGrey);
 }
 body {
   color: var(--SecondGrey);
@@ -27,15 +39,15 @@ body {
   font-family: "Calligraffitti", cursive;
 }
 .btn-yellow{
-  background: var(--mainYellow);
+  background: var(--mainYellow)!important;
   text-transform: capitalize;
   font-size: 1.2rem;
   color: var(--mainBlack);
   border-radius: 0!important;
 }
 .btn-yellow:hover{
-  background: var(--mainBlack);
-  color: var(--mainYellow)
+  background: var(--mainBlack)!important;
+  color: var(--mainYellow)!important;
 }
 .text-yellow{
   color: var(--mainYellow);
@@ -89,13 +101,13 @@ body {
   color: var(--mainGrey)
 }
 .cart-items{
-  color: var(--mainWhite);
+  color: var(--mainBlack);
   position: absolute;
-  top: -15%;
-  right: -25%;
-  padding: 0.2rem 0.3rem;
+  top: -20%;
+  right: -30%;
+  padding: 0.1rem 0.1rem;
   background: var(--mainYellow);
-  font-size:0.5rem;
+  font-size:1.3rem;
   border-radius: 50%;
 }
 /* navbar drop down windows */
@@ -106,6 +118,7 @@ body {
 }
 
 /* Dropdown Content (Hidden by Default) */
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -117,31 +130,42 @@ body {
 
 /* Links inside the dropdown */
 .dropdown-content a {
-  color: var(--mainGrey);
+  color: var(--SecondGrey);
   text-decoration: none;
   display: block;
 }
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-    color: var(--mainBlack);
+    color: var(--mainGrey);
     text-decoration: none;
 
 }
 
 /* Show the dropdown menu on hover */
+@media (min-width:1000px){
 .dropdown:hover .dropdown-content {display: block;}
-
+}
 
 /* ################# banner */
 .banner{
-  background: url(/img/pageBcg/bannerBcg.jpeg);
-  min-height: calc(100vh - 220px);
+  background: url(../img/banner.jpg);
+  min-height: calc(100vh - 200px);
   background-position: center;
   background-size:cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
+/* ############### img collage */
+
+.collage-link{
+  color: var(--SecondGrey);
+}
+.collage-link:hover{
+  text-decoration: none;
+  color: var(--SecondGrey);
+}
+
 /* ##################### services */
 .service-icon{
   display: inline-block;
@@ -221,8 +245,10 @@ body {
 .form-icon{
   background: var(--mainGrey);
   color: var(--mainBlack);
+ }
+.newsletter-text{
+  color: var(--SecondGrey);
 }
-
 /* skills */
 .skills{
   background: var(--mainBlack);
@@ -274,14 +300,18 @@ body {
   color: var(--mainBlack);
   text-decoration: none !important;
 }
-.products-categories-link:hover{
-  color: var(--mainGrey);
-}
+
 .products-color{
   width: 1rem;
   height: 1rem; 
 }
-
+.box{
+  color: var(--SecondGrey);
+}
+.box>ul>li:hover{
+  cursor: pointer;
+  color:var(--mainGrey);
+}
 
 li:hover{
   /* color: var(--mainGrey); */
@@ -293,9 +323,11 @@ li:hover{
   color: var(--mainGrey)
 }
 .price-input{
-  border: solid black;
-  max-width: 29%;
+ width: 55%;
 }
+
+
+
 .products-color-black{
   background: black;
 }
@@ -322,8 +354,14 @@ li:hover{
   border-width: 3px;
   border-color: white;
 }
-  
-
+.btn-option-1{
+  background: rgb(253, 124, 77)!important;
+  cursor: pointer;
+}
+.btn-option-2{
+  background: rgb(200, 200, 200)!important;
+  cursor: pointer;
+}
 .color-circle:hover{
   cursor: pointer;
   border-style: solid;
@@ -367,7 +405,116 @@ li:hover{
 } */
 .item-features >li{
   list-style-type: circle;
+  color: var(--SecondGrey);
 }
 .item-features{
   padding-left: 1.2rem;
+}
+
+
+/* ############# item carousel ############### */
+
+
+@media (min-width: 768px) {
+
+  /* show  items
+   if want to show more items need to add more .carousel-item */
+  .carousel-inner .active,
+  .carousel-inner .active + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item, 
+  .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
+      display: block;
+  }
+  
+  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
+  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item,
+  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item  {
+      transition: none;
+      margin-right: initial;
+  }
+  
+  .carousel-inner .carousel-item-next, .carousel-item-next,
+  .carousel-inner .carousel-item-prev .carousel-item-prev{
+    position: relative;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item{
+      position: absolute;
+      top: 0;
+      right: -33.3333%;
+      z-index: -1;
+      display: block;
+      visibility: visible;
+  }
+  
+  /* left or forward direction */
+  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+  .carousel-item-next.carousel-item-left + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item {
+      position: relative;
+      transform: translate3d(-100%, 0, 0);
+      visibility: visible;
+  }
+  
+  /* farthest right hidden item must be abso position for animations */
+  .carousel-inner .carousel-item-prev.carousel-item-right {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      display: block;
+      visibility: visible;
+  }
+  
+  /* right or prev direction */
+  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+  .carousel-item-prev.carousel-item-right + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item {
+      position: relative;
+      transform: translate3d(100%, 0, 0);
+      visibility: visible;
+      display: block;
+      visibility: visible;
+  }
+
+}
+/* carousel controls */
+.carousel-control-prev{
+  font-size: 2.5rem;
+  transform: translateX(-70%);
+  width: auto;
+  }
+  .carousel-control-next{
+    font-size: 2.5rem;
+    transform: translateX(70%);
+    width: auto;
+}  
+.carousel-button{
+  color: black;
+}
+.heart{
+  justify-content: end;
+  cursor: pointer;
+  margin: 1rem;
+}
+.item-name-carousel{
+  color: black;
+}
+.item-name-carousel:hover{
+  text-decoration: none;
+  color: red;
+}
+/* carousel picture zooming in on hover */
+.carousel-img:hover{
+  transform: scale(1.2);
+}
+.carousel-img{
+  transition: all 1s ease-in-out;
+}
+.carousel-img-div{
+  overflow: hidden;
 }

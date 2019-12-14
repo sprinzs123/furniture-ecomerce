@@ -1,12 +1,136 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load staticfiles%}
+<!-- banner -->
+<div class="banner d-flex align-items-center pl-3 pl-lg-5">
+    <div>
+        <h1 class="text-capitalize text-slanted mb-0">minimalist</h1>
+        <h1 class="text-uppercase font-weight-bold">interior style</h1>
+        <a href="products.html" class='btn btn-yellow'>View Collection</a>
+    </div>
+</div>
+<!-- end banner -->
+<!-- end collage -->
+<section>
+    <!-- banner under text -->
+    <div class="container-fluid under-banner-container my-2">
+        <i class="fas fa-chair"></i>
+        <div class="row">
+            <div class="col-md-4 under-banner d-flex">
+                <i class="far fa-gem fa-4x py-1"></i>
+                <h2 class='my-auto mx-3'>Designed to last</h2>
+            </div>
+            <div class="col-md-4 under-banner d-flex">
+                <i class="fas fa-cocktail fa-4x py-1"></i>
+                <h2 class='my-auto mx-3'>Modern and Stylish</h2>
+            </div>
+            <div class="col-md-4 under-banner d-flex">
+                <i class="fas fa-tag fa-4x py-1"></i>
+                <h2 class='my-auto mx-3'>Affordable Price</h2>
+            </div>
+        </div>
 
+    </div>
+    <!-- end banner under text -->
+</section>
+<div class="container my-5">
+    <!-- collages of the living/bedrooms -->
+    <div class="row product-banner my-3">
+        <div class="col-md-3 my-auto p-2">
+            <a href="" class="collage-link">
+                <h2>Living Room</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non quisquam dolor sunt in hic blanditiis?
+                </p>
+            </a>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-12">
+                        <img src="{% static 'img/living-6.jpg' %}" class='pb-2 img-fluid' alt="">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <img src="{% static 'img/living-3.jpg' %}" class='img-fluid' alt="">
+                </div>
+                <div class="col-6">
+                    <img src="{% static 'img/living-4.jpg' %}" class='img-fluid' alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- bedroom collage -->
+
+    <div class="row product-banner mt-3">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-6 vertical-collage">
+                    <img src="{% static 'img/bed2.jpg' %}" class='img-fluid pb-2' alt="">
+                    <img src="{% static 'img/living-4.jpg' %}" class='img-fluid' alt="">
+                </div>
+                <div class="col-6 vertical-collage">
+                    <img src="{% static 'img/living-5.jpg' %}" class='img-fluid' alt="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 my-auto">
+            <a href="">
+                <a href="" class="collage-link">
+                    <h2>Bed Room</h2>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis iusto reprehenderit est!</p>
+                </a>
+
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- services -->
+<section class="py-5 text-center">
+    <div class="container">
+        <div class="row">
+            <!-- single service -->
+            <div class="col-10 col-md-6 col-lg-4 mx-auto py-3">
+                <span class="service-icon">
+                    <i class="fas fa-parachute-box"></i>
+                </span>
+                <h5 class="font-weight-bold text-uppercase">free shipping</h5>
+                <p class="text-muted text-capitalize">free shipping over orders</p>
+            </div>
+            <!-- end single service -->
+            <!-- single service -->
+            <div class="col-10 col-md-6 col-lg-4 mx-auto py-3">
+                <span class="service-icon">
+                    <i class="fas fa-phone-volume"></i>
+                </span>
+                <h5 class="font-weight-bold text-uppercase">online support 24/7</h5>
+                <p class="text-muted text-capitalize">We can help you with your questions</p>
+            </div>
+            <!-- end single service -->
+            <!-- single service -->
+            <div class="col-10 col-md-6 col-lg-4 mx-auto py-3">
+                <span class="service-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </span>
+                <h5 class="font-weight-bold text-uppercase">money back guarantee</h5>
+                <p class="text-muted text-capitalize">full refund for 30 days</p>
+            </div>
+            <!-- end single service -->
+        </div>
+    </div>
+</section>
+<!-- end services -->
 
 {% include 'featured.html' %}
+
+
+
 
 {% include 'carousel.html' %}
 
 {% include 'news_letter.html' %}
+
 
 {% endblock %}

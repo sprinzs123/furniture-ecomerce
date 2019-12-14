@@ -13,4 +13,4 @@ def store(request):
     return render(request, 'store/store_page.html',  {'items': items, 'featured':featured})
 
 def single(request):
-    return render(request, 'store/single_page.html',  {'items': items, 'featured':featured})
+    return render(request, 'store/single_item.html',  {'items': items, 'featured':featured})

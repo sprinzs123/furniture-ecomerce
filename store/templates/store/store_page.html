@@ -1,10 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% block content %}
+<div class="banner-2 d-flex align-items-center pl-3 pl-lg-5">
+<div>
+  <h1 class="text-capitalize text-yellow text-slanted mb-0">comfy sloth</h1>
+  <h1 class="text-uppercase font-weight-bold">our products</h1>
+</div>
+</div>
+<section class="products">
+  <div class="container">
+    <div class="row">
+      <!-- side bar for all data stuff -->
+      <div class="col-10 col-md-5 col-lg-3 mx-auto my-3 px-5">
+        <!-- one category -->
+        <div class="product-categories-title my-4">
+          <h4 class="text-uppercase">shop by categories</h4>
+          <div class="products-categories-underline"></div>
+        </div>
+        <!-- ingle link -->
+        <div class="lis">
+          <div class="d-flex align-items-start d-block products-categories-link">
+            <h5 class='mr-2'>Shower</h5>
+            <i class="fas fa-chevron-up click"></i>
+          </div>
+          <div class="box">
+            <ul>
+              <li>bathroom mirrors</li>
+              <li>sinks</li>
+            </ul>
+          </div>
+        </div>
+        <!-- end single link -->
+        <!-- ingle link -->
+        <div class="lis">
+          <div class="d-flex align-items-start d-block products-categories-link">
+            <h5 class='mr-2'>Bedroom</h5>
+            <i class="fas fa-chevron-up click"></i>
+          </div>
+          <div class="box">
+            <ul>
+              <li>bed frames</li>
+              <li>dressers</li>
+              <li>lamps</li>
+            </ul>
+          </div>
+        </div>
+        <!-- end single link -->
+        <!-- ingle link -->
+        <div class="lis">
+          <div class="d-flex align-items-start d-block products-categories-link">
+            <h5 class='mr-2'>Living Room</h5>
+            <i class="fas fa-chevron-up click"></i>
+          </div>
+          <div class="box">
+            <ul>
+              <li>sofas</li>
+              <li>chairs</li>
+              <li>tables</li>
+            </ul>
+          </div>
+        </div>
+        <!-- end single link -->
+        <!-- end single link -->
+        <!-- end single link -->
+        <!-- end single category -->
+        <!-- one category -->
+        <div class="product-categories-title my-4">
+          <h4 class="text-uppercase">shop by price</h4>
+          <div class="products-categories-underline"></div>
+        </div>
+        <form>
+          <div class="form-group">
+            <div class="d-flex price-input">
+              <input type="text" placeholder="min" class='price-input form-outline mr-3'>
+              <input type="text" placeholder="max" class='price-input mr-3'>
+              <button class='btn btn-yellow'>go</button>
+            </div>
+          </div>
+          
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text form-icon">
+                <i class="fas fa-search"></i>
+              </span>
+            </div class="form-group">
+            <input type="text" class="form-control text-capitalize form-outline" placeholder='search by name'>
+          </div>
+        </form>
+        
+        <!-- end single category -->
+      </div>
+      <!-- end of menu section -->
+      <div class="col-10 col-md-7 col-lg-9 mx-auto my-3">
+        <div class="row">
+          {% for item in items.all %}
+          <div class="col-md-6 col-lg-4 mx-auto col-md-6 col-lg-4 mb-3">
+              <div class="featured-container">
+                <img src="{{ item.picture.url }}" alt="" class='img-fluid'>
+                <span class="featured-search-icon" data-toggle="model" data-target="#productModal"><i
+                    class="fas fa-search"></i></span>
+                <a href="#" class="featured-store-link text-capitalized">add to cart</a>
+              </div>
+              <h6 class="text-capitalize text-center my-1">{{item.title}}t</h6>
+              <h6 class="text-center">
+                <span>{{item.price}}</span>
+              </h6>
+            </div>
+            {% endfor %}
+        </div>
 
-</body>
-</html>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+
+
+
+{% include 'carousel.html' %}
+
+{% include 'news_letter.html' %}
+{% endblock%}
+
+
+<!-- end banner -->
