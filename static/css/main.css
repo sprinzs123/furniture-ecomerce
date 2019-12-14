@@ -11,7 +11,7 @@
 
 .h1,h2,h3,h4{
   letter-spacing: 0.25rem;
-  color: var(--mainBlack);
+  color: pink;
 }
 .h5,h6{
   letter-spacing: 0.1rem;

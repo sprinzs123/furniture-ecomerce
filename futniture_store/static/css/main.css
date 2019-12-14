@@ -7,12 +7,20 @@
   --mainGrey: #9b9999;
   --TransGrey: rgba(0, 0, 0, 0.1);
   --SecondGrey: #6a666a;
+  --MainOrange: rgba(253, 124, 77);
 }
-
+ 
 .h1,h2,h3,h4{
   letter-spacing: 0.25rem;
   color: var(--mainBlack);
 }
+.container{
+  font-family: 'Montserrat', sans-serif;
+}
+hr{
+  background-color: #c7c7c7;
+}
+
 .h5,h6{
   letter-spacing: 0.1rem;
   color: var(--mainBlack);
@@ -324,6 +332,10 @@ body {
   cursor: pointer;
   color:var(--mainGrey);
 }
+.form-control:focus {
+  border-color:var(--MainOrange)!important;
+  box-shadow: 0 0 0 0.2rem rgba(218, 149, 40, 0.25)!important;
+}
 
 li:hover{
   /* color: var(--mainGrey); */
@@ -353,7 +365,7 @@ li:hover{
 .products-color-blue{
   background: blue;
 }
-/* ############### single item page */
+/* ###############single item page */
 .single-product-img{
   max-width: 100%;
 }
@@ -395,8 +407,8 @@ li:hover{
 }
 @media (min-width:767px){
 .color-div{
-  border-left: 1px solid var(--mainGrey);
-  border-right: 1px solid var(--mainGrey);
+  border-left: 1px solid #c7c7c7;
+  border-right: 1px solid #c7c7c7;
 }
 }
 .btn-light:hover{
