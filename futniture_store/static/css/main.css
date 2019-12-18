@@ -522,7 +522,7 @@ li:hover{
 .heart:hover{
   transform: scale(1.5)
 }
-}
+
 .item-name-carousel{
   color: black;
 }
@@ -546,7 +546,7 @@ li:hover{
 }
 .order-detail{
   background-color: white;
-  border-radius: 5%;
+  border-radius: 2.5%;
   border-color: var(--SecondGrey);
   color: var(--SecondGrey);
 }

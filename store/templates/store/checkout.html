@@ -5,6 +5,8 @@
     <div class="container my-4 p-4">
         <div class="row my-auto d-flex justify-content-between">
             <div class="col-md-8 order-detail">
+                <h5 class='text-capitalize mt-3'>1. ITEMS</h5>
+
                 <!-- left part with payment -->
                 <div id='order-list'>
                     <!-- single item -->
@@ -13,7 +15,7 @@
                             <img src="{% static 'img/start.jpg' %}" alt="img" class='img-fluid'>
                         </div>
                         <div class="col-4">
-                            <h6>product name</h6>
+                            <h6 class='text-capitalize'>product name</h6>
                         </div>
                         <div class="col-2 item-select btn">
                             <select size="1">
@@ -39,7 +41,7 @@
 
             </div>
             <!-- end of inf part -->
-            <!-- order summary part -->
+            <!-- order summary part with total $-->
             <div class="col-md-3 order-detail mt-3 order">
                 <h5 class='text-capitalize mt-3'>order summary</h5>
                 <ul>
@@ -54,44 +56,137 @@
                     <li>Tax</li>
                     <li id='tax'><b>$111</b></li>
                 </ul>
+                <hr>
                 <ul>
                     <li>TOTAL</li>
-                    <li id='totalPrice'><b>$111</b></li>
+                    <li id='totalPrice'><b class="text-orange">$111</b></li>
                 </ul>
             </div>
             <!-- end single -->
         </div>
         <!-- end items -->
         <!-- peron info div -->
+        <!--  -->
         <div class="row mt-3">
             <div class="col-8 order-detail">
-                <div id='peron-info'>
-                    <h5>2. ADDRESS</h5>
-                    <h6>CONTACT DETAIL</h6>
-                    <br>
-                        <div class="d-flex">
-                            
-                                <label>Email</label> <input type="email" name="checkoutInfo.email" placeholder="Email"
-                                    autocomplete="email" required="required" class="">
-                                <!---->
-                            
-                                <div class="phone-container">
-                                    <div class="phone-number field"><label>Phone</label> <input type="tel"
-                                            placeholder="(000) 000-0000" class="masked-input" required="required"
-                                            name="checkoutInfo.phone">
-                                        <!---->
-                                    </div>
-                                    <!---->
-                                </div>
-                            
+                <h5 class='my-4'>2. ADDRESS</h5>
+                <h6>Contact Detail</h6>
+                <form action="">
+                    <!-- single form  row -->
+                    <div class="form-row">
+                        <div class="col-md-6 ">
+                            <div class="form-group">
+                                <label for="cartEmail">Email</label>
+                                <input type="email" class="form-control" id="cartEmail" 
+                                    placeholder="Enter email">
+                            </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="cartPhone">Phone</label>
+                                <input type="email" class="form-control" id="cartPhone"
+                                    placeholder="000 000 0000">
+                            </div>
+                        </div>
+                    </div>
+                    <h6>Shipping Information</h6>
+                    <!-- end form row -->
+                    <!-- single form  row -->
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fname">First Name</label>
+                                <input type="email" class="form-control" id="fname" 
+                                    placeholder="first name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lname">Last Name</label>
+                                <input type="email" class="form-control" id="lname"
+                                    placeholder="last name">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end form row -->
+                    <div class="form-row">
+                        <div class="col-7">
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input type="email" class="form-control" id="address" 
+                                    placeholder="123 Main St">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <input type="email" class="form-control" id="state"
+                                    placeholder="CA">
+                        </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="zip">ZIP code</label>
+                                <input type="email" class="form-control" id="zip" 
+                                    placeholder="90844">
+                        </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+                </form>
+                <!-- end shipping -->
+               
 
-                </div>
             </div>
         </div>
+        <!-- end shipping-->
+         <!-- add payment  -->
 
-        <!-- end person info div -->
+         <div class="row mt-3">
+            <div class="col-md-8 order-detail">
+                <h5 class='my-4'>3. PAYMENT INFORMATION</h5>
+
+                <form action="">
+                    <div class="form-row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="cardName">Name on Card</label>
+                                <input type="email" class="form-control" id="cardName" 
+                                    placeholder="123 Main St">
+                            </div>
+                        </div>
+                                            <!-- single form  row -->
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="cardNum">Card Number</label>
+                                <input type="email" class="form-control" id="cardNum" 
+                                    placeholder="card number">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="code">Security code</label>
+                                <input type="email" class="form-control" id="code"
+                                    placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end form row -->
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+     
+        <!-- end payment info -->
+        <br>
+        <div class="btn btn-yellow my-1">Place Order</div>
     </div>
+
+    <!-- end person info div -->
+</div>
 </div>
 </div>
 </div>

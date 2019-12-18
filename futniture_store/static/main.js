@@ -18,6 +18,7 @@ function getLocation(myPage) {
     // home page
     else {
         console.log('you are home')
+        carouselAll()
     };
 };
 
@@ -87,20 +88,13 @@ function btnToggle() {
             optn2.className = 'btn btn-option-1 border ml-2';
         }
     }
-    // change heart in carousel to solid red when clicked on it
-    var heart = document.getElementsByClassName('heart')
-    for (i = 0; i < heart.length; i++) {
-        let singleHeart = heart[i];
-        singleHeart.onclick = function () {
-            singleHeart.className = 'fas fa-heart text-danger fa-2x heart';
-        }
-    };
+
 };
 
 
 // filtering out by class name or showing item that want to see in store page
 // get all filter buttons
-function filterFunction(){
+function filterFunction() {
     const filters = document.querySelectorAll('.filterBtn')
     filters.forEach(function (btn) {
         btn.addEventListener('click', function (event) {
@@ -119,6 +113,39 @@ function filterFunction(){
         });
     });
 };
+
+function carouselAll() {
+    // add active class to 1st item from database
+    function carouselChild() {
+        let carouselItem = document.querySelector('.carousel-item')
+        carouselItem.classList.add('active')
+    };
+    carouselChild()
+
+    function carouselHeart() {
+        // change heart in carousel to solid red when clicked on it
+        var heart = document.getElementsByClassName('fa-heart')
+        for (i = 0; i < heart.length; i++) {
+            let singleHeart = heart[i];
+
+            singleHeart.onclick = function () {
+                if (singleHeart.className == 'far fa-heart fa-1x heart pt-3') {
+                    singleHeart.className = 'fas fa-heart text-danger fa-2x';
+                    console.log('1st')
+                }
+                else if(singleHeart.className = 'fas fa-heart text-danger fa-2x'){
+                    singleHeart.className = 'far fa-heart fa-1x heart pt-3';
+                    console.log(singleHeart.className)
+
+                };
+                    // (singleHeart.className = 'fas fa-heart text-danger fa-2x'){
+                // };
+            };
+        };
+    };
+    carouselHeart()
+};
+
 
 // (function () { })();
 
