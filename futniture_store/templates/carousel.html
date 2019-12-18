@@ -29,7 +29,7 @@
             {% for item in items.all%}
             <div class="carousel-item col-md-3">
                     <div class='d-flex justify-content-start'>
-                        <i class="far fa-heart fa-2x heart"></i>
+                        <i class="far fa-heart fa-1x heart pt-3"></i>
                     </div>
                     <div class="carousel-img-div my-2">
                         <img src="{{ item.picture.url }}" alt="" class='img-fluid carousel-img'>
@@ -44,11 +44,11 @@
             {% endfor %}
         </div>
         <!-- end carousel inner -->
-        <a class="carousel-control-prev" href="#saleItem" role="button" data-slide="prev">
+        <a class="carousel-control-prev my-auto" href="#saleItem" role="button" data-slide="prev">
                 <i class="fa fa-chevron-left carousel-button fa-lg"></i>
                 <!-- <span class="sr-only">Previous</span> -->
               </a>
-              <a class="carousel-control-next text-faded" href="#saleItem" role="button" data-slide="next">
+              <a class="carousel-control-next my-auto text-faded" href="#saleItem" role="button" data-slide="next">
                 <i class="fa fa-chevron-right carousel-button fa-lg"></i>
                 <!-- <span class="sr-only">Next</span> -->
               </a>

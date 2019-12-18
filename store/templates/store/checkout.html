@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<div class="fluid-container check-main">
+    <div class="container my-4 p-4">
+        <div class="row my-auto d-flex justify-content-between">
+            <div class="col-md-8 order-detail">
+                <!-- left part with payment -->
+                <div id='order-list'>
+                    <!-- single item -->
+                    <div class="row d-flex align-items-baseline my-2 py-2 my-auto">
+                        <div class="col-3">
+                            <img src="{% static 'img/start.jpg' %}" alt="img" class='img-fluid'>
+                        </div>
+                        <div class="col-4">
+                            <h6>product name</h6>
+                        </div>
+                        <div class="col-2 item-select btn">
+                            <select size="1">
+                                <option">1</option">
+                                <option">2</option">
+                                <option">3</option>
+                                    <option>4</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <h6>$555</h6>
+                        </div>
+                        <div class="col-1">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                    <!-- end single item -->
+                </div>
+                <!-- end order div -->
+
+
+
+
+            </div>
+            <!-- end of inf part -->
+            <!-- order summary part -->
+            <div class="col-md-3 order-detail mt-3 order">
+                <h5 class='text-capitalize mt-3'>order summary</h5>
+                <ul>
+                    <li>Price</li>
+                    <li id='price'><b>$111</b></li>
+                </ul>
+                <ul>
+                    <li>Shipping</li>
+                    <li id='shipping'><b>$111</b></li>
+                </ul>
+                <ul>
+                    <li>Tax</li>
+                    <li id='tax'><b>$111</b></li>
+                </ul>
+                <ul>
+                    <li>TOTAL</li>
+                    <li id='totalPrice'><b>$111</b></li>
+                </ul>
+            </div>
+            <!-- end single -->
+        </div>
+        <!-- end items -->
+        <!-- peron info div -->
+        <div class="row mt-3">
+            <div class="col-8 order-detail">
+                <div id='peron-info'>
+                    <h5>2. ADDRESS</h5>
+                    <h6>CONTACT DETAIL</h6>
+                    <br>
+                        <div class="d-flex">
+                            
+                                <label>Email</label> <input type="email" name="checkoutInfo.email" placeholder="Email"
+                                    autocomplete="email" required="required" class="">
+                                <!---->
+                            
+                                <div class="phone-container">
+                                    <div class="phone-number field"><label>Phone</label> <input type="tel"
+                                            placeholder="(000) 000-0000" class="masked-input" required="required"
+                                            name="checkoutInfo.phone">
+                                        <!---->
+                                    </div>
+                                    <!---->
+                                </div>
+                            
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- end person info div -->
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

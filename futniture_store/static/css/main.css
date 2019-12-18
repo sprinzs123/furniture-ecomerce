@@ -15,12 +15,14 @@
   color: var(--mainBlack);
 }
 .container{
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Courier Prime', monospace;
 }
 hr{
   background-color: #c7c7c7;
 }
-
+.t-og2{
+  color: var(--MainOrange);
+}
 .h5,h6{
   letter-spacing: 0.1rem;
   color: var(--mainBlack);
@@ -243,20 +245,7 @@ body {
   color: orangered;
 }
 
-/* ####################  partners */
-.partners{
-  background: var(--TransGrey);
-}
-.carousel-control-prev{
-  font-size: 2.5rem;
-  color:var(--mainBlack);
-  transform: translateX(-200%);
-  }
-  .carousel-control-next{
-    font-size: 2.5rem;
-    color:var(--mainBlack);
-    transform: translateX(200%);
-    }  
+
 
 /* ##################### news letter */
 .form-icon{
@@ -511,12 +500,14 @@ li:hover{
 .carousel-control-prev{
   font-size: 2.5rem;
   transform: translateX(-70%);
-  width: auto;
+  height: 50%;
   }
   .carousel-control-next{
     font-size: 2.5rem;
     transform: translateX(70%);
     width: auto;
+    height: 50%;
+
 }  
 .carousel-button{
   color: black;
@@ -524,7 +515,13 @@ li:hover{
 .heart{
   justify-content: end;
   cursor: pointer;
-  margin: 1rem;
+  transition: all 0.5s ease-in-out;
+
+  /* margin: 1rem; */
+}
+.heart:hover{
+  transform: scale(1.5)
+}
 }
 .item-name-carousel{
   color: black;
@@ -542,4 +539,18 @@ li:hover{
 }
 .carousel-img-div{
   overflow: hidden;
+}
+/* ########### check out page */
+.check-main{
+  background-color:#f2f2f2;
+}
+.order-detail{
+  background-color: white;
+  border-radius: 5%;
+  border-color: var(--SecondGrey);
+  color: var(--SecondGrey);
+}
+.order-detail>ul{
+  display: flex;
+  justify-content: space-between;
 }

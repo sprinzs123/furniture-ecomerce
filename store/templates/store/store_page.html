@@ -2,10 +2,10 @@
 {% load staticfiles%}
 {% block content %}
 <div class="banner-2 d-flex align-items-center pl-3 pl-lg-5">
-<div>
-  <h1 class="text-capitalize text-yellow text-slanted mb-0">comfy sloth</h1>
-  <h1 class="text-uppercase font-weight-bold">our products</h1>
-</div>
+  <div>
+    <h1 class="text-capitalize text-yellow text-slanted mb-0">comfy sloth</h1>
+    <h1 class="text-uppercase font-weight-bold">our products</h1>
+  </div>
 </div>
 <section class="products">
   <div class="container">
@@ -20,13 +20,13 @@
         <!-- ingle link -->
         <div class="lis">
           <div class="d-flex align-items-start d-block products-categories-link">
-            <h5 class='mr-2'>Shower</h5>
+            <h5 class='mr-2 main'>Shower</h5>
             <i class="fas fa-chevron-up click"></i>
           </div>
           <div class="box">
             <ul>
-              <li>bathroom mirrors</li>
-              <li>sinks</li>
+              <li class='filterBtn' data-filter='mirror'>mirrors</li>
+              <li class='filterBtn' data-filter='ink'>sinks</li>
             </ul>
           </div>
         </div>
@@ -39,9 +39,9 @@
           </div>
           <div class="box">
             <ul>
-              <li>bed frames</li>
-              <li>dressers</li>
-              <li>lamps</li>
+              <li class='filterBtn' data-filter='bed'>bed frames</li>
+              <li class='filterBtn' data-filter='dresser'>dressers</li>
+              <li class='filterBtn' data-filter='lamp'>lamps</li>
             </ul>
           </div>
         </div>
@@ -54,9 +54,9 @@
           </div>
           <div class="box">
             <ul>
-              <li>sofas</li>
-              <li>chairs</li>
-              <li>tables</li>
+              <li class='filterBtn' data-filter='sofa'>sofas</li>
+              <li class='filterBtn' data-filter='chair'>chairs</li>
+              <li class='filterBtn' data-filter='table'>tables</li>
             </ul>
           </div>
         </div>
@@ -77,7 +77,7 @@
               <button class='btn btn-yellow' id='priceBtn'>go</button>
             </div>
           </div>
-          
+
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text form-icon">
@@ -87,26 +87,27 @@
             <input type="text" class="form-control" placeholder='search by name'>
           </div>
         </form>
-        
+
         <!-- end single category -->
       </div>
       <!-- end of menu section -->
       <div class="col-10 col-md-7 col-lg-9 mx-auto my-3">
         <div class="row">
+
           {% for item in items.all %}
-          <div class="col-md-6 col-lg-4 mx-auto col-md-6 col-lg-4 mb-3">
-              <div class="featured-container">
-                <img src="{{ item.picture.url }}" alt="" class='img-fluid'>
-                <span class="featured-search-icon" data-toggle="model" data-target="#productModal"><i
-                    class="fas fa-search"></i></span>
-                <a href="#" class="featured-store-link text-capitalized">add to cart</a>
-              </div>
-              <h6 class="text-capitalize text-center my-1">{{item.title}}t</h6>
-              <h6 class="text-center">
-                <span>{{item.price}}</span>
-              </h6>
+          <div class="col-md-6 col-lg-4 mx-auto col-md-6 col-lg-4 mb-3 storeItem {{ item.category }} {{item.sub_category}}" data-item='{{item.sub_category}}'>
+            <div class="featured-container">
+              <img src="{{ item.picture.url }}" alt="" class='img-fluid'>
+              <span class="featured-search-icon" data-toggle="model" data-target="#productModal">
+                <i class="fas fa-search go-single-page"></i></span>
+              <a href="item{{item.id}}" class="featured-store-link text-capitalized">add to cart</a>
             </div>
-            {% endfor %}
+            <h6 class="text-capitalize text-center my-1">{{item.title}}t</h6>
+            <h6 class="text-center">
+              <span>{{item.price}}</span>
+            </h6>
+          </div>
+          {% endfor %}
         </div>
 
       </div>
