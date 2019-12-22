@@ -9,7 +9,10 @@
   --SecondGrey: #6a666a;
   --MainOrange: rgba(253, 124, 77);
 }
- 
+
+a:link {
+  text-decoration: none;
+}
 .h1,h2,h3,h4{
   letter-spacing: 0.25rem;
   color: var(--mainBlack);
@@ -62,6 +65,11 @@ body {
 .text-yellow{
   color: var(--mainYellow);
 }
+.filterBtn:hover{
+  cursor: pointer;
+}
+
+
 .banner-products, 
 .banner-single-product,
 .banner-store{
@@ -137,6 +145,12 @@ body {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
+.dropdown-content>ul>li{
+  color: var(--SecondGrey);
+}
+.dropdown-content>ul>li:hover{
+  color: var(--MainOrange);
+}
 
 /* Links inside the dropdown */
 .dropdown-content a {
@@ -149,6 +163,7 @@ body {
 .dropdown-content a:hover {
     color: var(--mainGrey);
     text-decoration: none;
+    cursor: pointer;
 
 }
 
@@ -159,7 +174,8 @@ body {
 
 /* ################# banner */
 .banner{
-  background: url(../img/banner.jpg);
+  background: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),
+  url(../img/banner.jpg);
   min-height: calc(100vh - 200px);
   background-position: center;
   background-size:cover;
@@ -167,8 +183,9 @@ body {
   background-repeat: no-repeat;
 }
 .banner-2{
-  background: url(../img/banner3.jpg);
-  min-height: 70vh;
+  background: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),
+  url(../img/banner3.jpg);
+  min-height: 50vh;
   background-position: center;
   background-size:cover;
   background-attachment: fixed;
@@ -183,6 +200,7 @@ body {
 .collage-link:hover{
   text-decoration: none;
   color: var(--SecondGrey);
+  cursor: pointer;
 }
 
 /* ##################### services */
@@ -553,4 +571,8 @@ li:hover{
 .order-detail>ul{
   display: flex;
   justify-content: space-between;
+}
+.checkLabel{
+  color: var(--MainOrange);
+  /* background: var(--mainGrey); */
 }

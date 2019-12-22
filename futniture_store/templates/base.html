@@ -24,7 +24,7 @@
   <header>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
-      <a href="index.html" class="navbar-brand">
+      <a href="/" class="navbar-brand">
         <img src="{% static 'img/logo.png' %}" alt="main logo">
       </a>
       <button class="navbar-toggler" type='button' data-toggle='collapse' data-target='#myNavbar'>
@@ -34,45 +34,49 @@
         <ul class="navbar-nav mx-auto">
           <li class="nav-item mx-2">
             <div class="dropdown">
-              <a href="/providers" class='nav-link text-light'>
-                <h6 class="nav-link">SHOWER</h4>
-              </a>
+              <div class='nav-link text-light'>
+                <h6 class="nav-link filterBtn" data-filter='bathroom'>SHOWER</h4>
+              </div>
               <div class="dropdown-content text-start">
-                <a href="#">Mirrors</a>
-                <a href="#">Sinks</a>
-
+                <ul>
+                  <li class='filterBtn' data-filter='mirror'>mirrors</li>
+                  <li class='filterBtn' data-filter='sink'>sinks</li>
+                </ul>
               </div>
             </div>
           </li>
           <li class="nav-item mx-2">
             <div class="dropdown">
-              <a href="/store" class='nav-link text-light'>
-                <h6 class="nav-link">BEDROOM</h6>
-              </a>
+              <div class='nav-link text-light'>
+                <h6 class="nav-link filterBtn" data-filter='bedroom'>BEDROOM</h6>
+              </div>
               <div class="dropdown-content text-start">
-                <a href="/store">Bed frames</a>
-                <a href="#">Dressers</a>
-                <a href="#">Lamps</a>
-
+                <ul>
+                  <li class='filterBtn' data-filter='bed'>bed frames</li>
+                  <li class='filterBtn' data-filter='dresser'>dressers</li>
+                  <li class='filterBtn' data-filter='lamp'>lamps</li>
+                </ul>
               </div>
             </div>
           </li>
 
           <li class="nav-item mx-2">
             <div class="dropdown">
-              <a href="/providers" class='nav-link text-light'>
-                <h6 class="nav-link">LIVING ROOM</h6>
-              </a>
+              <div class='nav-link text-light'>
+                <h6 class="nav-link filterBtn" data-filter='living'>LIVING ROOM</h6>
+              </div>
               <div class="dropdown-content text-start">
-                <a href="#">Sofas</a>
-                <a href="#">Chairs</a>
-                <a href="#">Coffee tables</a>
+                <ul>
+                  <li class='filterBtn' data-filter='sofa'>sofas</li>
+                  <li class='filterBtn' data-filter='chair'>chairs</li>
+                  <li class='filterBtn' data-filter='table'>tables</li>
+                </ul>
               </div>
             </div>
           </li>
-          <li class="nav-item mx-2 my-auto">
-            <a href="singleproduct.html" class="nav-link my-auto">
-              <h6 class="nav-active">STORE</h6>
+          <li class="nav-item mx-2 ">
+            <a href="/store" class="nav-link">
+              <h6 class="nav-active nav-link">STORE</h6>
             </a>
           </li>
         </ul>
@@ -81,7 +85,7 @@
         <!-- singe icon -->
         <div class="navbar-icon mx-2">
 
-          <div class="input-group mb-3">
+          <!-- <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Search">
             <div class="input-group-append">
               <span class="input-group-text form-icon">
@@ -89,15 +93,15 @@
 
               </span>
             </div>
-          </div>
+          </div> -->
           </div>
           <!-- end of single icon -->
           <!-- <i class="fas fa-search"></i> -->
 
           <!-- singe icon -->
-          <a href="store.html" class='navbar-icon mx-2 navbar-cart-icon'>
+          <a href="/checkout" class='navbar-icon mx-2 navbar-cart-icon'>
             <i class="fas fa-shopping-cart navbar-icon"></i>
-            <div class="cart-items">0</div>
+            <div class="cart-items">1</div>
           </a>
           <!-- end of single icon -->
         </div>

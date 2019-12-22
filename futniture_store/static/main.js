@@ -8,12 +8,19 @@ function getLocation(myPage) {
     if (myPage.includes('store/item')) {
         console.log('you are looking at item')
         btnToggle()
+        carouselAll()
+
     }
     // store page
     else if (myPage.includes('/store')) {
         console.log('you are at store')
         chevronBtn()
-        filterFunction()
+        carouselAll()
+        resetFilter()
+        priceMatch()
+        nameSearch()
+
+
     }
     // home page
     else {
@@ -93,27 +100,118 @@ function btnToggle() {
 
 
 // filtering out by class name or showing item that want to see in store page
-// get all filter buttons
-function filterFunction() {
+// get all filter buttons and links
+// get function variable from data-filter of the clicked button/link
+function filterFunction(filterData) {
+    // console.log(filterData)
+    let allItems = document.querySelectorAll('.storeItem');
+    allItems.forEach(function (item) {
+        //    console.log(item.classList)
+        if (item.classList.contains(filterData)) {
+            item.style.display = 'block';
+        }
+        else {
+            item.style.display = 'none';
+        }
+    });
+};
+// select all filter buttons, capture filter and send filter to main
+// filter function
+// redirect to store page and apply filter if not there already
+function linkRedirect() {
     const filters = document.querySelectorAll('.filterBtn')
     filters.forEach(function (btn) {
         btn.addEventListener('click', function (event) {
-            const value = event.target.dataset.filter;
-            let allItems = document.querySelectorAll('.storeItem');
-            allItems.forEach(function (item) {
-                //    console.log(item.classList)
+            let myURL = window.location.pathname;
+            let value = event.target.dataset.filter;
+            if (myURL != '/store/') {
+                location.href = '/store'
                 console.log(value)
-                if (item.classList.contains(value)) {
-                    item.style.display = 'block';
-                }
-                else {
-                    item.style.display = 'none';
-                }
-            })
+                filterFunction(value)
+            }
+            else {
+                filterFunction(value)
+
+            }
+
         });
     });
 };
 
+// make all store items visible
+function resetFilter() {
+    const reset = document.querySelector('.reset')
+    reset.addEventListener('click', function (event) {
+        let allItems = document.querySelectorAll('.storeItem');
+        allItems.forEach(function (item) {
+            item.style.display = 'block';
+        })
+    })
+};
+linkRedirect()
+
+
+// price match
+// select items in price range
+function priceMatch(){
+    priceBtn.addEventListener('click', function (event) {
+        let allItems = document.querySelectorAll('.storeItem');
+        const minPrice = document.querySelector('#minPrice')
+        const maxPrice = document.querySelector('#maxPrice')
+        const priceBtn = document.querySelector('#priceBtn')
+        const intMax = parseInt(maxPrice.value, 10)
+        const intMin = parseInt(minPrice.value, 10)
+
+        if (intMin < intMax) {
+            console.log('you got right numbers')
+            allItems.forEach(function (item) {
+                let priceSpan = item.lastChild.previousElementSibling.innerHTML
+                let price = parseInt(priceSpan, 10)
+
+                if (intMin < price && price < intMax) {
+                    console.log(price)
+
+                    item.style.display = 'block';
+                }
+                else {
+                    item.style.display = 'none'
+                };
+            });
+        };
+});
+};
+
+
+
+
+// search by name
+function nameSearch(){
+    let name = document.querySelector('#nameSearch')
+    name.addEventListener('keyup',function(event){
+        if (event.keyCode === 13) {
+            let searchName = document.querySelector('#nameSearch').value.toLocaleLowerCase()
+            let allItems = document.querySelectorAll('.storeItem');
+            allItems.forEach(function(item){
+                let title = item.getElementsByTagName('h6')[0]
+                titleText = title.innerHTML.toLocaleLowerCase()
+                console.log(titleText)
+                console.log(searchName)
+
+                if(titleText.includes(searchName)){
+                    item.style.display = 'block'
+                }
+                else{
+                    // console.log('no')
+                    item.style.display = 'none'
+                }
+        });
+    } 
+});
+};
+
+// make carousel responsive
+// add class active to 1st child
+// heart above carousel responsive
 function carouselAll() {
     // add active class to 1st item from database
     function carouselChild() {
@@ -133,12 +231,12 @@ function carouselAll() {
                     singleHeart.className = 'fas fa-heart text-danger fa-2x';
                     console.log('1st')
                 }
-                else if(singleHeart.className = 'fas fa-heart text-danger fa-2x'){
+                else if (singleHeart.className = 'fas fa-heart text-danger fa-2x') {
                     singleHeart.className = 'far fa-heart fa-1x heart pt-3';
                     console.log(singleHeart.className)
 
                 };
-                    // (singleHeart.className = 'fas fa-heart text-danger fa-2x'){
+                // (singleHeart.className = 'fas fa-heart text-danger fa-2x'){
                 // };
             };
         };
@@ -147,5 +245,19 @@ function carouselAll() {
 };
 
 
-// (function () { })();
+// add items to local storage when click on add to cart btn
+function addCart(){
+    let cartBtns = document.querySelectorAll('#addCart');
+    cartBtns.forEach(function(cartBtn){
+        cartBtn.addEventListener('click', function(event){
+            let initial = cartBtn.parentElement.parentElement
+            let itemPrice = initial.querySelector('#price').innerHTML
+            let itemName = initial.querySelector('#title').innerHTML
+            let itemImage = initial.querySelector('#title').innerHTML
+
+        });
+    });
+}
+addCart()
+
 
