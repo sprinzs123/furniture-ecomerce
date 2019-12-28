@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<h1>your user page</h1>
+
+{% for item in payment.all %}
+    <p>item.cardNum</p>
+    <p>item.exMonth</p>
+    <p>item.exYear</p>
+    <p>item.security</p>
+{% endfor %}
+
+
+{% endblock %}

@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from .models import ContactInfo, Payment, Test
+
 
 
 
@@ -13,7 +16,7 @@ def login(request):
         else:
             return render(request, 'accounts/login.html',{'error':'username or password is incorrect.'})
     else:
-        return render(request, 'login/login.html')
+        return render(request, 'login/user.html')
 
 
 def signup(request):
@@ -35,3 +38,7 @@ def logout(request):
         auth.logout(request)
         return redirect('home')
 
+@login_required
+def user_page(request):
+    payInfo = Payment.objects.all()
+    return render(request, 'login/user.html', {'payment': payInfo})
