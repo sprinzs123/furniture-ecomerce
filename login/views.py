@@ -41,4 +41,5 @@ def logout(request):
 @login_required
 def user_page(request):
     payInfo = Payment.objects.all()
-    return render(request, 'login/user.html', {'payment': payInfo})
+    userPay = payInfo.filter(user=request.user)
+    return render(request, 'login/user.html', {'payment': userPay})

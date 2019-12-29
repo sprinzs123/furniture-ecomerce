@@ -2,13 +2,15 @@
 
 {% block content %}
 <h1>your user page</h1>
+{{ payment }}
+
 
 {% for item in payment.all %}
 
-    <p>item.cardNum</p>
-    <p>item.exMonth</p>
-    <p>item.exYear</p>
-    <p>item.security</p>
+    <p>{{ item.cardNum }}</p>
+    <p>{{ item.exMonth }}</p>
+    <p>{{ item.exYear }}</p>
+    <p>{{ item.security }}</p>
 {% endfor %}
 
 

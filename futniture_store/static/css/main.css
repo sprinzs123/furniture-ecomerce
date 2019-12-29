@@ -576,3 +576,18 @@ li:hover{
   color: var(--MainOrange);
   /* background: var(--mainGrey); */
 }
+.test2{
+  position: relative;
+  overflow: hidden;
+}
+
+.test2{
+  position: static;
+  transform: translateY(-110%); 
+  transition: all 1s ease-in-out;
+
+}
+.container:hover .test2{
+  transform: translateY(0%);
+  color: yellow;
+}

@@ -118,6 +118,7 @@ function filterFunction(filterData) {
 // select all filter buttons, capture filter and send filter to main
 // filter function
 // redirect to store page and apply filter if not there already
+// global function
 function linkRedirect() {
     const filters = document.querySelectorAll('.filterBtn')
     filters.forEach(function (btn) {

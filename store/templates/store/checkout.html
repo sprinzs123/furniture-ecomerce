@@ -4,14 +4,14 @@
 <div class="fluid-container check-main">
     <div class="container mt-4 p-4">
         <div class="row my-auto d-flex justify-content-between">
-            <div class="col-md-8 order-detail">
+            <div class="col-md-8 order-detail" id='itemsForm'>
                 <h5 class='text-capitalize mt-3'>1. ITEMS</h5>
 
                 <!-- left part with payment -->
                 <div id='order-list'>
                     <!-- single item -->
                     <div class="row d-flex align-items-baseline my-2 py-2 my-auto">
-                        <div class="col-3">
+                        <div class="col-2">
                             <img src="{% static 'img/start.jpg' %}" alt="img" class='img-fluid'>
                         </div>
                         <div class="col-4">
@@ -33,9 +33,34 @@
                         </div>
                     </div>
                     <!-- end single item -->
-                </div>
-                <!-- end order div -->
+                    <!-- single item -->
+                    <div class="row d-flex align-items-baseline my-2 py-2 my-auto">
+                        <div class="col-2">
+                            <img src="{% static 'img/start.jpg' %}" alt="img" class='img-fluid'>
+                        </div>
+                        <div class="col-4">
+                            <h6 class='text-capitalize'>product name</h6>
+                        </div>
+                        <div class="col-2 item-select btn">
+                            <select size="1">
+                                <option">1</option">
+                                <option">2</option">
+                                <option">3</option>
+                                    <option>4</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <h6>$555</h6>
+                        </div>
+                        <div class="col-1">
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                    <!-- end single item -->
 
+                </div>
+                <!-- end order div  with all item-->
+                <div class="btn btn-yellow my-3 test" id='getAddress'>Address</div>
 
 
 
@@ -64,126 +89,124 @@
             </div>
             <!-- end single -->
         </div>
+
         <!-- end items -->
         <!-- peron info div -->
         <!--  -->
-        <div class="row mt-3">
-            <div class="col-8 order-detail">
-                <h5 class='my-4'>2. ADDRESS</h5>
-                <h6 class="checkLabel">Contact Detail</h6>
-                <form action="">
-                    <!-- single form  row -->
-                    <div class="form-row">
-                        <div class="col-md-6 ">
-                            <div class="form-group">
-                                <label for="cartEmail">Email</label>
-                                <input type="email" class="form-control" id="cartEmail" 
-                                    placeholder="Enter email">
+        <div class="checkoutField">
+            <div class="row mt-3 test2" id='addressForm'>
+                <div class="col-8 order-detail">
+                    <h5 class='my-4'>2. ADDRESS</h5>
+                    <h6 class="checkLabel">Contact Detail</h6>
+                    <form action="">
+                        <!-- single form  row -->
+                        <div class="form-row">
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <label for="cartEmail">Email</label>
+                                    <input type="email" class="form-control" id="cartEmail" placeholder="Enter email">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="cartPhone">Phone</label>
+                                    <input type="email" class="form-control" id="cartPhone" placeholder="000 000 0000">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="cartPhone">Phone</label>
-                                <input type="email" class="form-control" id="cartPhone"
-                                    placeholder="000 000 0000">
+                        <h6 class="checkLabel">Shipping Information</h6>
+                        <!-- end form row -->
+                        <!-- single form  row -->
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fname">First Name</label>
+                                    <input type="email" class="form-control" id="fname" placeholder="first name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="lname">Last Name</label>
+                                    <input type="email" class="form-control" id="lname" placeholder="last name">
+                                </div>
                             </div>
                         </div>
+                        <!-- end form row -->
+                        <div class="form-row">
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="email" class="form-control" id="address" placeholder="123 Main St">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <input type="email" class="form-control" id="state" placeholder="CA">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="zip">ZIP code</label>
+                                    <input type="email" class="form-control" id="zip" placeholder="90844">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                    </form>
+                    <!-- end shipping info form -->
+                    <!-- btns for navigation -->
+                    <div class="d-flex">
+                        <button class="btn btn-yellow my-3 mr-3" id='continuePayment'>Payment</button>
+                        <button class="btn btn-yellow my-3 mr-3" id='returnItems'>Items</button>
                     </div>
-                    <h6 class="checkLabel">Shipping Information</h6>
-                    <!-- end form row -->
-                    <!-- single form  row -->
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="fname">First Name</label>
-                                <input type="email" class="form-control" id="fname" 
-                                    placeholder="first name">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="lname">Last Name</label>
-                                <input type="email" class="form-control" id="lname"
-                                    placeholder="last name">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end form row -->
-                    <div class="form-row">
-                        <div class="col-7">
-                            <div class="form-group">
-                                <label for="address">Address</label>
-                                <input type="email" class="form-control" id="address" 
-                                    placeholder="123 Main St">
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="state">State</label>
-                                <input type="email" class="form-control" id="state"
-                                    placeholder="CA">
-                        </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="zip">ZIP code</label>
-                                <input type="email" class="form-control" id="zip" 
-                                    placeholder="90844">
-                        </div>
-                        </div>
-                    </div>
-                    <!-- end row -->
-                </form>
-                <!-- end shipping -->
-               
-
+                </div>
             </div>
+            <!-- end shipping-->
         </div>
-        <!-- end shipping-->
-         <!-- add payment  -->
 
-         <div class="row mt-3">
-            <div class="col-md-8 order-detail">
-                <h5 class='my-4'>3. PAYMENT INFORMATION</h5>
-                <h6 class="checkLabel">Card Information</h6>
-
-                <form action="">
-                    <div class="form-row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="cardName">Name on Card</label>
-                                <input type="email" class="form-control" id="cardName" 
-                                    placeholder="name">
+        <!-- add payment  -->
+        <div class="checkoutField">
+            <div class="row mt-3" id='paymentForm'>
+                <div class="col-md-8 order-detail">
+                    <h5 class='my-4'>3. PAYMENT INFORMATION</h5>
+                    <h6 class="checkLabel">Card Information</h6>
+                        <form action="">
+                        <div class="form-row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="cardName">Name on Card</label>
+                                    <input type="email" class="form-control" id="cardName" placeholder="name">
+                                </div>
                             </div>
-                        </div>
-                                            <!-- single form  row -->
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="cardNum">Card Number</label>
-                                <input type="email" class="form-control" id="cardNum" 
-                                    placeholder="card number">
+                            <!-- single form  row -->
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="cardNum">Card Number</label>
+                                        <input type="email" class="form-control" id="cardNum" placeholder="card number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="code">Security code</label>
+                                        <input type="email" class="form-control" id="code" placeholder="123">
+                                    </div>
+                                </div>
                             </div>
+                            <!-- end form row -->
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="code">Security code</label>
-                                <input type="email" class="form-control" id="code"
-                                    placeholder="123">
-                            </div>
-                        </div>
+                    </form>
+                    <div class="d-flex">
+                        <button class="btn btn-yellow my-3 mr-3" id='makeOrder'>Place Order</button>
+                        <button class="btn btn-yellow my-3 mr-3" id='returnAddress'>Address</button>
                     </div>
-                    <!-- end form row -->
-                    </div>
-
-                </form>
-
+                </div>
             </div>
+    
+            <!-- end payment info -->
         </div>
-     
-        <!-- end payment info -->
-        <br>
-        <div class="btn btn-yellow my-1">Place Order</div>
+
     </div>
 
     <!-- end person info div -->
