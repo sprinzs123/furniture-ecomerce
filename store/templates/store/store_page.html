@@ -99,7 +99,7 @@
           {% for item in items.all %}
           <div
             class="col-md-6 col-lg-4 mx-auto col-md-6 col-lg-4 mb-3 storeItem {{ item.category }} {{item.sub_category}}"
-            data-item='{{item.sub_category}}'>
+            data-item='{{item.sub_category}}' id='{{ item.id }}'>
             <div class="featured-container">
               <img src="{{ item.picture.url }}" alt="" class='img-fluid' id='image'>
               <span class="featured-search-icon" data-toggle="model" data-target="#productModal">

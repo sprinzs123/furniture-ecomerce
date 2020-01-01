@@ -7,7 +7,7 @@ class ContactInfo(models.Model):
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=200)
-    zip = models.IntegerField
+    zip = models.IntegerField(default='00000')
 
     def __str__(self):
         return f'{self.user.username} contact'

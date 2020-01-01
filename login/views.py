@@ -41,5 +41,39 @@ def logout(request):
 @login_required
 def user_page(request):
     payInfo = Payment.objects.all()
+    addresInfo = ContactInfo.objects.all()
     userPay = payInfo.filter(user=request.user)
-    return render(request, 'login/user.html', {'payment': userPay})
+    userName = request.user.username
+    userAddress = addresInfo.filter(user=request.user)
+    return render(request, 'login/user.html', {'payment': userPay, 'address': userAddress, 'userName': userName})
+
+# def addAddress(request):
+#     if request.method == 'POST':
+#         user = request.user.username
+#         firstName = request.POST.get('fname', '')
+#         lastName = request.POST.get('lname', '')
+#         fullName = str(firstName) + ' ' + str(lastName)
+#         address = request.POST.get('address', '')
+#         city = request.POST.get('city', '')
+#         state = request.POST.get('state', '')
+#         zip = request.POST.get('zip', '')
+#         newAddress = ContactInfo(user=user, name=fullName, address=address, city=city, state=state, zip=zip)
+#         newAddress.save()
+#
+#     return render(request, 'store/front_page.html')
+
+def addTest(request):
+    if request.method == 'POST':
+        # user = request.user.username
+        test = 'maybe'
+        addedTest = Test(testing=test,)
+        addedTest.save()
+
+    return render(request, 'login/user.html')
+
+
+
+
+
+
+

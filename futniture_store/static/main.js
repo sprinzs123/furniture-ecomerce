@@ -24,8 +24,8 @@ function getLocation(myPage) {
     }
     // home page
     else {
-        console.log('you are home')
-        carouselAll()
+        // console.log('you are home')
+        // carouselAll()
     };
 };
 
@@ -249,16 +249,87 @@ function carouselAll() {
 // add items to local storage when click on add to cart btn
 function addCart(){
     let cartBtns = document.querySelectorAll('#addCart');
+    if(localStorage.getItem('cart')==null){
+        var cart ={};
+    }
+    else{
+        cart = JSON.parse(localStorage.getItem('cart'));
+
+    }
     cartBtns.forEach(function(cartBtn){
         cartBtn.addEventListener('click', function(event){
             let initial = cartBtn.parentElement.parentElement
-            let itemPrice = initial.querySelector('#price').innerHTML
-            let itemName = initial.querySelector('#title').innerHTML
-            let itemImage = initial.querySelector('#title').innerHTML
+            // let itemPrice = initial.querySelector('#price').innerHTML
+            // let itemName = initial.querySelector('#title').innerHTML
+            let itemDescription = []
+            let itemId = initial.id
+            let item_id = itemId.toString()
+
+            if(cart[item_id]!=undefined){
+                cart[item_id] = cart[item_id] + 1;
+                }
+    
+            else{
+                cart[item_id] =1
+            }
+
+            console.log(cart)
+            localStorage.setItem('cart', JSON.stringify(cart))
 
         });
     });
 }
 addCart()
+
+
+// navigating between at check out between item, address, payment forms
+// make check out more responsive
+function checkoutForms(){
+    // all form fields
+    let itemsForm = document.querySelector('#itemsForm')
+    let addressForm = document.querySelector('#addressForm')
+    let payForm = document.querySelector('#paymentForm')
+
+    // all navigation btns
+    let showAddress = document.querySelector('#getAddress')
+    let showPay = document.querySelector('#getPayment')
+    let hidePay = document.querySelector('#returnAddress')
+    let hideAddress = document.querySelector('#returnItems')
+
+    // show more
+    showAddress.addEventListener('click', function(event){
+        console.log('click')
+        addressForm.style.display = 'block'
+        showAddress.style.display = 'none'
+    });
+
+    showPay.addEventListener('click', function(event){
+        console.log('click')
+        payForm.style.display = 'block'
+        showPay.style.display = 'none'
+        showAddress.style.display = 'none'
+        hideAddress.style.display = 'none'
+
+    });
+
+    // show less
+    hidePay.addEventListener('click', function(event){
+        console.log('click')
+        payForm.style.display = 'none'
+        showPay.style.display = 'block'
+        hideAddress.style.display = 'block'
+
+
+    });
+    hideAddress.addEventListener('click', function(event){
+        console.log('click')
+        addressForm.style.display = 'none'
+        showAddress.style.display = 'inline'
+    });
+
+
+
+};
+// checkoutForms()
 
 

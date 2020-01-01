@@ -26,7 +26,7 @@ hr{
 .t-og2{
   color: var(--MainOrange);
 }
-.h5,h6{
+h5,h6{
   letter-spacing: 0.1rem;
   color: var(--mainBlack);
 }
@@ -576,18 +576,19 @@ li:hover{
   color: var(--MainOrange);
   /* background: var(--mainGrey); */
 }
-.test2{
-  position: relative;
-  overflow: hidden;
+#addressForm, #paymentForm{
+  display: none;
 }
 
-.test2{
-  position: static;
-  transform: translateY(-110%); 
-  transition: all 1s ease-in-out;
 
+/* #############-USER PAGE ####################### */
+.userDetail{
+  border-radius: 2.5%;
+  border-color: var(--SecondGrey);
+  border: 1px;
+  color: var(--SecondGrey);
 }
-.container:hover .test2{
-  transform: translateY(0%);
-  color: yellow;
+.userItems>li{
+  padding-right: 4px;
 }
+

@@ -1,17 +1,108 @@
 {% extends 'base.html'%}
-
 {% block content %}
-<h1>your user page</h1>
-{{ payment }}
+<div class="container">
+    <h1>your user page</h1>
+    {{ userName }}
+    <!-- address detail -->
+    <div class="userDetail border p-3 my-3">
+        <h5>Your Address</h5>
+        {% for item in address.all %}
+        <div><b class="text-capitalize">{{ item.name }}</b></div>
+        <ul class='d-flex userItems'>
+            <li>{{ item.address }},</li>
+            <li> {{ item.city }},</li>
+            <li>{{ item.state }}</li>
+            <li>{{ item.zip }}</li>
+        </ul>
+        <hr>
+        {% endfor %}
+        <h1>{{ address.first.user }}</h1>
+        <div class="add-address">
+            <h5 class='my-4 text-orange'>Add Address</h5>
+            <form method="POST">
+                {% csrf_token %}
+                <!-- single form  row -->
+                <div class="form-row">
+                    <div class="col-md-6">
+                        
+                        <div class="form-group">
+                            <label for="fname">First Name</label>
+                            <input type="text" class="form-control" id="fname" name="fname" placeholder="first name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="lname">Last Name</label>
+                            <input type="text" class="form-control" id="lname" name="lname" placeholder="last name">
+                        </div>
+                    </div>
+                </div>
+                <!-- end form row -->
 
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="123 Main St">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="city">Address</label>
+                            <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" class="form-control" id="state" name="state" placeholder="CA">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="zip">ZIP code</label>
+                            <input type="text" class="form-control" id="zip" name="zip" placeholder="90844">
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <button class="btn btn-yellow my-3 mr-3" id='closeAddress'>Close</button>
+                </div>
+                <!-- end row -->
+                                    <button type="submit" class="btn btn-yellow my-3 mr-3" id='addAddress'>Add</button>
 
-{% for item in payment.all %}
+            </form>
+            <!-- end shipping info form -->
+            <!-- btns for navigation -->
 
-    <p>{{ item.cardNum }}</p>
-    <p>{{ item.exMonth }}</p>
-    <p>{{ item.exYear }}</p>
-    <p>{{ item.security }}</p>
-{% endfor %}
+        </div>
+        <div class="btn btn-yellow">Add Address</div>
+    </div>
+    <!-- end address detail -->
+
+    <!-- payment detail -->
+    <div class="userDetail border p-3 my-3">
+        <h5>Your Address</h5>
+        {% for item in payment.all %}
+        <div><b class="text-capitalize">{{ item.name }}</b></div>
+        <ul class='d-flex'>
+            <ul>{{ item.cardNum }}</ul>
+            <ul>{{ item.exMonth }}</ul>
+            <ul>{{ item.exYear }}</ul>
+            <ul>{{ item.zip }}</ul>
+        </ul>
+        <hr>
+        {% endfor %}
+        <form method="POST">
+					{% csrf_token %}
+				<input id="test" name="test" type="text" class="form-control" id="inputEmail4" placeholder="John">
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+        <div class="btn btn-yellow">Add Address</div>
+    </div>
+    <!-- end payment detail -->
+</div>
+
 
 
 {% endblock %}
