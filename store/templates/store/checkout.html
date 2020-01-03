@@ -6,7 +6,11 @@
         <div class="row my-auto d-flex justify-content-between">
             <div class="col-md-8 order-detail" id='itemsForm'>
                 <h5 class='text-capitalize mt-3'>1. ITEMS</h5>
-
+                <div class="col-md-12">
+                    <ul class="list-group" id="item_list">
+    
+                    </ul>
+                </div>
                 <!-- left part with payment -->
                 <div id='order-list'>
                     <!-- single item -->
@@ -33,30 +37,7 @@
                         </div>
                     </div>
                     <!-- end single item -->
-                    <!-- single item -->
-                    <div class="row d-flex align-items-baseline my-2 py-2 my-auto">
-                        <div class="col-2">
-                            <img src="{% static 'img/start.jpg' %}" alt="img" class='img-fluid'>
-                        </div>
-                        <div class="col-4">
-                            <h6 class='text-capitalize'>product name</h6>
-                        </div>
-                        <div class="col-2 item-select btn">
-                            <select size="1">
-                                <option">1</option">
-                                <option">2</option">
-                                <option">3</option>
-                                    <option>4</option>
-                            </select>
-                        </div>
-                        <div class="col-2">
-                            <h6>$555</h6>
-                        </div>
-                        <div class="col-1">
-                            <i class="far fa-trash-alt"></i>
-                        </div>
-                    </div>
-                    <!-- end single item -->
+
 
                 </div>
                 <!-- end order div  with all item-->

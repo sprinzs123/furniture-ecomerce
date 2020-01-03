@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
-<div class="container my-4">
+<div class="container my-4" id='{{ product.id }}'>
 
     <section>
         <div class="row d-flex">
             <div class="col-md-4 mr-1">
-                <img src="{{ product.picture.url }}" class="single-product-img" alt="">
+                <img src="{{ product.picture.url }}" class="single-product-img" alt="" id='itemImage'>
             </div>
             <div class="col-md-7">
-                <h3>{{ product.title }}</h3>
+                <h3 class="text-capitalize" id='title'>{{ product.title }}</h3>
                 <p class="grey2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam repellat neque facilis
                     accusamus, facere nulla libero. Assumenda possimus vitae ut error fugiat fugit voluptatibus
                     quisquam exercitationem odit. Adipisci voluptatem laborum praesentium quas pariatur. Atque quae
@@ -26,8 +26,9 @@
 
                 <i class="fas fa-truck-loading text-orange mr-2"></i><span>Delivery within 1 week</span>
             </div>
-            <div class="col-6">
-                <button class='btn btn-yellow'>Order Now</button>
+            <div class="col-4 d-flex justify-content-between">
+                <h5 class="my-auto"><b id='price'>${{ product.price }}</b></h5>
+                <button class='btn btn-yellow' id='orderBtn'>Order Now</button>
             </div>
         </div>
         <br>
@@ -39,8 +40,8 @@
         <div class="col-3">
             <h5 class='single-item-headings'>Fabric</h5>
             <div class="d-flex justify-content-start">
-                <div class="btn btn-option-1 border" id="fabric-1">Fabric</div>
-                <div class="btn btn-option-2 border ml-2" id="fabric-2">Fabric 2</div>
+                <div class="btn btn-option-1 border" id="fabric-1">Denim</div>
+                <div class="btn btn-option-2 border ml-2" id="fabric-2">Leather</div>
             </div>
         </div>
         <div class="col-md-5 mx-4 color-div">
@@ -57,8 +58,8 @@
         <div class="col-3">
             <h5 class='single-item-headings'>Options</h5>
             <div class="d-flex justify-content-start">
-                <div class="btn btn-option-1 border" id="option-1">Option 1</div>
-                <div class="btn btn-option-2 border ml-2" id="option-2">Option 2</div>
+                <div class="btn btn-option-1 border" id="option-1">Wood</div>
+                <div class="btn btn-option-2 border ml-2" id="option-2">Steel</div>
             </div>
         </div>
     </div>

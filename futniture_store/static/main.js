@@ -1,37 +1,48 @@
 // using to determine what page we are on and what functions to run
 // what is url determine what functions we are going to run
-let find = window.location
-find = find.toString()
-
+let myPage = window.location.pathname
 function getLocation(myPage) {
     // item page
-    if (myPage.includes('store/item')) {
+    if (myPage.includes('/store/item')) {
         console.log('you are looking at item')
         btnToggle()
         carouselAll()
-
+        cartItemPage()
     }
     // store page
-    else if (myPage.includes('/store')) {
+    else if (myPage =='/store/') {
         console.log('you are at store')
         chevronBtn()
         carouselAll()
         resetFilter()
         priceMatch()
         nameSearch()
-
-
+        linkRedirect()
+        carouselAll()
+        addCart()
     }
     // home page
-    else {
-        // console.log('you are home')
-        // carouselAll()
-    };
+    else if (myPage =='/'){
+        console.log('you are home')
+        carouselAll()
+    }
+    // check out page
+    else if (myPage =='/checkout'){
+            console.log('checkout page')
+            checkoutForms()
+            cartLocalStorage()
+            deleteItem()
+    }
+    // user page
+    else if (myPage =='/mypage/'){
+        console.log('user page')
+    }
 };
+getLocation(myPage)
 
 // function call to our main function that determines
 // what functions run at the page
-getLocation(find);
+// getLocation(find);
 
 // All function that used in thi page
 
@@ -149,7 +160,6 @@ function resetFilter() {
         })
     })
 };
-linkRedirect()
 
 
 // price match
@@ -181,10 +191,6 @@ function priceMatch(){
         };
 });
 };
-
-
-
-
 // search by name
 function nameSearch(){
     let name = document.querySelector('#nameSearch')
@@ -246,40 +252,6 @@ function carouselAll() {
 };
 
 
-// add items to local storage when click on add to cart btn
-function addCart(){
-    let cartBtns = document.querySelectorAll('#addCart');
-    if(localStorage.getItem('cart')==null){
-        var cart ={};
-    }
-    else{
-        cart = JSON.parse(localStorage.getItem('cart'));
-
-    }
-    cartBtns.forEach(function(cartBtn){
-        cartBtn.addEventListener('click', function(event){
-            let initial = cartBtn.parentElement.parentElement
-            // let itemPrice = initial.querySelector('#price').innerHTML
-            // let itemName = initial.querySelector('#title').innerHTML
-            let itemDescription = []
-            let itemId = initial.id
-            let item_id = itemId.toString()
-
-            if(cart[item_id]!=undefined){
-                cart[item_id] = cart[item_id] + 1;
-                }
-    
-            else{
-                cart[item_id] =1
-            }
-
-            console.log(cart)
-            localStorage.setItem('cart', JSON.stringify(cart))
-
-        });
-    });
-}
-addCart()
 
 
 // navigating between at check out between item, address, payment forms
@@ -326,10 +298,156 @@ function checkoutForms(){
         addressForm.style.display = 'none'
         showAddress.style.display = 'inline'
     });
+};
+
+// #### Functions that relate to local storage addition, saving, and displaying
+// add items to local storage when click on add to cart btn
+function addCart(){
+    let cartBtns = document.querySelectorAll('#addCart');
+    if(localStorage.getItem('cart')==null){
+        var cart ={};
+    }
+    else{
+        cart = JSON.parse(localStorage.getItem('cart'));
+
+    }
+    cartBtns.forEach(function(cartBtn){
+        cartBtn.addEventListener('click', function(event){
+            let initial = cartBtn.parentElement.parentElement
+            let itemId = initial.id
+            let item_id = itemId.toString()
+            let itemName = initial.querySelector('#title').innerHTML
+            let itemPrice = initial.querySelector('#price').innerHTML.toString()
+            let itemImg = initial.querySelector('#image').src
+
+            if(cart[item_id]!=undefined){
+                quantity = cart[item_id][0] + 1;
+                cart[item_id][0] = quantity;
+                }
+    
+            else{
+                let quantity = 1;
+                cart[item_id]= [quantity, itemName, itemPrice, itemImg]
+            }
+            localStorage.setItem('cart', JSON.stringify(cart))
+            // console.log(cart[item_id][0])
+
+        });
+
+    });
+}
+// display item that were added to card dynamically with template
+// items are added to check out page
+function cartLocalStorage(){
+    if (localStorage.getItem('cart') == 'null'){
+        let cart ={};
+    }
+    else{
+        cart = JSON.parse(localStorage.getItem('cart'))
+    }
+    for(item in cart){
+        // console.log(item);
+        let itemId = item;
+        let itemQuantity = cart[item][0]
+        let itemName = cart[item][1];
+        let itemPrice = cart[item][2];
+        let itemImgSrc = cart[item][3];
+
+        // div where add out template
+        let itemDiv = document.getElementById('item_list')
+        // console.log(itemDiv)
+
+        let itemString = `
+        <div class="row d-flex align-items-baseline my-2 py-2 my-auto" id='${itemId}'>
+        <div class="col-sm-2">
+            <img src="${itemImgSrc}" alt="img" class='img-fluid'>
+        </div>
+        <div class="col-sm-4">
+        <a href="/store/item${itemId}"><h6 class='text-capitalize'>${itemName}</h6>
+        </a>
+        </div>
+        <div class="col-sm-2 item-select btn">
+            <select size="1">
+                <option">1</option">
+                <option">2</option">
+                <option">3</option>
+                    <option>4</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <h6>${itemPrice}</h6>
+        </div>
+        <div class="col-sm-1" id='deleteBtn'>
+            <i class="far fa-trash-alt"></i>
+        </div>
+    </div>
+        
+        `;
+
+        let itemTry = document.createElement('li')
+        itemTry.innerHTML = itemString
+
+        itemDiv.appendChild(itemTry);
+        
+
+    }
+}
+
+// add items to cart local storage from item page
+function cartItemPage(){
+    if (localStorage.getItem('cart') == 'null'){
+        let cart ={};
+    }
+    else{
+        cart = JSON.parse(localStorage.getItem('cart'))
+    }
+    addToCart = document.querySelector('#orderBtn')
+    addToCart.addEventListener('click', function(event){
+        // select items to add
+        let itemName = document.querySelector('#title').innerHTML
+        let itemPrice = document.querySelector('#price').innerHTML.toString()
+        let itemImg = document.querySelector('#itemImage').src
+        let itemId = document.querySelector('.container').id
+        let item_id = itemId.toString()
 
 
+        // console.log(itemName, itemPrice, itemImg, itemId)
+        // add items
+        if(cart[item_id]!=undefined){
+            quantity = cart[item_id][0] + 1;
+            cart[item_id][0] = quantity;
+            }
+
+        else{
+            let quantity = 1;
+            cart[item_id]= [quantity, itemName, itemPrice, itemImg]
+        }
+        localStorage.setItem('cart', JSON.stringify(cart))
+        console.log(cart[item_id][0])
+
+    });
 
 };
-// checkoutForms()
+// delete item from check out page
+function deleteItem(){
+    deleteBnts = document.querySelectorAll('#deleteBtn')
+    console.log(deleteBnts)
+    deleteBnts.forEach(function(deleteBnt){
+        deleteBnt.addEventListener('click', function(event){    
+            // remove from check out page
+            let item_id = deleteBnt.parentElement.id
+            let oneItem = deleteBnt.parentElement
+            let itemsContainer = oneItem.parentElement
+            console.log(itemsContainer)
+            itemsContainer.removeChild(oneItem)
 
-
+            // remove from local storage
+            let cartItems = localStorage.getItem('cart')
+            let cartDic = JSON.parse(cartItems)
+            // console.log(cartDic)
+            // console.log(item_id)
+            cartDic.removeItem(item_id)
+         
+        }); 
+    });        
+};
