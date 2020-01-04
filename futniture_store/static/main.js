@@ -423,7 +423,7 @@ function cartItemPage(){
             cart[item_id]= [quantity, itemName, itemPrice, itemImg]
         }
         localStorage.setItem('cart', JSON.stringify(cart))
-        console.log(cart[item_id][0])
+        // console.log(cart[item_id][0])
 
     });
 
@@ -431,23 +431,21 @@ function cartItemPage(){
 // delete item from check out page
 function deleteItem(){
     deleteBnts = document.querySelectorAll('#deleteBtn')
-    console.log(deleteBnts)
+    // console.log(deleteBnts)
     deleteBnts.forEach(function(deleteBnt){
         deleteBnt.addEventListener('click', function(event){    
             // remove from check out page
             let item_id = deleteBnt.parentElement.id
             let oneItem = deleteBnt.parentElement
             let itemsContainer = oneItem.parentElement
-            console.log(itemsContainer)
+            // console.log(itemsContainer)
             itemsContainer.removeChild(oneItem)
 
-            // remove from local storage
+            // remove item from local storage
             let cartItems = localStorage.getItem('cart')
             let cartDic = JSON.parse(cartItems)
-            // console.log(cartDic)
-            // console.log(item_id)
-            cartDic.removeItem(item_id)
-         
+            delete cartDic[item_id];
+            localStorage.setItem('cart', JSON.stringify(cartDic))
         }); 
     });        
 };
