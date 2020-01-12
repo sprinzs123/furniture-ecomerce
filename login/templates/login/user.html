@@ -19,12 +19,12 @@
         <h1>{{ address.first.user }}</h1>
         <div class="add-address">
             <h5 class='my-4 text-orange'>Add Address</h5>
-            <form method="POST">
+            <form method="POST" action="{% url  'user_page' %}">
                 {% csrf_token %}
                 <!-- single form  row -->
                 <div class="form-row">
                     <div class="col-md-6">
-                        
+
                         <div class="form-group">
                             <label for="fname">First Name</label>
                             <input type="text" class="form-control" id="fname" name="fname" placeholder="first name">
@@ -66,43 +66,42 @@
                     </div>
                 </div>
                 <div class="d-flex">
-                    <button class="btn btn-yellow my-3 mr-3" id='closeAddress'>Close</button>
                 </div>
                 <!-- end row -->
-                                    <button type="submit" class="btn btn-yellow my-3 mr-3" id='addAddress'>Add</button>
+                     <button type="submit" class="btn btn-yellow my-3 mr-3" id='addAddress'>Add</button>
+           </form>
+<!--            &lt;!&ndash; end shipping info form &ndash;&gt;-->
+<!--            &lt;!&ndash; btns for navigation &ndash;&gt;-->
 
-            </form>
-            <!-- end shipping info form -->
-            <!-- btns for navigation -->
+<!--        </div>-->
+<!--        <div class="btn btn-yellow">Add Address</div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; end address detail &ndash;&gt;-->
 
-        </div>
-        <div class="btn btn-yellow">Add Address</div>
-    </div>
-    <!-- end address detail -->
+<!--    &lt;!&ndash; payment detail &ndash;&gt;-->
+<!--    <div class="userDetail border p-3 my-3">-->
+<!--        <h5>Your Address</h5>-->
+<!--        {% for item in payment.all %}-->
+<!--        <div><b class="text-capitalize">{{ item.name }}</b></div>-->
+<!--        <ul class='d-flex'>-->
+<!--            <ul>{{ item.cardNum }}</ul>-->
+<!--            <ul>{{ item.exMonth }}</ul>-->
+<!--            <ul>{{ item.exYear }}</ul>-->
+<!--            <ul>{{ item.zip }}</ul>-->
+<!--        </ul>-->
+<!--        <hr>-->
+<!--        {% endfor %}-->
+        <form method="POST" action="{% url  'user_page' %}">
+                        {% csrf_token %}
 
-    <!-- payment detail -->
-    <div class="userDetail border p-3 my-3">
-        <h5>Your Address</h5>
-        {% for item in payment.all %}
-        <div><b class="text-capitalize">{{ item.name }}</b></div>
-        <ul class='d-flex'>
-            <ul>{{ item.cardNum }}</ul>
-            <ul>{{ item.exMonth }}</ul>
-            <ul>{{ item.exYear }}</ul>
-            <ul>{{ item.zip }}</ul>
-        </ul>
-        <hr>
-        {% endfor %}
-        <form method="POST">
-					{% csrf_token %}
-				<input id="test" name="test" type="text" class="form-control" id="inputEmail4" placeholder="John">
+				<input name="test" type="text" placeholder="John" required>
             <button type="submit" class="btn btn-primary">Place Order</button>
         </form>
         <div class="btn btn-yellow">Add Address</div>
     </div>
     <!-- end payment detail -->
 </div>
-
+</div>
 
 
 {% endblock %}

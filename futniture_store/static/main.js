@@ -1,5 +1,10 @@
 // using to determine what page we are on and what functions to run
 // what is url determine what functions we are going to run
+
+if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+  }
+
 let myPage = window.location.pathname
 function getLocation(myPage) {
     // item page
@@ -29,9 +34,14 @@ function getLocation(myPage) {
     // check out page
     else if (myPage =='/checkout'){
             console.log('checkout page')
-            checkoutForms()
+            // checkoutForms()
             cartLocalStorage()
             deleteItem()
+            checkoutFormsSlide()
+            slideCardForm()
+            addAddress()
+            addPayment()
+
     }
     // user page
     else if (myPage =='/mypage/'){
@@ -110,6 +120,73 @@ function btnToggle() {
 };
 
 
+// add another address to shipping address on checkout page
+function addAddress(){
+    let newAddressBtn = document.querySelector('#addAddress')
+    let addressBook = document.querySelector('.saved-addresses')
+        newAddressBtn.addEventListener('click', function(event){
+            let fname = document.querySelector('#fname').value
+            let lname = document.querySelector('#lname').value
+            let address = document.querySelector('#address').value
+            let city = document.querySelector('#city').value
+            let state = document.querySelector('#state').value
+            let zip = document.querySelector('#zip').value
+            let errorMsg = document.querySelector('#addressFormError')
+            if(fname != '' & lname != '' & address != '' & city != '' & state != '' & zip != '' ){
+                let newAddress = `
+                <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                    value="option1" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    <ul class='userItems'>
+                        <li><b class='text-capitalize'>${fname} ${lname}</b></li>
+                        <li class='text-capitalize'>${address}, ${city}, ${state} ${zip}</li>
+                    </ul>
+                </label>
+            </div>
+                `
+                let itemTry = document.createElement('li')
+                itemTry.innerHTML = newAddress
+                addressBook.appendChild(itemTry)
+                errorMsg.style.display = 'none'
+            }
+            else{
+                errorMsg.style.display = 'block'
+            }
+        });
+    }        
+
+
+// add another payment form from check out item form
+function addPayment(){
+    let submitBtn = document.querySelector('#addPaymentBtn')
+    submitBtn.addEventListener('click', function(event){
+        let name = document.querySelector('#cardName').value
+        let cardNum = document.querySelector('#cardNum').value
+        let code = document.querySelector('#code').value.toString
+        let allPayments = document.querySelector('.all-payments')
+        code = code.substring(-5, -1)
+        let month = document.querySelector('#month').value
+        let year = document.querySelector('#year').value
+        let errorPayForm = document.querySelector('#cardFormError')
+        if(name != '' & cardNum != '' & code != '' & month != '' & year != '' ){
+            newPayment = `
+            <li><b>${name}</b></li>
+            <li>last 4 - ${code}</li>
+            <li>expiration ${month}/${year}</li>
+            `
+            let itemTry = document.createElement('ul')
+            itemTry.innerHTML = newPayment
+            allPayments.appendChild(itemTry)
+            errorPayForm.style.display = 'none'
+       }
+        else{
+            errorPayForm.style.display = 'block'
+    }
+       
+    });
+};
+
 // filtering out by class name or showing item that want to see in store page
 // get all filter buttons and links
 // get function variable from data-filter of the clicked button/link
@@ -138,7 +215,7 @@ function linkRedirect() {
             let value = event.target.dataset.filter;
             if (myURL != '/store/') {
                 location.href = '/store'
-                console.log(value)
+                // console.log(value)
                 filterFunction(value)
             }
             else {
@@ -174,13 +251,13 @@ function priceMatch(){
         const intMin = parseInt(minPrice.value, 10)
 
         if (intMin < intMax) {
-            console.log('you got right numbers')
+            // console.log('you got right numbers')
             allItems.forEach(function (item) {
                 let priceSpan = item.lastChild.previousElementSibling.innerHTML
                 let price = parseInt(priceSpan, 10)
 
                 if (intMin < price && price < intMax) {
-                    console.log(price)
+                    // console.log(price)
 
                     item.style.display = 'block';
                 }
@@ -191,7 +268,10 @@ function priceMatch(){
         };
 });
 };
-// search by name
+
+
+
+// search by name on store page
 function nameSearch(){
     let name = document.querySelector('#nameSearch')
     name.addEventListener('keyup',function(event){
@@ -201,8 +281,8 @@ function nameSearch(){
             allItems.forEach(function(item){
                 let title = item.getElementsByTagName('h6')[0]
                 titleText = title.innerHTML.toLocaleLowerCase()
-                console.log(titleText)
-                console.log(searchName)
+                // console.log(titleText)
+                // console.log(searchName)
 
                 if(titleText.includes(searchName)){
                     item.style.display = 'block'
@@ -236,11 +316,11 @@ function carouselAll() {
             singleHeart.onclick = function () {
                 if (singleHeart.className == 'far fa-heart fa-1x heart pt-3') {
                     singleHeart.className = 'fas fa-heart text-danger fa-2x';
-                    console.log('1st')
+                    // console.log('1st')
                 }
                 else if (singleHeart.className = 'fas fa-heart text-danger fa-2x') {
                     singleHeart.className = 'far fa-heart fa-1x heart pt-3';
-                    console.log(singleHeart.className)
+                    // console.log(singleHeart.className)
 
                 };
                 // (singleHeart.className = 'fas fa-heart text-danger fa-2x'){
@@ -250,8 +330,6 @@ function carouselAll() {
     };
     carouselHeart()
 };
-
-
 
 
 // navigating between at check out between item, address, payment forms
@@ -300,6 +378,64 @@ function checkoutForms(){
     });
 };
 
+
+// new check out for with sliding down forms
+// this one works better, old one show/hide only
+function checkoutFormsSlide(){
+        // all form fields
+        let itemsForm = document.querySelector('#itemsForm')
+        let addressForm = document.querySelector('#addressForm')
+        let payForm = document.querySelector('#paymentForm')
+        
+    
+        // all navigation btns
+        let showAddress = document.querySelector('#getAddress')
+        let showPay = document.querySelector('#getPayment')
+        let hidePay = document.querySelector('#returnAddress')
+        let hideAddress = document.querySelector('#returnItems')
+        let addAddress = document.querySelector('#add-address-btn')
+
+        addAddress.addEventListener('click',  function(event){
+            let value = addressForm.classList.contains('form-collapse')
+
+            console.log(addAddress.innerHTML)
+            // console.group(value)
+            // console.log(addressForm.classList)
+            if (value) {
+                addressForm.classList.remove('form-collapse')
+                addAddress.innerHTML = 'Hide'
+                // addressForm.classList.remove('form-expand')
+               }
+               else {
+                addAddress.innerHTML = 'Add Address'
+                 addressForm.classList.add('form-collapse')
+                // addressForm.classList.add('form-collapse')
+               }
+    });
+};
+
+// slide for add address brt
+function slideCardForm(){
+    let payForm = document.querySelector('.addCardForm')
+    let toggleBtn = document.querySelector('#addCardBtn')
+    toggleBtn.addEventListener('click', function(event){
+    let value = payForm.classList.contains('form-collapse')
+        // payForm.parentElement.style.display = 'none'
+        // form is shown
+        if (value) {
+            payForm.classList.remove('form-collapse')
+            toggleBtn.innerHTML = 'Hide'
+           }
+        //    form is hidden
+           else {
+            toggleBtn.innerHTML = 'Add Card'
+            payForm.classList.add('form-collapse')
+           }
+    });
+
+};
+
+
 // #### Functions that relate to local storage addition, saving, and displaying
 // add items to local storage when click on add to cart btn
 function addCart(){
@@ -331,6 +467,7 @@ function addCart(){
             }
             localStorage.setItem('cart', JSON.stringify(cart))
             // console.log(cart[item_id][0])
+            cartItemCount()
 
         });
 
@@ -393,6 +530,7 @@ function cartLocalStorage(){
     }
 }
 
+
 // add items to cart local storage from item page
 function cartItemPage(){
     if (localStorage.getItem('cart') == 'null'){
@@ -423,12 +561,15 @@ function cartItemPage(){
             cart[item_id]= [quantity, itemName, itemPrice, itemImg]
         }
         localStorage.setItem('cart', JSON.stringify(cart))
+        cartItemCount()
         // console.log(cart[item_id][0])
 
     });
 
 };
-// delete item from check out page
+
+
+// delete item from check out page and local storage
 function deleteItem(){
     deleteBnts = document.querySelectorAll('#deleteBtn')
     // console.log(deleteBnts)
@@ -446,6 +587,27 @@ function deleteItem(){
             let cartDic = JSON.parse(cartItems)
             delete cartDic[item_id];
             localStorage.setItem('cart', JSON.stringify(cartDic))
+            cartItemCount()
         }); 
     });        
 };
+
+
+// display how many items are in the cart
+// global function
+function cartItemCount(){
+    // let itemsContainer = document.querySelector('#item_list')
+    let cartCount = document.querySelector('.cart-items')
+    // let itemNum = itemsContainer.childElementCount
+    // console.log(itemNum)
+    if (localStorage.getItem('cart') == 'null'){
+        cartCount.innerHTML = '0'
+    }
+    else{
+        cart = JSON.parse(localStorage.getItem('cart'))
+        itemNum = Object.keys(cart).length
+        cartCount.innerHTML = itemNum
+
+    }
+};
+cartItemCount()
