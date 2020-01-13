@@ -1,9 +1,9 @@
 // using to determine what page we are on and what functions to run
 // what is url determine what functions we are going to run
 
-if ( window.history.replaceState ) {
-    window.history.replaceState( null, null, window.location.href );
-  }
+if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+}
 
 let myPage = window.location.pathname
 function getLocation(myPage) {
@@ -15,7 +15,7 @@ function getLocation(myPage) {
         cartItemPage()
     }
     // store page
-    else if (myPage =='/store/') {
+    else if (myPage == '/store/') {
         console.log('you are at store')
         chevronBtn()
         carouselAll()
@@ -27,24 +27,26 @@ function getLocation(myPage) {
         addCart()
     }
     // home page
-    else if (myPage =='/'){
+    else if (myPage == '/') {
         console.log('you are home')
         carouselAll()
     }
     // check out page
-    else if (myPage =='/checkout'){
-            console.log('checkout page')
-            // checkoutForms()
-            cartLocalStorage()
-            deleteItem()
-            checkoutFormsSlide()
-            slideCardForm()
-            addAddress()
-            addPayment()
+    else if (myPage == '/checkout') {
+        console.log('checkout page')
+        // checkoutForms()
+        cartLocalStorage()
+        deleteItem()
+        checkoutFormsSlide()
+        slideCardForm()
+        addAddress()
+        addPayment()
+        optionInitDisplay()
+        orderSummary()
 
     }
     // user page
-    else if (myPage =='/mypage/'){
+    else if (myPage == '/mypage/') {
         console.log('user page')
     }
 };
@@ -121,19 +123,19 @@ function btnToggle() {
 
 
 // add another address to shipping address on checkout page
-function addAddress(){
+function addAddress() {
     let newAddressBtn = document.querySelector('#addAddress')
     let addressBook = document.querySelector('.saved-addresses')
-        newAddressBtn.addEventListener('click', function(event){
-            let fname = document.querySelector('#fname').value
-            let lname = document.querySelector('#lname').value
-            let address = document.querySelector('#address').value
-            let city = document.querySelector('#city').value
-            let state = document.querySelector('#state').value
-            let zip = document.querySelector('#zip').value
-            let errorMsg = document.querySelector('#addressFormError')
-            if(fname != '' & lname != '' & address != '' & city != '' & state != '' & zip != '' ){
-                let newAddress = `
+    newAddressBtn.addEventListener('click', function (event) {
+        let fname = document.querySelector('#fname').value
+        let lname = document.querySelector('#lname').value
+        let address = document.querySelector('#address').value
+        let city = document.querySelector('#city').value
+        let state = document.querySelector('#state').value
+        let zip = document.querySelector('#zip').value
+        let errorMsg = document.querySelector('#addressFormError')
+        if (fname != '' & lname != '' & address != '' & city != '' & state != '' & zip != '') {
+            let newAddress = `
                 <div class="form-check">
                 <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
                     value="option1" checked>
@@ -145,22 +147,22 @@ function addAddress(){
                 </label>
             </div>
                 `
-                let itemTry = document.createElement('li')
-                itemTry.innerHTML = newAddress
-                addressBook.appendChild(itemTry)
-                errorMsg.style.display = 'none'
-            }
-            else{
-                errorMsg.style.display = 'block'
-            }
-        });
-    }        
+            let itemTry = document.createElement('li')
+            itemTry.innerHTML = newAddress
+            addressBook.appendChild(itemTry)
+            errorMsg.style.display = 'none'
+        }
+        else {
+            errorMsg.style.display = 'block'
+        }
+    });
+}
 
 
 // add another payment form from check out item form
-function addPayment(){
+function addPayment() {
     let submitBtn = document.querySelector('#addPaymentBtn')
-    submitBtn.addEventListener('click', function(event){
+    submitBtn.addEventListener('click', function (event) {
         let name = document.querySelector('#cardName').value
         let cardNum = document.querySelector('#cardNum').value
         let code = document.querySelector('#code').value.toString
@@ -169,7 +171,7 @@ function addPayment(){
         let month = document.querySelector('#month').value
         let year = document.querySelector('#year').value
         let errorPayForm = document.querySelector('#cardFormError')
-        if(name != '' & cardNum != '' & code != '' & month != '' & year != '' ){
+        if (name != '' & cardNum != '' & code != '' & month != '' & year != '') {
             newPayment = `
             <li><b>${name}</b></li>
             <li>last 4 - ${code}</li>
@@ -179,11 +181,11 @@ function addPayment(){
             itemTry.innerHTML = newPayment
             allPayments.appendChild(itemTry)
             errorPayForm.style.display = 'none'
-       }
-        else{
+        }
+        else {
             errorPayForm.style.display = 'block'
-    }
-       
+        }
+
     });
 };
 
@@ -241,7 +243,7 @@ function resetFilter() {
 
 // price match
 // select items in price range
-function priceMatch(){
+function priceMatch() {
     priceBtn.addEventListener('click', function (event) {
         let allItems = document.querySelectorAll('.storeItem');
         const minPrice = document.querySelector('#minPrice')
@@ -266,34 +268,34 @@ function priceMatch(){
                 };
             });
         };
-});
+    });
 };
 
 
 
 // search by name on store page
-function nameSearch(){
+function nameSearch() {
     let name = document.querySelector('#nameSearch')
-    name.addEventListener('keyup',function(event){
+    name.addEventListener('keyup', function (event) {
         if (event.keyCode === 13) {
             let searchName = document.querySelector('#nameSearch').value.toLocaleLowerCase()
             let allItems = document.querySelectorAll('.storeItem');
-            allItems.forEach(function(item){
+            allItems.forEach(function (item) {
                 let title = item.getElementsByTagName('h6')[0]
                 titleText = title.innerHTML.toLocaleLowerCase()
                 // console.log(titleText)
                 // console.log(searchName)
 
-                if(titleText.includes(searchName)){
+                if (titleText.includes(searchName)) {
                     item.style.display = 'block'
                 }
-                else{
+                else {
                     // console.log('no')
                     item.style.display = 'none'
                 }
-        });
-    } 
-});
+            });
+        }
+    });
 };
 
 // make carousel responsive
@@ -334,7 +336,7 @@ function carouselAll() {
 
 // navigating between at check out between item, address, payment forms
 // make check out more responsive
-function checkoutForms(){
+function checkoutForms() {
     // all form fields
     let itemsForm = document.querySelector('#itemsForm')
     let addressForm = document.querySelector('#addressForm')
@@ -347,13 +349,13 @@ function checkoutForms(){
     let hideAddress = document.querySelector('#returnItems')
 
     // show more
-    showAddress.addEventListener('click', function(event){
+    showAddress.addEventListener('click', function (event) {
         console.log('click')
         addressForm.style.display = 'block'
         showAddress.style.display = 'none'
     });
 
-    showPay.addEventListener('click', function(event){
+    showPay.addEventListener('click', function (event) {
         console.log('click')
         payForm.style.display = 'block'
         showPay.style.display = 'none'
@@ -363,7 +365,7 @@ function checkoutForms(){
     });
 
     // show less
-    hidePay.addEventListener('click', function(event){
+    hidePay.addEventListener('click', function (event) {
         console.log('click')
         payForm.style.display = 'none'
         showPay.style.display = 'block'
@@ -371,7 +373,7 @@ function checkoutForms(){
 
 
     });
-    hideAddress.addEventListener('click', function(event){
+    hideAddress.addEventListener('click', function (event) {
         console.log('click')
         addressForm.style.display = 'none'
         showAddress.style.display = 'inline'
@@ -381,56 +383,56 @@ function checkoutForms(){
 
 // new check out for with sliding down forms
 // this one works better, old one show/hide only
-function checkoutFormsSlide(){
-        // all form fields
-        let itemsForm = document.querySelector('#itemsForm')
-        let addressForm = document.querySelector('#addressForm')
-        let payForm = document.querySelector('#paymentForm')
-        
-    
-        // all navigation btns
-        let showAddress = document.querySelector('#getAddress')
-        let showPay = document.querySelector('#getPayment')
-        let hidePay = document.querySelector('#returnAddress')
-        let hideAddress = document.querySelector('#returnItems')
-        let addAddress = document.querySelector('#add-address-btn')
+function checkoutFormsSlide() {
+    // all form fields
+    let itemsForm = document.querySelector('#itemsForm')
+    let addressForm = document.querySelector('#addressForm')
+    let payForm = document.querySelector('#paymentForm')
 
-        addAddress.addEventListener('click',  function(event){
-            let value = addressForm.classList.contains('form-collapse')
 
-            console.log(addAddress.innerHTML)
-            // console.group(value)
-            // console.log(addressForm.classList)
-            if (value) {
-                addressForm.classList.remove('form-collapse')
-                addAddress.innerHTML = 'Hide'
-                // addressForm.classList.remove('form-expand')
-               }
-               else {
-                addAddress.innerHTML = 'Add Address'
-                 addressForm.classList.add('form-collapse')
-                // addressForm.classList.add('form-collapse')
-               }
+    // all navigation btns
+    let showAddress = document.querySelector('#getAddress')
+    let showPay = document.querySelector('#getPayment')
+    let hidePay = document.querySelector('#returnAddress')
+    let hideAddress = document.querySelector('#returnItems')
+    let addAddress = document.querySelector('#add-address-btn')
+
+    addAddress.addEventListener('click', function (event) {
+        let value = addressForm.classList.contains('form-collapse')
+
+        console.log(addAddress.innerHTML)
+        // console.group(value)
+        // console.log(addressForm.classList)
+        if (value) {
+            addressForm.classList.remove('form-collapse')
+            addAddress.innerHTML = 'Hide'
+            // addressForm.classList.remove('form-expand')
+        }
+        else {
+            addAddress.innerHTML = 'Add Address'
+            addressForm.classList.add('form-collapse')
+            // addressForm.classList.add('form-collapse')
+        }
     });
 };
 
 // slide for add address brt
-function slideCardForm(){
+function slideCardForm() {
     let payForm = document.querySelector('.addCardForm')
     let toggleBtn = document.querySelector('#addCardBtn')
-    toggleBtn.addEventListener('click', function(event){
-    let value = payForm.classList.contains('form-collapse')
+    toggleBtn.addEventListener('click', function (event) {
+        let value = payForm.classList.contains('form-collapse')
         // payForm.parentElement.style.display = 'none'
         // form is shown
         if (value) {
             payForm.classList.remove('form-collapse')
             toggleBtn.innerHTML = 'Hide'
-           }
+        }
         //    form is hidden
-           else {
+        else {
             toggleBtn.innerHTML = 'Add Card'
             payForm.classList.add('form-collapse')
-           }
+        }
     });
 
 };
@@ -438,17 +440,17 @@ function slideCardForm(){
 
 // #### Functions that relate to local storage addition, saving, and displaying
 // add items to local storage when click on add to cart btn
-function addCart(){
+function addCart() {
     let cartBtns = document.querySelectorAll('#addCart');
-    if(localStorage.getItem('cart')==null){
-        var cart ={};
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
     }
-    else{
+    else {
         cart = JSON.parse(localStorage.getItem('cart'));
 
     }
-    cartBtns.forEach(function(cartBtn){
-        cartBtn.addEventListener('click', function(event){
+    cartBtns.forEach(function (cartBtn) {
+        cartBtn.addEventListener('click', function (event) {
             let initial = cartBtn.parentElement.parentElement
             let itemId = initial.id
             let item_id = itemId.toString()
@@ -456,14 +458,14 @@ function addCart(){
             let itemPrice = initial.querySelector('#price').innerHTML.toString()
             let itemImg = initial.querySelector('#image').src
 
-            if(cart[item_id]!=undefined){
+            if (cart[item_id] != undefined) {
                 quantity = cart[item_id][0] + 1;
                 cart[item_id][0] = quantity;
-                }
-    
-            else{
+            }
+
+            else {
                 let quantity = 1;
-                cart[item_id]= [quantity, itemName, itemPrice, itemImg]
+                cart[item_id] = [quantity, itemName, itemPrice, itemImg]
             }
             localStorage.setItem('cart', JSON.stringify(cart))
             // console.log(cart[item_id][0])
@@ -475,14 +477,14 @@ function addCart(){
 }
 // display item that were added to card dynamically with template
 // items are added to check out page
-function cartLocalStorage(){
-    if (localStorage.getItem('cart') == 'null'){
-        let cart ={};
+function cartLocalStorage() {
+    if (localStorage.getItem('cart') == 'null') {
+        let cart = {};
     }
-    else{
+    else {
         cart = JSON.parse(localStorage.getItem('cart'))
     }
-    for(item in cart){
+    for (item in cart) {
         // console.log(item);
         let itemId = item;
         let itemQuantity = cart[item][0]
@@ -505,14 +507,14 @@ function cartLocalStorage(){
         </div>
         <div class="col-sm-2 item-select btn">
             <select size="1">
-                <option">1</option">
-                <option">2</option">
-                <option">3</option>
-                    <option>4</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
             </select>
         </div>
         <div class="col-sm-2">
-            <h6>${itemPrice}</h6>
+            <h6 id='price'>${itemPrice}</h6>
         </div>
         <div class="col-sm-1" id='deleteBtn'>
             <i class="far fa-trash-alt"></i>
@@ -525,22 +527,22 @@ function cartLocalStorage(){
         itemTry.innerHTML = itemString
 
         itemDiv.appendChild(itemTry);
-        
+
 
     }
 }
 
 
 // add items to cart local storage from item page
-function cartItemPage(){
-    if (localStorage.getItem('cart') == 'null'){
-        let cart ={};
+function cartItemPage() {
+    if (localStorage.getItem('cart') == 'null') {
+        let cart = {};
     }
-    else{
+    else {
         cart = JSON.parse(localStorage.getItem('cart'))
     }
     addToCart = document.querySelector('#orderBtn')
-    addToCart.addEventListener('click', function(event){
+    addToCart.addEventListener('click', function (event) {
         // select items to add
         let itemName = document.querySelector('#title').innerHTML
         let itemPrice = document.querySelector('#price').innerHTML.toString()
@@ -551,14 +553,14 @@ function cartItemPage(){
 
         // console.log(itemName, itemPrice, itemImg, itemId)
         // add items
-        if(cart[item_id]!=undefined){
+        if (cart[item_id] != undefined) {
             quantity = cart[item_id][0] + 1;
             cart[item_id][0] = quantity;
-            }
+        }
 
-        else{
+        else {
             let quantity = 1;
-            cart[item_id]= [quantity, itemName, itemPrice, itemImg]
+            cart[item_id] = [quantity, itemName, itemPrice, itemImg]
         }
         localStorage.setItem('cart', JSON.stringify(cart))
         cartItemCount()
@@ -569,12 +571,77 @@ function cartItemPage(){
 };
 
 
+// ######################################################
+// items in checkout page functionally
+// display correct number of items and $ in order summary
+// ######################################################
+
+
+// select right option do display the number of items in cart initially
+function optionInitDisplay() {
+    if (localStorage.getItem('cart') == 'null') {
+        let cart = {};
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem('cart'))
+    }
+    let itemAmountList = Object.keys(cart)
+    let allItems = document.getElementById('item_list')
+    // console.log(allItems.children[0])
+
+    for (var i = 0; i < allItems.children.length; i++) {
+        let oneItem = allItems.children[i]
+        let amount = itemAmountList[i]
+        oneItem.value = amount
+    };
+
+};
+
+
+// get display right prices in order summary div
+// get all prices from item section
+function orderSummary() {
+
+
+    let finPrice = document.querySelector('#items-price')
+    let finShip = document.querySelector('#shipping')
+    let finTax = document.querySelector('#tax')
+    let total = document.querySelector('#totalPrice')
+
+    if (localStorage.getItem('cart') == 'null') {
+        finPrice.innerHTML = 0
+        finShip.innerHTML = 0
+        finTax.innerHTML = 0
+        total.innerHTML = 0
+    }
+    else {
+        let totAmount = 0
+        let allItems = document.getElementById('item_list')
+        for (var i = 0; i < allItems.children.length; i++) {
+            let oneItem = allItems.children[i]
+            let onePrice = oneItem.querySelector('#price').innerHTML
+            totAmount += parseFloat(onePrice)
+            console.log(parseFloat(onePrice))
+        }
+        finPrice.innerHTML = totAmount
+        console.log(parseFloat(finPrice.innerHTML))
+
+        finShip.innerHTML = 20
+        finTax.innerHTML =  totAmount * 0.1
+        total.innerHTML = parseFloat(finPrice.innerHTML) + parseFloat(finShip.innerHTML) + parseFloat(finShip.innerHTML)
+    }
+
+
+};
+
+
+
 // delete item from check out page and local storage
-function deleteItem(){
+function deleteItem() {
     deleteBnts = document.querySelectorAll('#deleteBtn')
     // console.log(deleteBnts)
-    deleteBnts.forEach(function(deleteBnt){
-        deleteBnt.addEventListener('click', function(event){    
+    deleteBnts.forEach(function (deleteBnt) {
+        deleteBnt.addEventListener('click', function (event) {
             // remove from check out page
             let item_id = deleteBnt.parentElement.id
             let oneItem = deleteBnt.parentElement
@@ -588,26 +655,25 @@ function deleteItem(){
             delete cartDic[item_id];
             localStorage.setItem('cart', JSON.stringify(cartDic))
             cartItemCount()
-        }); 
-    });        
+        });
+    });
 };
 
 
 // display how many items are in the cart
-// global function
-function cartItemCount(){
+// works when adding and deleting item from cart
+function cartItemCount() {
     // let itemsContainer = document.querySelector('#item_list')
     let cartCount = document.querySelector('.cart-items')
     // let itemNum = itemsContainer.childElementCount
     // console.log(itemNum)
-    if (localStorage.getItem('cart') == 'null'){
+    if (localStorage.getItem('cart') == 'null') {
         cartCount.innerHTML = '0'
     }
-    else{
+    else {
         cart = JSON.parse(localStorage.getItem('cart'))
         itemNum = Object.keys(cart).length
         cartCount.innerHTML = itemNum
 
     }
 };
-cartItemCount()
