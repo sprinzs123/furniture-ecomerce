@@ -165,25 +165,53 @@ function addPayment() {
     submitBtn.addEventListener('click', function (event) {
         let name = document.querySelector('#cardName').value
         let cardNum = document.querySelector('#cardNum').value
-        let code = document.querySelector('#code').value.toString
-        let allPayments = document.querySelector('.all-payments')
-        code = code.substring(-5, -1)
         let month = document.querySelector('#month').value
         let year = document.querySelector('#year').value
+        let code = document.querySelector('#code').value
+        let allPayments = document.querySelector('.all-payments')
+        cardNum = cardNum.substring(cardNum.length - 4, cardNum.length)
         let errorPayForm = document.querySelector('#cardFormError')
-        if (name != '' & cardNum != '' & code != '' & month != '' & year != '') {
-            newPayment = `
-            <li><b>${name}</b></li>
-            <li>last 4 - ${code}</li>
-            <li>expiration ${month}/${year}</li>
-            `
-            let itemTry = document.createElement('ul')
-            itemTry.innerHTML = newPayment
-            allPayments.appendChild(itemTry)
-            errorPayForm.style.display = 'none'
+        // if (name == '' || cardNum == '' || code == '' || month == '' || year == '') {
+        //     errorPayForm.innerHTML = 'All fields mut be completed'
+        //     errorPayForm.style.display = 'block'
+        // }
+        // console.log(Number.isInteger(parseInt(year)))
+        if(isNaN(year) || year.length>5 || year.includes('.')){
+            errorPayForm.innerHTML = 'Invalid Year'
+            errorPayForm.style.display = 'block'
+        }
+        if(isNaN(month) || parseInt(month) >12 || month.includes('.')){
+            errorPayForm.innerHTML = 'Invalid Month'
+            errorPayForm.style.display = 'block'
+        }
+        if(isNaN(cardNum) || cardNum.length != 3 || cardNum.includes('.')){
+            errorPayForm.innerHTML = 'Invalid Card'
+            errorPayForm.style.display = 'block'
+        }
+        if(isNaN(code) || code.length != 3 || code.includes('.')){
+            errorPayForm.innerHTML = 'Invalid Security Code'
+            errorPayForm.style.display = 'block'
         }
         else {
-            errorPayForm.style.display = 'block'
+            newPayment= `
+            <li>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios"
+                    id="exampleRadios1" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        <ul class='userItems'>
+                            <li class='text-capitalize'><b>${name}</b></li>
+                            <li>last 4 - ${cardNum}</li>
+                            <li>expiration ${month}/${year}</li>
+                        </ul>
+                    </label>
+             </div>
+             </li>
+        `
+        let itemTry = document.createElement('ul')
+        itemTry.innerHTML = newPayment
+        allPayments.appendChild(itemTry)
+        errorPayForm.style.display = 'none'
         }
 
     });
@@ -497,31 +525,31 @@ function cartLocalStorage() {
         // console.log(itemDiv)
 
         let itemString = `
-        <div class="row d-flex align-items-baseline my-2 py-2 my-auto" id='${itemId}'>
-        <div class="col-sm-2">
-            <img src="${itemImgSrc}" alt="img" class='img-fluid'>
+                < div class="row d-flex align-items-baseline my-2 py-2 my-auto" id = '${itemId}' >
+                    <div class="col-sm-2">
+                        <img src="${itemImgSrc}" alt="img" class='img-fluid'>
         </div>
-        <div class="col-sm-4">
-        <a href="/store/item${itemId}"><h6 class='text-capitalize'>${itemName}</h6>
-        </a>
-        </div>
-        <div class="col-sm-2 item-select btn">
-            <select size="1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-            </select>
-        </div>
-        <div class="col-sm-2">
-            <h6 id='price'>${itemPrice}</h6>
-        </div>
-        <div class="col-sm-1" id='deleteBtn'>
-            <i class="far fa-trash-alt"></i>
-        </div>
-    </div>
-        
-        `;
+                        <div class="col-sm-4">
+                            <a href="/store/item${itemId}"><h6 class='text-capitalize'>${itemName}</h6>
+                            </a>
+                        </div>
+                        <div class="col-sm-2 item-select btn">
+                            <select size="1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <h6 id='price'>${itemPrice}</h6>
+                        </div>
+                        <div class="col-sm-1" id='deleteBtn'>
+                            <i class="far fa-trash-alt"></i>
+                        </div>
+                    </div>
+
+            `;
 
         let itemTry = document.createElement('li')
         itemTry.innerHTML = itemString
@@ -623,12 +651,10 @@ function orderSummary() {
             totAmount += parseFloat(onePrice)
             console.log(parseFloat(onePrice))
         }
-        finPrice.innerHTML = totAmount
-        console.log(parseFloat(finPrice.innerHTML))
-
-        finShip.innerHTML = 20
-        finTax.innerHTML =  totAmount * 0.1
-        total.innerHTML = parseFloat(finPrice.innerHTML) + parseFloat(finShip.innerHTML) + parseFloat(finShip.innerHTML)
+        finPrice.innerHTML = "$"+totAmount
+        finShip.innerHTML = '$20'
+        finTax.innerHTML =  '$'+totAmount * 0.1
+        total.innerHTML = '$'+(totAmount + 20 + totAmount*0.1)
     }
 
 
