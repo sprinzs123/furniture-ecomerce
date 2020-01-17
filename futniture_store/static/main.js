@@ -51,42 +51,104 @@ function getLocation(myPage) {
     }
 };
 getLocation(myPage)
+cartItemCount()
+
 
 // function call to our main function that determines
 // what functions run at the page
 // getLocation(find);
 
-// All function that used in thi page
+// All function that used here
+// ############## SOME GLOBAL/MULTIUSE FUNCTIONS ####################
 
-// drop down windows in store menu
-function chevronBtn() {
-    var button = document.getElementsByClassName('click');
-
-    for (let i = 0; i < button.length; i++) {
-        let clickedButton = button[i];
-        let main = clickedButton.parentElement.parentElement;
-        let list = main.children[1];
-        // console.log(list)
-
-        clickedButton.onclick = function () {
-            // console.log(list)
-
-            if (list.className == 'box') {
-                // console.log('shrink');
-                list.className = 'hidden';
-                clickedButton.className = 'fas fa-chevron-down click';
-            }
-            else {
-                // console.log('expand')    
-                list.className = 'box';
-                clickedButton.className = 'fas fa-chevron-up click';
-            }
-        }
-
-    };
+// navigating between at check out between item, address, payment forms
+// make check out more responsive
+function checkoutForms() {
+    // all form fields
+    let itemsForm = document.querySelector('#itemsForm')
+    let addressForm = document.querySelector('#addressForm')
+    let payForm = document.querySelector('#paymentForm')
+    // all navigation btns
+    let showAddress = document.querySelector('#getAddress')
+    let showPay = document.querySelector('#getPayment')
+    let hidePay = document.querySelector('#returnAddress')
+    let hideAddress = document.querySelector('#returnItems')
+    // show more
+    showAddress.addEventListener('click', function (event) {
+        console.log('click')
+        addressForm.style.display = 'block'
+        showAddress.style.display = 'none'
+    });
+    showPay.addEventListener('click', function (event) {
+        console.log('click')
+        payForm.style.display = 'block'
+        showPay.style.display = 'none'
+        showAddress.style.display = 'none'
+        hideAddress.style.display = 'none'
+    });
+    // show less
+    hidePay.addEventListener('click', function (event) {
+        console.log('click')
+        payForm.style.display = 'none'
+        showPay.style.display = 'block'
+        hideAddress.style.display = 'block'
+    });
+    hideAddress.addEventListener('click', function (event) {
+        console.log('click')
+        addressForm.style.display = 'none'
+        showAddress.style.display = 'inline'
+    });
 };
 
+// display how many items are in the cart
+// works when adding and deleting item from cart
+function cartItemCount() {
+    // let itemsContainer = document.querySelector('#item_list')
+    let cartCount = document.querySelector('.cart-items')
+    if (localStorage.getItem('cart') == 'null') {
+        cartCount.innerHTML = '0'
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem('cart'))
+        itemNum = Object.keys(cart).length
+        cartCount.innerHTML = itemNum
+    }
+};
+// make carousel responsive
+// add class active to 1st child
+// heart above carousel responsive
+function carouselAll() {
+    // add active class to 1st item from database
+    function carouselChild() {
+        let carouselItem = document.querySelector('.carousel-item')
+        carouselItem.classList.add('active')
+    };
+    carouselChild()
+    function carouselHeart() {
+        // change heart in carousel to solid red when clicked on it
+        var heart = document.getElementsByClassName('fa-heart')
+        for (i = 0; i < heart.length; i++) {
+            let singleHeart = heart[i];
+            singleHeart.onclick = function () {
+                if (singleHeart.className == 'far fa-heart fa-1x heart pt-3') {
+                    singleHeart.className = 'fas fa-heart text-danger fa-2x';
+                }
+                else if (singleHeart.className = 'fas fa-heart text-danger fa-2x') {
+                    singleHeart.className = 'far fa-heart fa-1x heart pt-3';
+                };
+            };
+        };
+    };
+    carouselHeart()
+};
+
+
+// ####################################################
+// ###############   SINGLE ITEM PAGE  ################
+// ####################################################
+
 // option button toggle for singe item page
+// change colors of the 2 buttons depending what button is clicked
 function btnToggle() {
     const fab1 = document.getElementById('fabric-1');
     const fab2 = document.getElementById('fabric-2');
@@ -122,99 +184,27 @@ function btnToggle() {
 };
 
 
-// add another address to shipping address on checkout page
-function addAddress() {
-    let newAddressBtn = document.querySelector('#addAddress')
-    let addressBook = document.querySelector('.saved-addresses')
-    newAddressBtn.addEventListener('click', function (event) {
-        let fname = document.querySelector('#fname').value
-        let lname = document.querySelector('#lname').value
-        let address = document.querySelector('#address').value
-        let city = document.querySelector('#city').value
-        let state = document.querySelector('#state').value
-        let zip = document.querySelector('#zip').value
-        let errorMsg = document.querySelector('#addressFormError')
-        if (fname != '' & lname != '' & address != '' & city != '' & state != '' & zip != '') {
-            let newAddress = `
-                <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                    value="option1" checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <ul class='userItems'>
-                        <li><b class='text-capitalize'>${fname} ${lname}</b></li>
-                        <li class='text-capitalize'>${address}, ${city}, ${state} ${zip}</li>
-                    </ul>
-                </label>
-            </div>
-                `
-            let itemTry = document.createElement('li')
-            itemTry.innerHTML = newAddress
-            addressBook.appendChild(itemTry)
-            errorMsg.style.display = 'none'
+// ####################################################
+// ###############   STORE PAGE  ######################
+// ####################################################
+// drop down windows in store menu
+function chevronBtn() {
+    var button = document.getElementsByClassName('click');
+    for (let i = 0; i < button.length; i++) {
+        let clickedButton = button[i];
+        let main = clickedButton.parentElement.parentElement;
+        let list = main.children[1];
+        clickedButton.onclick = function () {
+            if (list.className == 'box') {
+                list.className = 'hidden';
+                clickedButton.className = 'fas fa-chevron-down click';
+            }
+            else {
+                list.className = 'box';
+                clickedButton.className = 'fas fa-chevron-up click';
+            }
         }
-        else {
-            errorMsg.style.display = 'block'
-        }
-    });
-}
-
-
-// add another payment form from check out item form
-function addPayment() {
-    let submitBtn = document.querySelector('#addPaymentBtn')
-    submitBtn.addEventListener('click', function (event) {
-        let name = document.querySelector('#cardName').value
-        let cardNum = document.querySelector('#cardNum').value
-        let month = document.querySelector('#month').value
-        let year = document.querySelector('#year').value
-        let code = document.querySelector('#code').value
-        let allPayments = document.querySelector('.all-payments')
-        cardNum = cardNum.substring(cardNum.length - 4, cardNum.length)
-        let errorPayForm = document.querySelector('#cardFormError')
-        // if (name == '' || cardNum == '' || code == '' || month == '' || year == '') {
-        //     errorPayForm.innerHTML = 'All fields mut be completed'
-        //     errorPayForm.style.display = 'block'
-        // }
-        // console.log(Number.isInteger(parseInt(year)))
-        if(isNaN(year) || year.length>5 || year.includes('.')){
-            errorPayForm.innerHTML = 'Invalid Year'
-            errorPayForm.style.display = 'block'
-        }
-        if(isNaN(month) || parseInt(month) >12 || month.includes('.')){
-            errorPayForm.innerHTML = 'Invalid Month'
-            errorPayForm.style.display = 'block'
-        }
-        if(isNaN(cardNum) || cardNum.length != 3 || cardNum.includes('.')){
-            errorPayForm.innerHTML = 'Invalid Card'
-            errorPayForm.style.display = 'block'
-        }
-        if(isNaN(code) || code.length != 3 || code.includes('.')){
-            errorPayForm.innerHTML = 'Invalid Security Code'
-            errorPayForm.style.display = 'block'
-        }
-        else {
-            newPayment= `
-            <li>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios"
-                    id="exampleRadios1" value="option1" checked>
-                    <label class="form-check-label" for="exampleRadios1">
-                        <ul class='userItems'>
-                            <li class='text-capitalize'><b>${name}</b></li>
-                            <li>last 4 - ${cardNum}</li>
-                            <li>expiration ${month}/${year}</li>
-                        </ul>
-                    </label>
-             </div>
-             </li>
-        `
-        let itemTry = document.createElement('ul')
-        itemTry.innerHTML = newPayment
-        allPayments.appendChild(itemTry)
-        errorPayForm.style.display = 'none'
-        }
-
-    });
+    };
 };
 
 // filtering out by class name or showing item that want to see in store page
@@ -250,14 +240,12 @@ function linkRedirect() {
             }
             else {
                 filterFunction(value)
-
             }
-
         });
     });
 };
 
-// make all store items visible
+// make all store items visible or resetting all filter
 function resetFilter() {
     const reset = document.querySelector('.reset')
     reset.addEventListener('click', function (event) {
@@ -268,8 +256,7 @@ function resetFilter() {
     })
 };
 
-
-// price match
+// price match 
 // select items in price range
 function priceMatch() {
     priceBtn.addEventListener('click', function (event) {
@@ -279,16 +266,11 @@ function priceMatch() {
         const priceBtn = document.querySelector('#priceBtn')
         const intMax = parseInt(maxPrice.value, 10)
         const intMin = parseInt(minPrice.value, 10)
-
         if (intMin < intMax) {
-            // console.log('you got right numbers')
             allItems.forEach(function (item) {
                 let priceSpan = item.lastChild.previousElementSibling.innerHTML
                 let price = parseInt(priceSpan, 10)
-
                 if (intMin < price && price < intMax) {
-                    // console.log(price)
-
                     item.style.display = 'block';
                 }
                 else {
@@ -298,8 +280,6 @@ function priceMatch() {
         };
     });
 };
-
-
 
 // search by name on store page
 function nameSearch() {
@@ -311,14 +291,10 @@ function nameSearch() {
             allItems.forEach(function (item) {
                 let title = item.getElementsByTagName('h6')[0]
                 titleText = title.innerHTML.toLocaleLowerCase()
-                // console.log(titleText)
-                // console.log(searchName)
-
                 if (titleText.includes(searchName)) {
                     item.style.display = 'block'
                 }
                 else {
-                    // console.log('no')
                     item.style.display = 'none'
                 }
             });
@@ -326,131 +302,235 @@ function nameSearch() {
     });
 };
 
-// make carousel responsive
-// add class active to 1st child
-// heart above carousel responsive
-function carouselAll() {
-    // add active class to 1st item from database
-    function carouselChild() {
-        let carouselItem = document.querySelector('.carousel-item')
-        carouselItem.classList.add('active')
-    };
-    carouselChild()
+// add items to local storage when click on add to cart btn
+function addCart() {
+    let cartBtns = document.querySelectorAll('#addCart');
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+    }
+    cartBtns.forEach(function (cartBtn) {
+        cartBtn.addEventListener('click', function (event) {
+            let initial = cartBtn.parentElement.parentElement
+            let itemId = initial.id
+            let item_id = itemId.toString()
+            let itemName = initial.querySelector('#title').innerHTML
+            let itemPrice = initial.querySelector('#price').innerHTML.toString()
+            let itemImg = initial.querySelector('#image').src
+            if (cart[item_id] != undefined) {
+                quantity = cart[item_id][0] + 1;
+                cart[item_id][0] = quantity;
+            }
+            else {
+                let quantity = 1;
+                cart[item_id] = [quantity, itemName, itemPrice, itemImg]
+            }
+            localStorage.setItem('cart', JSON.stringify(cart))
+            // console.log(cart[item_id][0])
+            cartItemCount()
+        });
 
-    function carouselHeart() {
-        // change heart in carousel to solid red when clicked on it
-        var heart = document.getElementsByClassName('fa-heart')
-        for (i = 0; i < heart.length; i++) {
-            let singleHeart = heart[i];
+    });
+}
 
-            singleHeart.onclick = function () {
-                if (singleHeart.className == 'far fa-heart fa-1x heart pt-3') {
-                    singleHeart.className = 'fas fa-heart text-danger fa-2x';
-                    // console.log('1st')
-                }
-                else if (singleHeart.className = 'fas fa-heart text-danger fa-2x') {
-                    singleHeart.className = 'far fa-heart fa-1x heart pt-3';
-                    // console.log(singleHeart.className)
+// ####################################################
+// #################### CHECKOUT PAGE #################
+// ####################################################
 
-                };
-                // (singleHeart.className = 'fas fa-heart text-danger fa-2x'){
-                // };
-            };
+// add another address to shipping address on checkout page
+function addAddress() {
+    let newAddressBtn = document.querySelector('#addAddress')
+    let addressBook = document.querySelector('.saved-addresses')
+    newAddressBtn.addEventListener('click', function (event) {
+        let fname = document.querySelector('#fname')
+        let lname = document.querySelector('#lname')
+        let address = document.querySelector('#address')
+        let city = document.querySelector('#city')
+        let state = document.querySelector('#state')
+        let zip = document.querySelector('#zip')
+        let errors = 0
+        let errorMsg = document.querySelector('#addressFormError')
+
+        if(/^[A-Za-z]+$/.test(fname.value ) == false){
+            errorMsg.style.display = 'block';
+            fname.classList.add('error-border');
+            errors +=1;
+        }
+        if(/^[A-Za-z]+$/.test(lname.value)== false){
+            errorMsg.style.display = 'block';
+            lname.classList.add('error-border');
+            errors +=1;
+
+        }
+        if(/^[A-Za-z]+$/.test(state.value)== false){
+            errorMsg.style.display = 'block';
+            state.classList.add('error-border');
+            errors +=1;
+        }
+        if(zip.value.length != 2 || isNaN(zip.value)){
+            errorMsg.style.display = 'block';
+            zip.classList.add('error-border');
+            errors +=1;
+        }
+        if(city.value == ''){
+            errorMsg.style.display = 'block';
+            city.classList.add('error-border');
+            errors +=1;
+        }
+        if(address.value == ''){
+            address.style.display = 'block';
+            address.classList.add('error-border');
+            errors +=1;
+        }
+        if(errors == 0){
+            let newAddress = `
+            <li>
+                <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                    value="option1" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    <ul class='userItems'>
+                        <li><b class='text-capitalize'>${fname.value} ${lname.value}</b></li>
+                        <li class='text-capitalize'>${address.value}, ${city.value}, ${state.value} ${zip.value}</li>
+                    </ul>
+                </label>
+            </div>
+            </li>
+                `
+            let itemTry = document.createElement('li')
+            itemTry.innerHTML = newAddress
+            addressBook.appendChild(itemTry)
+
+            // hide form and clean input fields after submission
+            errorMsg.style.display = 'none'
+            let allInputFields = document.querySelectorAll('#addressForm input')
+            allInputFields.forEach(function (item) {
+                item.classList.remove('error-border')
+                item.value = ''
+            });          
+            let payForm = document.querySelector('#addressForm')
+            let toggleBtn = document.querySelector('#addAddress')
+            toggleBtn.innerHTML = 'Add Address'
+
+            payForm.classList.add('form-collapse')
+
         };
-    };
-    carouselHeart()
+    });
+}
+
+// add another payment form from check out item form
+// if Statement to make ure we received correct data from the form
+function addPayment() {
+    let submitBtn = document.querySelector('#addPaymentBtn')
+    submitBtn.addEventListener('click', function (event) {
+        let nameBox = document.getElementById('cardName')
+        let cardNumBox = document.getElementById('cardNum')
+        let monthBox = document.getElementById('month')
+        let yearBox = document.getElementById('year')
+        let codeBox = document.getElementById('code')
+
+        let name = document.querySelector('#cardName').value
+        let cardNum = document.querySelector('#cardNum').value
+        let month = document.querySelector('#month').value
+        let year = document.querySelector('#year').value
+        let code = document.querySelector('#code').value
+        let allPayments = document.querySelector('.all-payments')
+        cardNum = cardNum.substring(cardNum.length - 4, cardNum.length)
+        let errorPayForm = document.querySelector('#cardFormError')
+        let errors = 0
+        if(isNaN(year) || year.length>5 || year.includes('.')){
+            errorPayForm.style.display = 'block';
+            yearBox.classList.add('error-border');
+            errors += 1;
+        }
+        if(isNaN(month) || parseInt(month) >12 || month.includes('.')){
+            errorPayForm.style.display = 'block';
+            monthBox.classList.add('error-border');
+            errors += 1;
+        }
+        if(isNaN(cardNum) || cardNum.length != 3 || cardNum.includes('.')){
+            errorPayForm.style.display = 'block';
+            cardNumBox.classList.add('error-border');
+            errors += 1
+        }
+        if(isNaN(code) || code.length != 3 || code.includes('.')){
+            errorPayForm.style.display = 'block';
+            codeBox.classList.add('error-border');
+            errors += 1
+        }
+        if(/^[A-Za-z]+$/.test(name.replace(' ', '')) == false){
+            errorPayForm.style.display = 'block';
+            nameBox.classList.add('error-border');
+            errors +=1;
+        }
+        console.log(errors)
+        if(errors == 0){
+            newPayment= `
+            <li>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios"
+                    id="exampleRadios1" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        <ul class='userItems'>
+                            <li class='text-capitalize'><b>${name}</b></li>
+                            <li>last 4 - ${cardNum}</li>
+                            <li>expiration ${month}/${year}</li>
+                        </ul>
+                    </label>
+             </div>
+             </li>
+        `
+        let itemTry = document.createElement('ul')
+        itemTry.innerHTML = newPayment
+        allPayments.appendChild(itemTry)
+        errorPayForm.style.display = 'none'
+        let allInputFields = document.querySelectorAll('.addCardForm input')
+        allInputFields.forEach(function (item) {
+            item.classList.remove('error-border')
+            item.value = ''
+        });
+        let payForm = document.querySelector('.addCardForm')
+        let toggleBtn = document.querySelector('#addCardBtn')
+        toggleBtn.innerHTML = 'Add Card'
+        payForm.classList.add('form-collapse')           
+        }
+    });
 };
 
-
-// navigating between at check out between item, address, payment forms
-// make check out more responsive
-function checkoutForms() {
-    // all form fields
-    let itemsForm = document.querySelector('#itemsForm')
-    let addressForm = document.querySelector('#addressForm')
-    let payForm = document.querySelector('#paymentForm')
-
-    // all navigation btns
-    let showAddress = document.querySelector('#getAddress')
-    let showPay = document.querySelector('#getPayment')
-    let hidePay = document.querySelector('#returnAddress')
-    let hideAddress = document.querySelector('#returnItems')
-
-    // show more
-    showAddress.addEventListener('click', function (event) {
-        console.log('click')
-        addressForm.style.display = 'block'
-        showAddress.style.display = 'none'
-    });
-
-    showPay.addEventListener('click', function (event) {
-        console.log('click')
-        payForm.style.display = 'block'
-        showPay.style.display = 'none'
-        showAddress.style.display = 'none'
-        hideAddress.style.display = 'none'
-
-    });
-
-    // show less
-    hidePay.addEventListener('click', function (event) {
-        console.log('click')
-        payForm.style.display = 'none'
-        showPay.style.display = 'block'
-        hideAddress.style.display = 'block'
-
-
-    });
-    hideAddress.addEventListener('click', function (event) {
-        console.log('click')
-        addressForm.style.display = 'none'
-        showAddress.style.display = 'inline'
-    });
-};
-
-
-// new check out for with sliding down forms
+// new check out form with sliding down forms
 // this one works better, old one show/hide only
 function checkoutFormsSlide() {
     // all form fields
     let itemsForm = document.querySelector('#itemsForm')
     let addressForm = document.querySelector('#addressForm')
     let payForm = document.querySelector('#paymentForm')
-
-
     // all navigation btns
     let showAddress = document.querySelector('#getAddress')
     let showPay = document.querySelector('#getPayment')
     let hidePay = document.querySelector('#returnAddress')
     let hideAddress = document.querySelector('#returnItems')
     let addAddress = document.querySelector('#add-address-btn')
-
     addAddress.addEventListener('click', function (event) {
         let value = addressForm.classList.contains('form-collapse')
-
-        console.log(addAddress.innerHTML)
-        // console.group(value)
-        // console.log(addressForm.classList)
         if (value) {
             addressForm.classList.remove('form-collapse')
             addAddress.innerHTML = 'Hide'
-            // addressForm.classList.remove('form-expand')
         }
         else {
             addAddress.innerHTML = 'Add Address'
             addressForm.classList.add('form-collapse')
-            // addressForm.classList.add('form-collapse')
         }
     });
 };
 
-// slide for add address brt
+// slide for add address btn
 function slideCardForm() {
     let payForm = document.querySelector('.addCardForm')
     let toggleBtn = document.querySelector('#addCardBtn')
     toggleBtn.addEventListener('click', function (event) {
         let value = payForm.classList.contains('form-collapse')
-        // payForm.parentElement.style.display = 'none'
         // form is shown
         if (value) {
             payForm.classList.remove('form-collapse')
@@ -462,47 +542,9 @@ function slideCardForm() {
             payForm.classList.add('form-collapse')
         }
     });
-
 };
 
 
-// #### Functions that relate to local storage addition, saving, and displaying
-// add items to local storage when click on add to cart btn
-function addCart() {
-    let cartBtns = document.querySelectorAll('#addCart');
-    if (localStorage.getItem('cart') == null) {
-        var cart = {};
-    }
-    else {
-        cart = JSON.parse(localStorage.getItem('cart'));
-
-    }
-    cartBtns.forEach(function (cartBtn) {
-        cartBtn.addEventListener('click', function (event) {
-            let initial = cartBtn.parentElement.parentElement
-            let itemId = initial.id
-            let item_id = itemId.toString()
-            let itemName = initial.querySelector('#title').innerHTML
-            let itemPrice = initial.querySelector('#price').innerHTML.toString()
-            let itemImg = initial.querySelector('#image').src
-
-            if (cart[item_id] != undefined) {
-                quantity = cart[item_id][0] + 1;
-                cart[item_id][0] = quantity;
-            }
-
-            else {
-                let quantity = 1;
-                cart[item_id] = [quantity, itemName, itemPrice, itemImg]
-            }
-            localStorage.setItem('cart', JSON.stringify(cart))
-            // console.log(cart[item_id][0])
-            cartItemCount()
-
-        });
-
-    });
-}
 // display item that were added to card dynamically with template
 // items are added to check out page
 function cartLocalStorage() {
@@ -513,19 +555,14 @@ function cartLocalStorage() {
         cart = JSON.parse(localStorage.getItem('cart'))
     }
     for (item in cart) {
-        // console.log(item);
         let itemId = item;
         let itemQuantity = cart[item][0]
         let itemName = cart[item][1];
         let itemPrice = cart[item][2];
         let itemImgSrc = cart[item][3];
-
-        // div where add out template
         let itemDiv = document.getElementById('item_list')
-        // console.log(itemDiv)
-
         let itemString = `
-                < div class="row d-flex align-items-baseline my-2 py-2 my-auto" id = '${itemId}' >
+                <div class="row d-flex align-items-baseline my-2 py-2 my-auto" id = '${itemId}' >
                     <div class="col-sm-2">
                         <img src="${itemImgSrc}" alt="img" class='img-fluid'>
         </div>
@@ -550,16 +587,12 @@ function cartLocalStorage() {
                     </div>
 
             `;
-
         let itemTry = document.createElement('li')
         itemTry.innerHTML = itemString
 
         itemDiv.appendChild(itemTry);
-
-
     }
 }
-
 
 // add items to cart local storage from item page
 function cartItemPage() {
@@ -577,33 +610,19 @@ function cartItemPage() {
         let itemImg = document.querySelector('#itemImage').src
         let itemId = document.querySelector('.container').id
         let item_id = itemId.toString()
-
-
-        // console.log(itemName, itemPrice, itemImg, itemId)
-        // add items
         if (cart[item_id] != undefined) {
             quantity = cart[item_id][0] + 1;
             cart[item_id][0] = quantity;
         }
-
         else {
             let quantity = 1;
             cart[item_id] = [quantity, itemName, itemPrice, itemImg]
         }
         localStorage.setItem('cart', JSON.stringify(cart))
         cartItemCount()
-        // console.log(cart[item_id][0])
-
     });
 
 };
-
-
-// ######################################################
-// items in checkout page functionally
-// display correct number of items and $ in order summary
-// ######################################################
-
 
 // select right option do display the number of items in cart initially
 function optionInitDisplay() {
@@ -625,17 +644,13 @@ function optionInitDisplay() {
 
 };
 
-
 // get display right prices in order summary div
 // get all prices from item section
 function orderSummary() {
-
-
     let finPrice = document.querySelector('#items-price')
     let finShip = document.querySelector('#shipping')
     let finTax = document.querySelector('#tax')
     let total = document.querySelector('#totalPrice')
-
     if (localStorage.getItem('cart') == 'null') {
         finPrice.innerHTML = 0
         finShip.innerHTML = 0
@@ -659,8 +674,6 @@ function orderSummary() {
 
 
 };
-
-
 
 // delete item from check out page and local storage
 function deleteItem() {
@@ -686,20 +699,3 @@ function deleteItem() {
 };
 
 
-// display how many items are in the cart
-// works when adding and deleting item from cart
-function cartItemCount() {
-    // let itemsContainer = document.querySelector('#item_list')
-    let cartCount = document.querySelector('.cart-items')
-    // let itemNum = itemsContainer.childElementCount
-    // console.log(itemNum)
-    if (localStorage.getItem('cart') == 'null') {
-        cartCount.innerHTML = '0'
-    }
-    else {
-        cart = JSON.parse(localStorage.getItem('cart'))
-        itemNum = Object.keys(cart).length
-        cartCount.innerHTML = itemNum
-
-    }
-};

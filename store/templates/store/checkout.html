@@ -80,8 +80,8 @@
                 <h5 class='my-4'>2. ADDRESS</h5>
                 <h6 class="checkLabel">Contact Detail</h6>
                 <!-- saved addresses saved here -->
-                <div class="saved-addresses">
-                    <ul>
+                <div>
+                    <ul class="saved-addresses">
                         <li>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
@@ -118,14 +118,14 @@
                         <form action="">
                             <!-- single form  row -->
 
-                            <h5 class='text-danger' id='addressFormError'>Enter All Fields</h5>
+                            <h5 class='text-danger' id='addressFormError'>Invalid Information</h5>
                             <!-- end form row -->
                             <!-- single form  row -->
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="fname">First Name</label>
-                                        <input type="text" class="form-control" id="fname" placeholder="first name" required>
+                                        <input type="text" class="form-control" id="fname" placeholder="first name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -146,7 +146,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="city">City</label>
-                                        <input type="text" class="form-control" id="city" placeholder="123 Main St">
+                                        <input type="text" class="form-control" id="city" placeholder="City">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -221,8 +221,7 @@
                     <div class="hide-form">
                         <div class='addCardForm form-collapse'>
                             <form action="">
-                                <h5 class='text-danger mt-2' id='cardFormError'>Invalid Info</h5>
-
+                                <h5 class='text-danger mt-2' id='cardFormError'>Invalid Information</h5>
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -238,7 +237,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- single form  row -->
                                 <div class="form-row">
                                     <div class="col-md-2">

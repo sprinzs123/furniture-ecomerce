@@ -3,6 +3,10 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import ContactInfo, Payment, Test
+import futniture_store as mainBrach
+items = mainBrach
+# from futniture_store import store
+
 
 def login(request):
     if request.method == 'POST':
@@ -43,10 +47,7 @@ def logout(request):
 
 @login_required
 def user_page(request):
-    # if request.method == 'POST':
         addtest(request)
-        # addAddress(request)
-    # else:
         payInfo = Payment.objects.all()
         addresInfo = ContactInfo.objects.all()
         userPay = payInfo.filter(user=request.user)

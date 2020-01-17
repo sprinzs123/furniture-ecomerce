@@ -611,13 +611,17 @@ li:hover{
   margin-bottom: 1.5rem;
 
 }
-
 #addressFormError{
   display: none;
 }
 #cardFormError{
   display: none;
 }
+.error-border{
+  border-color: red !important;
+ 
+}
+
 
 
 
