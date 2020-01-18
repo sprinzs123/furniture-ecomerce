@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import ContactInfo, Payment, Test
 import futniture_store as mainBrach
-items = mainBrach
-# from futniture_store import store
 
 
 def login(request):
@@ -72,6 +70,10 @@ def addAddress(request):
             newAddress = ContactInfo()
             return reversed('login/user.html')
 
+def checkout(request):
+    return render(request, 'login/checkout.html')
+
+
 
 def addtest(request):
     # if request.method == 'POST':
@@ -84,6 +86,7 @@ def addtest(request):
             test = Test()
 
             return redirect('login/user.html')
+
 
 
 

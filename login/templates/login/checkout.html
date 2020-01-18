@@ -1,6 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load staticfiles %}
+<!-- modal for order summary -->
+<div class="order-modal">
+    <div class="modal-content col-6">
+        <div class="col-12">
+            <h4>Order Summary</h4>
+            <ul id='order-summary'>
+                <!-- <div class="row">
+                    <div class="col-sm-2">
+                        <img src="${itemImgSrc}" alt="img" class='img-fluid'>
+                </div>
+                <div class="col-sm-4">
+                    <a href="/store/item${itemId}"><h6 class='text-capitalize'>${itemName}</h6>
+                    </a>
+                </div>
+                <div class="col-sm-4">
+                    <p>Qty: ${itemQuantity}</p>
+                </div>
+                </div> -->
+
+            </ul>
+        </div>
+        </div>  
+    </div>
+</div>
+<!-- end summary modal -->
+
 <div class="fluid-container check-main">
     <div class="container mt-4 p-4">
         <div class="row my-auto d-flex justify-content-between">
@@ -37,11 +63,8 @@
                         </div>
                     </div>
                     <!-- end single item -->
-
-
                 </div>
                 <!-- end order div  with all item-->
-                <div class="btn btn-yellow my-3" id='getAddress'>Address</div>
 
 
 
@@ -67,13 +90,16 @@
                     <li>TOTAL</li>
                     <li><b class="text-orange" id='totalPrice'>$111</b></li>
                 </ul>
-            </div>
-            <!-- end single -->
+                <div class="btn btn-yellow btn-lg m-3" id='submit-order'>Place Order</div>
+           </div>
         </div>
 
         <!-- end items -->
         <!-- peron info div -->
         <!--  -->
+
+
+<!-- end order modal -->
 
         <div class="row mt-3 test2">
             <div class="col-md-8 order-detail">

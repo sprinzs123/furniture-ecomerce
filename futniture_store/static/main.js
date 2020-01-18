@@ -43,6 +43,7 @@ function getLocation(myPage) {
         addPayment()
         optionInitDisplay()
         orderSummary()
+        placeOrderModal()
 
     }
     // user page
@@ -565,7 +566,7 @@ function cartLocalStorage() {
                 <div class="row d-flex align-items-baseline my-2 py-2 my-auto" id = '${itemId}' >
                     <div class="col-sm-2">
                         <img src="${itemImgSrc}" alt="img" class='img-fluid'>
-        </div>
+                </div>
                         <div class="col-sm-4">
                             <a href="/store/item${itemId}"><h6 class='text-capitalize'>${itemName}</h6>
                             </a>
@@ -634,8 +635,6 @@ function optionInitDisplay() {
     }
     let itemAmountList = Object.keys(cart)
     let allItems = document.getElementById('item_list')
-    // console.log(allItems.children[0])
-
     for (var i = 0; i < allItems.children.length; i++) {
         let oneItem = allItems.children[i]
         let amount = itemAmountList[i]
@@ -675,7 +674,7 @@ function orderSummary() {
 
 };
 
-// delete item from check out page and local storage
+// delete item from check out page and local storage when click delete btn
 function deleteItem() {
     deleteBnts = document.querySelectorAll('#deleteBtn')
     // console.log(deleteBnts)
@@ -696,6 +695,51 @@ function deleteItem() {
             cartItemCount()
         });
     });
+};
+
+// place order on button submit by bringing up modal
+// check if have all fields needed
+// save data into database
+// clear database at exit
+function placeOrderModal(){
+    submitBtn = document.querySelector('#submit-order')
+    orderItems = document.getElementById('item-list')
+    orderAddress = document.getElementsByClassName('saved-addresses')
+    orderPayment = document.getElementsByClassName('all-payments')
+    let ulSummary = document.getElementsByClassName('order-summary')
+    cart = JSON.parse(localStorage.getItem('cart'))
+    console.log(ulSummary)
+    // ulSummary.innerHTML = cart
+
+
+    for(item in cart){
+        let ulSummary = document.getElementById('order-summary')
+        let itemId = item;
+        let itemQuantity = cart[item][0]
+        let itemName = cart[item][1];
+        let itemPrice = cart[item][2];
+        let itemImgSrc = cart[item][3];
+        let addedItem = `
+    <div class="row d-flex align-items-baseline my-2 py-2 my-auto">
+        <div class="col-sm-4">
+            <img src="${itemImgSrc}" alt="img" class='img-fluid'>
+        </div>
+        <div class="col-sm-4">
+            <a href="/store/item${itemId}"><h6 class='text-capitalize'>${itemName}</h6></a>
+        </div>
+        <div class="col-sm-4">
+            <p>Qty: ${itemQuantity}</p>
+        </div>
+    </div>
+        `
+        let itemTry = document.createElement('li')
+        itemTry.innerHTML = addedItem
+        console.log(itemTry)
+        ulSummary.appendChild(itemTry);
+    }
+
+    // submitBtn.addEventListener('click', function(event){
+    // });
 };
 
 

@@ -25,9 +25,14 @@ class Payment(models.Model):
 class Test(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     testing = models.CharField(max_length=200)
-
     def __str__(self):
         return f'{self.user.username} testing'
+
+class Orders(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    address = models.CharField(max_length=300)
+    items = models.CharField(max_length=3000)
+
 
 
 

@@ -13,7 +13,3 @@ def store(request):
 def single(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     return render(request, 'store/single_item.html',  {'items': items, 'featured':featured, 'product': product})
-
-
-def checkout(request):
-    return render(request, 'store/checkout.html',  {'items': items, 'featured':featured, })
