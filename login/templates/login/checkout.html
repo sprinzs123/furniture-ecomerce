@@ -2,27 +2,21 @@
 {% block content %}
 {% load staticfiles %}
 <!-- modal for order summary -->
-<div class="order-modal">
-    <div class="modal-content col-6">
-        <div class="col-12">
-            <h4>Order Summary</h4>
-            <ul id='order-summary'>
-                <!-- <div class="row">
-                    <div class="col-sm-2">
-                        <img src="${itemImgSrc}" alt="img" class='img-fluid'>
-                </div>
-                <div class="col-sm-4">
-                    <a href="/store/item${itemId}"><h6 class='text-capitalize'>${itemName}</h6>
-                    </a>
-                </div>
-                <div class="col-sm-4">
-                    <p>Qty: ${itemQuantity}</p>
-                </div>
-                </div> -->
-
+<div class="order-modal hidden">
+    <div class="modal-content col-12 col-sm-10 col-md-8 col-lg-4 p-3">
+        <!-- <div class="col-12"> -->
+            <div class='d-flex justify-content-between'>
+                <h3>Order Summary</h3>
+                <i class="far fa-times-circle fa-2x exit-modal"></i>
+            </div>
+            <ul id='dynamic-contact'>
+                <!-- name and address dynamically added here -->
+            </ul>
+             <ul id='order-summary'>
+                <!-- dynamically addded items go here -->
             </ul>
         </div>
-        </div>  
+        <!-- </div>   -->
     </div>
 </div>
 <!-- end summary modal -->
@@ -110,19 +104,19 @@
                     <ul class="saved-addresses">
                         <li>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                <input class="form-check-input" type="radio" name="address-radio" id="address"
                                     value="option1" checked>
                                 <label class="form-check-label" for="exampleRadios1">
                                     <ul class='userItems'>
-                                        <li><b>John Smith</b></li>
-                                        <li>123 Main st, Omaha, NE 65343</li>
+                                        <li><b id='user-name'>John Smith</b></li>
+                                        <li id='user-address'>123 Main st, Omaha, NE 65343</li>
                                     </ul>
                                 </label>
                             </div>
                         </li>
                         <li>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                <input class="form-check-input" type="radio" name="address-radio" id="address"
                                     value="option1" checked>
                                 <label class="form-check-label" for="exampleRadios1">
                                     <ul class='userItems'>

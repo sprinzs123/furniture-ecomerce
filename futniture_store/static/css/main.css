@@ -620,9 +620,10 @@ li:hover{
 .error-border{
   border-color: red !important;
 }
+/* parent div of the modal */
 .order-modal{
   position: fixed;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   top: 0;
   left: 0;
@@ -631,13 +632,23 @@ li:hover{
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: auto !important;
 }
+.hidden{
+  display: none;
+}
+/* things where modal contents go */
 .modal-content{
-  position: relative;
-  background-color:yellow;
-  display: flex;
+  /* position: relative; */
+  display: block;
   width: 40px;
   justify-content: center;
+  overflow: auto !important;
+
+}
+.exit-modal:hover{
+  color: orangered;
+  cursor: pointer;
 }
 
 
