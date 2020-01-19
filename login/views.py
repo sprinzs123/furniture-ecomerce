@@ -46,12 +46,14 @@ def logout(request):
 @login_required
 def user_page(request):
         addtest(request)
+        addAddress(request)
         payInfo = Payment.objects.all()
         addresInfo = ContactInfo.objects.all()
         userPay = payInfo.filter(user=request.user)
         userName = request.user.username
         userAddress = addresInfo.filter(user=request.user)
         return render(request, 'login/user.html', {'payment': userPay, 'address': userAddress, 'userName': userName})
+
 
 def addAddress(request):
     # if request.method == 'POST':
@@ -70,22 +72,21 @@ def addAddress(request):
             newAddress = ContactInfo()
             return reversed('login/user.html')
 
-def checkout(request):
-    return render(request, 'login/checkout.html')
 
+def checkout(request):
+    addtest(request)
+    return render(request, 'login/checkout.html')
 
 
 def addtest(request):
     # if request.method == 'POST':
-
         test = Test()
         test.user = request.user
-        test.testing = request.POST.get('test', '')
-        if test.testing != '':
-            test.save()
-            test = Test()
-
-            return redirect('login/user.html')
+        test.testing = request.POST.get('test', 'cant find it')
+        # if test.testing != '':
+        test.save()
+        test = Test()
+        # return redirect('login/user.html')
 
 
 

@@ -681,15 +681,21 @@ function placeOrderModal() {
   let modal = document.querySelector(".order-modal");
   let modalCloseBtn = document.querySelector(".exit-modal");
   cart = JSON.parse(localStorage.getItem("cart"));
-
+  // close modal
   modalCloseBtn.addEventListener("click", function(event) {
     modal.classList.add("hidden");
   });
-
+  // open modal
   submitBtn.addEventListener("click", function(event) {
     modal.classList.remove("hidden");
     addItemsModal();
     addActiveAddress();
+    cartInputAssign();
+
+    function cartInputAssign(){
+      let inputValue = document.querySelector('#save-cart-django')
+      inputValue.value = JSON.stringify(cart)
+    };
 
     function addActiveAddress() {
       radioAddress = document.getElementsByName("address-radio");
@@ -736,3 +742,5 @@ function placeOrderModal() {
     }
   });
 }
+
+

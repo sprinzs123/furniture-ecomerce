@@ -30,8 +30,9 @@ class Test(models.Model):
 
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name =  models.CharField(max_length=300)
     address = models.CharField(max_length=300)
-    items = models.CharField(max_length=3000)
+    items = models.CharField(max_length=30000)
 
 
 
