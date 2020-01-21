@@ -13,6 +13,8 @@ function getLocation(myPage) {
     btnToggle();
     carouselAll();
     cartItemPage();
+    linkRedirect() 
+
   }
   // store page
   else if (myPage == "/store/") {
@@ -22,14 +24,18 @@ function getLocation(myPage) {
     resetFilter();
     priceMatch();
     nameSearch();
-    linkRedirect();
     carouselAll();
     addCart();
+    applyFilter()
+    // linkRedirect() 
+
   }
   // home page
   else if (myPage == "/") {
     console.log("you are home");
     carouselAll();
+    linkRedirect() 
+
   }
   // check out page
   else if (myPage == "/checkout") {
@@ -44,12 +50,15 @@ function getLocation(myPage) {
     optionInitDisplay();
     orderSummary();
     placeOrderModal();
+    linkRedirect() 
+
   }
   // user page
   else if (myPage == "/mypage/") {
     console.log("user page");
   }
 }
+// all global functions
 getLocation(myPage);
 cartItemCount();
 
@@ -59,45 +68,6 @@ cartItemCount();
 
 // All function that used here
 // ############## SOME GLOBAL/MULTIUSE FUNCTIONS ####################
-
-// navigating between at check out between item, address, payment forms
-// make check out more responsive
-function checkoutForms() {
-  // all form fields
-  let itemsForm = document.querySelector("#itemsForm");
-  let addressForm = document.querySelector("#addressForm");
-  let payForm = document.querySelector("#paymentForm");
-  // all navigation btns
-  let showAddress = document.querySelector("#getAddress");
-  let showPay = document.querySelector("#getPayment");
-  let hidePay = document.querySelector("#returnAddress");
-  let hideAddress = document.querySelector("#returnItems");
-  // show more
-  showAddress.addEventListener("click", function(event) {
-    console.log("click");
-    addressForm.style.display = "block";
-    showAddress.style.display = "none";
-  });
-  showPay.addEventListener("click", function(event) {
-    console.log("click");
-    payForm.style.display = "block";
-    showPay.style.display = "none";
-    showAddress.style.display = "none";
-    hideAddress.style.display = "none";
-  });
-  // show less
-  hidePay.addEventListener("click", function(event) {
-    console.log("click");
-    payForm.style.display = "none";
-    showPay.style.display = "block";
-    hideAddress.style.display = "block";
-  });
-  hideAddress.addEventListener("click", function(event) {
-    console.log("click");
-    addressForm.style.display = "none";
-    showAddress.style.display = "inline";
-  });
-}
 
 // display how many items are in the cart
 // works when adding and deleting item from cart
@@ -112,6 +82,7 @@ function cartItemCount() {
     cartCount.innerHTML = itemNum;
   }
 }
+
 // make carousel responsive
 // add class active to 1st child
 // heart above carousel responsive
@@ -137,6 +108,33 @@ function carouselAll() {
     }
   }
   carouselHeart();
+}
+
+// select all filter buttons, capture filter and send filter to main
+// filter function
+// redirect to store page and save filter value in local storage
+// global function
+function linkRedirect() {
+  const filters = document.querySelectorAll(".filterBtn");
+  filters.forEach(function(btn) {
+    btn.addEventListener("click", function(event) {
+      let myURL = window.location.pathname;
+      let value = event.target.dataset.filter;
+        if (myURL != "/store/"){
+          location.href = "/store";
+          localStorage.setItem('filter', value)
+        }
+    });
+  });
+}
+
+// apply filter from local storage that was saved up in local storage
+function applyFilter(){
+  if(localStorage.getItem('filter') != null){
+    filterFunction(localStorage.getItem('filter'))
+    console.log('applied')
+    
+  }
 }
 
 // ####################################################
@@ -213,26 +211,6 @@ function filterFunction(filterData) {
     } else {
       item.style.display = "none";
     }
-  });
-}
-// select all filter buttons, capture filter and send filter to main
-// filter function
-// redirect to store page and apply filter if not there already
-// global function
-function linkRedirect() {
-  const filters = document.querySelectorAll(".filterBtn");
-  filters.forEach(function(btn) {
-    btn.addEventListener("click", function(event) {
-      let myURL = window.location.pathname;
-      let value = event.target.dataset.filter;
-      if (myURL != "/store/") {
-        location.href = "/store";
-        // console.log(value)
-        filterFunction(value);
-      } else {
-        filterFunction(value);
-      }
-    });
   });
 }
 
@@ -690,13 +668,28 @@ function placeOrderModal() {
     modal.classList.remove("hidden");
     addItemsModal();
     addActiveAddress();
-    cartInputAssign();
+    orderInputValue();
+    document.getElementById("orders-form").submit(); 
 
-    function cartInputAssign(){
+    // gathering right information to sent to database
+    // assign inputs
+    function orderInputValue(){
       let inputValue = document.querySelector('#save-cart-django')
+      let nameForInput = document.querySelector('#save-order-name')
+      let addressForInput = document.querySelector('#save-order-address')
+      inputValue.value = JSON.stringify(cart)
+      for (var i = 0, length = radioAddress.length; i < length; i++) {
+        if (radioAddress[i].checked) {
+          let name = addressDiv.querySelectorAll("li")[0].textContent;
+          let address = addressDiv.querySelectorAll("li")[1].textContent;
+          nameForInput.value = name;
+          addressForInput.value = address;
+        };
+      };  
       inputValue.value = JSON.stringify(cart)
     };
-
+    
+    // showing correct information on modal
     function addActiveAddress() {
       radioAddress = document.getElementsByName("address-radio");
       let summaryContact = document.querySelector("#dynamic-contact");

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import ContactInfo, Payment, Test
+from .models import ContactInfo, Payment, Test, Orders
 import futniture_store as mainBrach
 
 
@@ -74,7 +74,7 @@ def addAddress(request):
 
 
 def checkout(request):
-    addtest(request)
+    addOrders(request)
     return render(request, 'login/checkout.html')
 
 
@@ -87,6 +87,19 @@ def addtest(request):
         test.save()
         test = Test()
         # return redirect('login/user.html')
+
+def addOrders(request):
+    order = Orders()
+    order.user = request.user
+    order.name = request.POST.get('name', 'default')
+    order.address = request.POST.get('address', 'default')
+    order.items = request.POST.get('items', 'default')
+    order.save()
+    order = Orders()
+
+
+
+
 
 
 
