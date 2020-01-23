@@ -26,7 +26,7 @@ function getLocation(myPage) {
     nameSearch();
     carouselAll();
     addCart();
-    applyFilter()
+    applyFilterStore()
     // linkRedirect() 
 
   }
@@ -74,7 +74,7 @@ cartItemCount();
 function cartItemCount() {
   // let itemsContainer = document.querySelector('#item_list')
   let cartCount = document.querySelector(".cart-items");
-  if (localStorage.getItem("cart") == "null") {
+  if (localStorage.getItem("cart") == null) {
     cartCount.innerHTML = "0";
   } else {
     cart = JSON.parse(localStorage.getItem("cart"));
@@ -116,6 +116,7 @@ function carouselAll() {
 // global function
 function linkRedirect() {
   const filters = document.querySelectorAll(".filterBtn");
+  console.log(filters)
   filters.forEach(function(btn) {
     btn.addEventListener("click", function(event) {
       let myURL = window.location.pathname;
@@ -129,10 +130,19 @@ function linkRedirect() {
 }
 
 // apply filter from local storage that was saved up in local storage
-function applyFilter(){
+function applyFilterStore(){
   if(localStorage.getItem('filter') != null){
     filterFunction(localStorage.getItem('filter'))
-    console.log('applied')
+    const filters = document.querySelectorAll(".filterBtn");
+    filters.forEach(function(btn) {
+      btn.addEventListener("click", function(event) {
+        let value = event.target.dataset.filter;
+        filterFunction(value);
+        // filterFunction(localStorage.clear('filter'));
+
+      });
+    });
+
     
   }
 }
@@ -204,13 +214,18 @@ function chevronBtn() {
 function filterFunction(filterData) {
   // console.log(filterData)
   let allItems = document.querySelectorAll(".storeItem");
-  allItems.forEach(function(item) {
-    //    console.log(item.classList)
-    if (item.classList.contains(filterData)) {
+   allItems.forEach(function(item) {
+    if(filterData == 'all'){
       item.style.display = "block";
-    } else {
-      item.style.display = "none";
     }
+    else{
+      if (item.classList.contains(filterData)) {
+        item.style.display = "block";
+      }
+       else {
+        item.style.display = "none";
+      }
+    };
   });
 }
 
