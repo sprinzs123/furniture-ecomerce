@@ -9,20 +9,20 @@
             </div>
         </div>
         <div class="row">
-            {% for item in featured.all %}
+            {% for item in items|slice:":6" %}
             <div class="col-10 mx-auto col-md-6 col-lg-4">
-                    <div class="featured-container p-3">
-                      <img src="{{ item.picture.url }}" alt="" class='img-fluid'>
-                      <span class="featured-search-icon" data-toggle="model" data-target="#productModal"><i
-                          class="fas fa-search"></i></span>
-                      <a href="#" class="featured-store-link text-capitalized">add to cart</a>
-                    </div>
-                    <h6 class="text-capitalize text-center my-2">{{ item.title }}</h6>
-                    <h6 class="text-center">
-                      <span class='text-muted old-price mx-2'>{{ item.old_price }}</span>
-                      <span class='new-price'>{{ item.price }}</span>
-                    </h6>
-                  </div>
+                <div class="featured-container p-3">
+                    <img src="{{ item.picture.url }}" alt="product image" class='img-fluid'>
+                    <span class="featured-search-icon" data-toggle="model" data-target="#productModal">
+                        <a href="/store/item{{item.id}}"><i class="fas fa-search go-single-page"></i></a></span>
+                    <a href="#" class="featured-store-link text-capitalized">add to cart</a>
+                </div>
+                <h6 class="text-capitalize text-center my-2">{{ item.title }}</h6>
+                <h6 class="text-center">
+                    <span class='text-muted old-price mx-2'>{{ item.old_price }}old</span>
+                    <span class='new-price'>{{ item.price }}new</span>
+                </h6>
+            </div>
             {% endfor %}
         </div>
     </div>

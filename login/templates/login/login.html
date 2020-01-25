@@ -3,24 +3,25 @@
 
 
 {% if error %}
-    {{error}}
+{{error}}
 {% endif %}
 
-<h1>Login</h1>
 
-<form method="POST" action="{% url 'login' %}">
-{% csrf_token %}
-    Username:
-    <br/>
-    <input type='text' name="username"/>
-    <br/>
-    Password:
-    <br/>
-    <input type='password' name="password"/>
-    <br/>
-    <br/>
-    <input  class="btn btn-primary" type="submit" value="Login">
-</form>
+<div class='my-3 d-flex justify-content-center'>
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        Username:
+        <br />
+        <input type='text' name="username" />
+        <br />
+        Password:
+        <br />
+        <input type='password' name="password" />
+        <br />
+        <input class="btn btn-yellow mt-2" type="submit" value="Login">
+    </form>
+
+</div>
 
 
 {% endblock %}

@@ -175,7 +175,7 @@ body {
 /* ################# banner */
 .banner{
   background: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),
-  url(../img/banner.jpg);
+  url(../img/newbanner.jpg);
   min-height: calc(100vh - 200px);
   background-position: center;
   background-size:cover;
@@ -249,6 +249,7 @@ body {
 .featured-store-link:hover{
   color:var(--mainBlack);
   text-decoration: none;
+  cursor: pointer;
 }
 
 .featured-container:hover .featured-store-link{
@@ -314,7 +315,7 @@ body {
 }
 
 
-/*################# products */
+/*################# products or store page */
 .products-categories-underline{
   height: 0.2rem;
   width: 5rem;
@@ -343,9 +344,8 @@ body {
   border-color:var(--MainOrange)!important;
   box-shadow: 0 0 0 0.2rem rgba(218, 149, 40, 0.25)!important;
 }
-
-li:hover{
-  /* color: var(--mainGrey); */
+.go-single-page{
+  color: var(--mainBlack);
 }
 .click{
   color: black;
@@ -357,9 +357,6 @@ li:hover{
 .price-input{
  width: 55%;
 }
-
-
-
 .products-color-black{
   background: black;
 }

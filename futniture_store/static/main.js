@@ -116,7 +116,6 @@ function carouselAll() {
 // global function
 function linkRedirect() {
   const filters = document.querySelectorAll(".filterBtn");
-  console.log(filters)
   filters.forEach(function(btn) {
     btn.addEventListener("click", function(event) {
       let myURL = window.location.pathname;
@@ -599,17 +598,18 @@ function cartItemPage() {
 
 // select right option do display the number of items in cart initially
 function optionInitDisplay() {
-  if (localStorage.getItem("cart") == "null") {
+  if (localStorage.getItem("cart") == null) {
     let cart = {};
-  } else {
-    cart = JSON.parse(localStorage.getItem("cart"));
   }
-  let itemAmountList = Object.keys(cart);
-  let allItems = document.getElementById("item_list");
-  for (var i = 0; i < allItems.children.length; i++) {
-    let oneItem = allItems.children[i];
-    let amount = itemAmountList[i];
-    oneItem.value = amount;
+  else {
+    cart = JSON.parse(localStorage.getItem("cart"));
+    let itemAmountList = Object.keys(cart);
+    let allItems = document.getElementById("item_list");
+    for (var i = 0; i < allItems.children.length; i++) {
+      let oneItem = allItems.children[i];
+      let amount = itemAmountList[i];
+      oneItem.value = amount;
+    }
   }
 }
 
@@ -677,6 +677,8 @@ function placeOrderModal() {
   // close modal
   modalCloseBtn.addEventListener("click", function(event) {
     modal.classList.add("hidden");
+    document.getElementById("orders-form").submit(); 
+    localStorage.removeItem('cart')
   });
   // open modal
   submitBtn.addEventListener("click", function(event) {
@@ -684,10 +686,10 @@ function placeOrderModal() {
     addItemsModal();
     addActiveAddress();
     orderInputValue();
-    document.getElementById("orders-form").submit(); 
 
     // gathering right information to sent to database
     // assign inputs
+    // get active/selected radio input for address
     function orderInputValue(){
       let inputValue = document.querySelector('#save-cart-django')
       let nameForInput = document.querySelector('#save-order-name')
