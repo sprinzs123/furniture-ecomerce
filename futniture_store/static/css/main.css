@@ -488,7 +488,7 @@ body {
       visibility: visible;
   }
   
-  /* farthest right hidden item must be abso position for animations */
+  /* farthest right hidden item must be also position for animations */
   .carousel-inner .carousel-item-prev.carousel-item-right {
       position: absolute;
       top: 0;

@@ -26,8 +26,10 @@ function getLocation(myPage) {
     nameSearch();
     carouselAll();
     addCart();
-    applyFilterStore()
-    // linkRedirect() 
+    applyFilterStore();
+    defaultItemView();
+    navigationBtnsClick()
+
 
   }
   // home page
@@ -35,6 +37,9 @@ function getLocation(myPage) {
     console.log("you are home");
     carouselAll();
     linkRedirect() 
+    displayReducedPrice()
+    addCart();
+
 
   }
   // check out page
@@ -51,11 +56,18 @@ function getLocation(myPage) {
     orderSummary();
     placeOrderModal();
     linkRedirect() 
+    assignOption()
+    updateItemPrice()
+
 
   }
   // user page
   else if (myPage == "/mypage/") {
     console.log("user page");
+    checkoutFormsSlide();
+    addAddress();
+    addPayment();
+    slideCardForm();
   }
 }
 // all global functions
@@ -137,6 +149,7 @@ function applyFilterStore(){
       btn.addEventListener("click", function(event) {
         let value = event.target.dataset.filter;
         filterFunction(value);
+
         // filterFunction(localStorage.clear('filter'));
 
       });
@@ -145,6 +158,24 @@ function applyFilterStore(){
     
   }
 }
+// ####################################################
+// ###############  FRONT PAGE  #######################
+// ####################################################
+
+// show old price of item that is higher
+// the price is just price of item plus int 
+function displayReducedPrice(){
+  let ogPrice = document.getElementsByClassName('new-price')
+  for(let i = 0; i<ogPrice.length; i++){
+    let lowPrice = ogPrice[i].innerHTML
+    let highPrice = ogPrice[i].previousElementSibling
+    let finPrice = parseInt(lowPrice) + 29
+    highPrice.innerHTML = finPrice.toFixed(2)
+  }
+}
+
+
+
 
 // ####################################################
 // ###############   SINGLE ITEM PAGE  ################
@@ -211,13 +242,13 @@ function chevronBtn() {
 // get all filter buttons and links
 // get function variable from data-filter of the clicked button/link
 function filterFunction(filterData) {
-  // console.log(filterData)
   let allItems = document.querySelectorAll(".storeItem");
    allItems.forEach(function(item) {
     if(filterData == 'all'){
       item.style.display = "block";
     }
     else{
+      localStorage.setItem("filter", filterData);
       if (item.classList.contains(filterData)) {
         item.style.display = "block";
       }
@@ -226,6 +257,9 @@ function filterFunction(filterData) {
       }
     };
   });
+  hideNavigationBtns()
+
+
 }
 
 // make all store items visible or resetting all filter
@@ -236,6 +270,9 @@ function resetFilter() {
     allItems.forEach(function(item) {
       item.style.display = "block";
     });
+    localStorage.setItem("filter", 'all');
+    hideNavigationBtns()
+    defaultItemView()
   });
 }
 
@@ -259,6 +296,7 @@ function priceMatch() {
           item.style.display = "none";
         }
       });
+      hideNavigationBtns()
     }
   });
 }
@@ -276,11 +314,12 @@ function nameSearch() {
         let title = item.getElementsByTagName("h6")[0];
         titleText = title.innerHTML.toLocaleLowerCase();
         if (titleText.includes(searchName)) {
-          item.style.display = "block";
+           item.style.display = "block";        
         } else {
           item.style.display = "none";
         }
       });
+      hideNavigationBtns()
     }
   });
 }
@@ -314,6 +353,102 @@ function addCart() {
     });
   });
 }
+
+
+// #### pagination of items on the page
+
+// get number of items displayed
+// determine how many buttons need to put 
+function getNumberOfPages(){
+  let allItems = document.querySelectorAll('.storeItem')
+  amount = 0
+  if(localStorage.getItem('filter') == 'all' || localStorage.getItem('filter') == ''){
+      amount = allItems.length
+      }
+  else{
+    allItems.forEach(function(item){
+      if(item.style.display == 'block'){
+        amount += 1
+      };
+    }); 
+  }
+  let numsPerPage = 12
+  let pagesNeeded = Math.ceil(amount/numsPerPage)
+  return pagesNeeded
+}
+
+// display max of buttons needed for the page
+// doesn't update when apply filter
+function buttonCreation(){
+  let buttonsNeeded = getNumberOfPages()
+  console.log(buttonsNeeded)
+  let btnContainer = document.getElementById('navigation-btns')
+  for(let i = 0; i<buttonsNeeded; i++){
+    let addedBtn = `
+      <div class='btn btn-yellow mx-1'>${i+1}</div> 
+    `
+    let itemTry = document.createElement("li");
+    itemTry.innerHTML = addedBtn;
+    btnContainer.appendChild(itemTry);
+  }
+}
+buttonCreation()
+
+// show only updated number of buttons for navigation
+// depending what filter is applied
+// can just hide when apply filter
+function hideNavigationBtns(){
+  let pageNumbers = getNumberOfPages()
+  let btnContainer = document.getElementById('navigation-btns')
+  console.log(pageNumbers)
+  if(pageNumbers == 1){
+    btnContainer.style.display = 'none'
+    btnContainer.classList.remove('d-flex')
+  }
+  else{
+    btnContainer.style.display = 'block'
+    btnContainer.classList.add('d-flex')
+  }
+}
+
+// default behavior for pagination, going to display 12 items
+// on page load
+function defaultItemView(){
+  let allItemsParent = document.querySelector('#store-items')
+  let storeItems = allItemsParent.children
+  for(let i=12; i<storeItems.length; i++){
+    storeItems[i].style.display = 'none'
+  }
+}
+
+// navigation btns on click show different items pages
+// select navigation btns and sent them to analyze
+function navigationBtnsClick(){
+  let btnContainer = document.getElementById('navigation-btns')
+  let btnList = btnContainer.children
+  for(let i=0; i<btnList.length; i++){
+    btnList[i].addEventListener('click', function(event){
+      console.log(i)
+      paginateView(0+i*13, 13+i*13)
+    });
+  };
+}
+// receive what item indexes need to display 
+// depending on what navigation brn was clicked
+function paginateView(min, max){
+  console.log(min,max)
+  let allItemsParent = document.querySelector('#store-items')
+  let storeItems = allItemsParent.children
+  for(i=0; i<storeItems.length; i++){
+    if(i<max && i>min){
+      storeItems[i].style.display = 'block'
+    }
+    else{
+      storeItems[i].style.display = 'none'
+    }
+  }
+}
+
 
 // ####################################################
 // #################### CHECKOUT PAGE #################
@@ -524,7 +659,7 @@ function slideCardForm() {
 // display item that were added to card dynamically with template
 // items are added to check out page
 function cartLocalStorage() {
-  if (localStorage.getItem("cart") == "null") {
+  if (localStorage.getItem("cart") == null) {
     let cart = {};
   } else {
     cart = JSON.parse(localStorage.getItem("cart"));
@@ -534,6 +669,7 @@ function cartLocalStorage() {
     let itemQuantity = cart[item][0];
     let itemName = cart[item][1];
     let itemPrice = cart[item][2];
+    let totalPrice = itemPrice * itemQuantity
     let itemImgSrc = cart[item][3];
     let itemDiv = document.getElementById("item_list");
     let itemString = `
@@ -545,8 +681,8 @@ function cartLocalStorage() {
                             <a href="/store/item${itemId}"><h6 class='text-capitalize'>${itemName}</h6>
                             </a>
                         </div>
-                        <div class="col-sm-2 item-select btn">
-                            <select size="1">
+                        <div class="col-sm-2 btn ">
+                            <select size="1" id='item-select'>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -554,19 +690,89 @@ function cartLocalStorage() {
                             </select>
                         </div>
                         <div class="col-sm-2">
-                            <h6 id='price'>${itemPrice}</h6>
+                            <h6 id='price'>$${totalPrice}</h6>
                         </div>
                         <div class="col-sm-1" id='deleteBtn'>
                             <i class="far fa-trash-alt"></i>
                         </div>
                     </div>
-
             `;
     let itemTry = document.createElement("li");
     itemTry.innerHTML = itemString;
-
     itemDiv.appendChild(itemTry);
   }
+}
+
+// make list of quantity selected
+// use list when assigning item amount
+function showAmount(){
+  if (localStorage.getItem("cart") == null) {
+    let cart = {};
+  } else {
+    cart = JSON.parse(localStorage.getItem("cart"));
+    let quantity = []
+    for (item in cart) {
+      let itemQuantity = cart[item][0];
+      quantity.push(itemQuantity)
+    }
+    return quantity
+  }
+}
+
+// looping through items and assign amount using list that created before
+function assignOption(){
+  let amountList = showAmount()
+  let cartItems = document.getElementById('item_list')
+  let cartChildren = cartItems.children
+  for(let i=0; i< cartChildren.length; i++){
+    let oneAmount = amountList[i]
+    let selectedItem = cartChildren[i]
+    let selectValue = selectedItem.querySelector('#item-select')
+    selectValue.value = oneAmount
+  }
+}
+
+// make a list for price for each item
+// use to determine price of item when working with selects and options
+function itemPriceList(){
+  if (localStorage.getItem("cart") == null) {
+    let cart = {};
+  } else {
+    cart = JSON.parse(localStorage.getItem("cart"));
+    let prices = []
+    for (item in cart) {
+      let itemPrice = cart[item][2];
+      prices.push(itemPrice)
+    }
+    return prices
+  }
+}
+
+// update total price for item
+function updateItemPrice(){
+  let cartItems = document.getElementById('item_list')
+  let cartChildren = cartItems.children
+  let prices = itemPriceList()
+  for(let i=0; i< cartChildren.length; i++){
+    let selectedItem = cartChildren[i]
+    let numSelector = selectedItem.querySelector('#item-select')
+    let totalPrice = selectedItem.querySelector('#price')
+    numSelector.addEventListener('click', function(event){
+      let valueSelected = numSelector.value
+      let itemPrice = prices[i]
+      totalPrice.innerHTML = '$' + itemPrice * valueSelected
+      updateItemAmount(i, valueSelected)
+    });
+  }
+}
+
+
+// update local storage when changing option value
+// on reload updated value is shown
+function updateItemAmount(item, newValue){
+  cart = JSON.parse(localStorage.getItem("cart"));
+  Object.values(cart)[item][0] = newValue
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 // add items to cart local storage from item page
@@ -630,14 +836,15 @@ function orderSummary() {
     let allItems = document.getElementById("item_list");
     for (var i = 0; i < allItems.children.length; i++) {
       let oneItem = allItems.children[i];
-      let onePrice = oneItem.querySelector("#price").innerHTML;
+      let onePrice = oneItem.querySelector("#price").innerHTML.replace('$', '');
+      console.log(onePrice)
       totAmount += parseFloat(onePrice);
-      console.log(parseFloat(onePrice));
+      // console.log(parseFloat(onePrice));
     }
     finPrice.innerHTML = "$" + totAmount;
     finShip.innerHTML = "$20";
-    finTax.innerHTML = "$" + totAmount * 0.1;
-    total.innerHTML = "$" + (totAmount + 20 + totAmount * 0.1);
+    finTax.innerHTML = "$" + (totAmount * 0.1).toFixed(2);
+    total.innerHTML = "$" + (totAmount + 20 + totAmount * 0.1).toFixed(2);
   }
 }
 

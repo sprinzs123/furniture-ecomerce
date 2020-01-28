@@ -94,8 +94,8 @@
       <!-- end of menu section -->
       <!-- all items -->
       <div class="col-10 col-md-7 col-lg-9 mx-auto my-3">
-        <div class="row">
-          {% for item in store_items %}
+        <div class="row" id='store-items'>
+          {% for item in items.all %}
           <div
             class="col-md-6 col-lg-4 mx-auto col-md-6 col-lg-4 mb-3 storeItem {{ item.category }} {{item.sub_category}}"
             data-item='{{item.sub_category}}' id='{{ item.id }}'>
@@ -111,15 +111,17 @@
           {% endfor %}
         </div>
         <!--item pagination  -->
-        <div class=" row justify-content-center">
+        <ul class="row d-flex justify-content-center" id='navigation-btns'></ul>
+
+        <!-- <div class=" row justify-content-center">
           {% if store_items.has_previous %}
           <a href="?page={{ store_items.previous_page_number}}">
             <div class='btn btn-yellow mx-1'>previous</div>
           </a>
-          {% endif %}
+          {% endif %} -->
           <!-- Page {{store_items.number}} / {{store_items.paginator.num_pages}} -->
 
-          {% for l in  store_items.paginator.page_range %}
+          <!-- {% for l in  store_items.paginator.page_range %}
           <a href="?page={{forloop.counter}}">
             <div class='btn btn-yellow mx-1'>{{forloop.counter}}</div>
           </a>
@@ -130,7 +132,7 @@
             <div class='btn btn-yellow mx-1'>next</div>
           </a>
           {% endif %}
-        </div>
+        </div> -->
         <!-- end pagination -->
       </div>
       <!-- end all items -->

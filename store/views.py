@@ -12,7 +12,7 @@ def store(request):
     paginator = Paginator(items, 12)
     page = request.GET.get('page')
     store_items = paginator.get_page(page)
-    return render(request, 'store/store_page.html',  {'items': items, 'store_items': store_items, 'featured':featured})
+    return render(request, 'store/store_page.html',  {'items': items, 'featured':featured, 'store_items': store_items})
 
 def single(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
