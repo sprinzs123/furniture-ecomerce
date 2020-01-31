@@ -28,9 +28,7 @@ function getLocation(myPage) {
     addCart();
     applyFilterStore();
     defaultItemView();
-    navigationBtnsClick()
-
-
+    navigationBtnsClick();
   }
   // home page
   else if (myPage == "/") {
@@ -258,8 +256,6 @@ function filterFunction(filterData) {
     };
   });
   hideNavigationBtns()
-
-
 }
 
 // make all store items visible or resetting all filter
@@ -381,11 +377,10 @@ function getNumberOfPages(){
 // doesn't update when apply filter
 function buttonCreation(){
   let buttonsNeeded = getNumberOfPages()
-  console.log(buttonsNeeded)
   let btnContainer = document.getElementById('navigation-btns')
   for(let i = 0; i<buttonsNeeded; i++){
     let addedBtn = `
-      <div class='btn btn-yellow mx-1'>${i+1}</div> 
+      <div class='btn btn-yellow mx-1 one-navigation-btn'>${i+1}</div> 
     `
     let itemTry = document.createElement("li");
     itemTry.innerHTML = addedBtn;
@@ -400,7 +395,6 @@ buttonCreation()
 function hideNavigationBtns(){
   let pageNumbers = getNumberOfPages()
   let btnContainer = document.getElementById('navigation-btns')
-  console.log(pageNumbers)
   if(pageNumbers == 1){
     btnContainer.style.display = 'none'
     btnContainer.classList.remove('d-flex')
@@ -424,15 +418,14 @@ function defaultItemView(){
 // navigation btns on click show different items pages
 // select navigation btns and sent them to analyze
 function navigationBtnsClick(){
-  let btnContainer = document.getElementById('navigation-btns')
-  let btnList = btnContainer.children
-  for(let i=0; i<btnList.length; i++){
-    btnList[i].addEventListener('click', function(event){
-      console.log(i)
+  let allNavigationBtns = document.querySelectorAll('.one-navigation-btn');
+  for(let i=0; i<allNavigationBtns.length; i++){
+    allNavigationBtns[i].addEventListener('click', function(event){
       paginateView(0+i*13, 13+i*13)
     });
   };
 }
+navigationBtnsClick()
 // receive what item indexes need to display 
 // depending on what navigation brn was clicked
 function paginateView(min, max){
