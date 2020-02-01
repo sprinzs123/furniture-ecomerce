@@ -24,195 +24,157 @@
 <div class="fluid-container check-main">
     <div class="container mt-4 p-4">
         <div class="row my-auto d-flex justify-content-between">
-            <div class="col-md-8 order-detail" id='itemsForm'>
-                <h5 class='text-capitalize mt-3'>1. ITEMS</h5>
-                <div class="col-md-12">
-                    <ul class="list-group" id="item_list">
-
-                    </ul>
+            <!-- item that go on left side -->
+            <div class="col-md-8">
+                <!-- 1st child -->
+                <div class="row">
+                    <div class="col-md-12 order-detail" id='itemsForm'>
+                        <h5 class='text-capitalize mt-3'>1. ITEMS</h5>
+                        <div class="col-md-12">
+                            <ul class="list-group" id="item_list">
+        
+                            </ul>
+                        </div>
+                        <!-- left part with payment -->
+                        <div id='order-list'>
+                            <!-- single item -->
+                            <div class="row d-flex align-items-baseline my-2 py-2 my-auto">
+                                <div class="col-2">
+                                    <img src="{% static 'img/start.jpg' %}" alt="img" class='img-fluid'>
+                                </div>
+                                <div class="col-4">
+                                    <h6 class='text-capitalize'>product name</h6>
+                                </div>
+                                <div class="col-2 item-select btn">
+                                    <select size="1">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                            <option>4</option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <h6>$555</h6>
+                                </div>
+                                <div class="col-1">
+                                    <i class="far fa-trash-alt"></i>
+                                </div>
+                            </div>
+                            <!-- end single item -->
+                        </div>
+                        <!-- end order div  with all item-->
                 </div>
-                <!-- left part with payment -->
-                <div id='order-list'>
-                    <!-- single item -->
-                    <div class="row d-flex align-items-baseline my-2 py-2 my-auto">
-                        <div class="col-2">
-                            <img src="{% static 'img/start.jpg' %}" alt="img" class='img-fluid'>
-                        </div>
-                        <div class="col-4">
-                            <h6 class='text-capitalize'>product name</h6>
-                        </div>
-                        <div class="col-2 item-select btn">
-                            <select size="1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                    <option>4</option>
-                            </select>
-                        </div>
-                        <div class="col-2">
-                            <h6>$555</h6>
-                        </div>
-                        <div class="col-1">
-                            <i class="far fa-trash-alt"></i>
-                        </div>
-                    </div>
-                    <!-- end single item -->
-                </div>
-                <!-- end order div  with all item-->
-
-
-
             </div>
-            <!-- end of inf part -->
-            <!-- order summary part with total $-->
-            <div class="col-md-3 order-detail mt-3 order">
-                <h5 class='text-capitalize mt-3'>order summary</h5>
-                <ul>
-                    <li>Price</li>
-                    <li></li><b id='items-price'>$0</b></li>
-                </ul>
-                <ul>
-                    <li>Shipping</li>
-                    <li><b id='shipping'>$0</b></li>
-                </ul>
-                <ul>
-                    <li>Tax</li>
-                    <li><b id='tax'>$0</b></li>
-                </ul>
-                <hr>
-                <ul>
-                    <li>TOTAL</li>
-                    <li><b class="text-orange" id='totalPrice'>$0</b></li>
-                </ul>
-                <form method="POST" action="{% url 'checkout' %}" id='orders-form'>
-                    
-                    {% csrf_token %}
-                    <input type="hidden" name='items' id='save-cart-django' value=""/>
-                    <input type="hidden" name='name' id='save-order-name' value="noy"/>
-                    <input type="hidden" name='address' id='save-order-address' value="noy"/>
 
-
-                    <div class="btn btn-yellow btn-lg m-3" id='submit-order' type='submit'>Place Order</div>
-                </form>
-           </div>
-        </div>
-
-        <!-- end items -->
-        <!-- peron info div -->
-        <!--  -->
-
-
-<!-- end order modal -->
-
-        <div class="row mt-3 test2">
-            <div class="col-md-8 order-detail">
-                <h5 class='my-4'>2. ADDRESS</h5>
-                <h6 class="checkLabel">Contact Detail</h6>
-                <!-- saved addresses saved here -->
-                <div>
-                    <ul class="saved-addresses">
-                        <li>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="address-radio" id="address"
-                                    value="option1" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                    <ul class='userItems'>
-                                        <li><b id='user-name'>John Smith</b></li>
-                                        <li id='user-address'>123 Main st, Omaha, NE 65343</li>
-                                    </ul>
-                                </label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="address-radio" id="address"
-                                    value="option1" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                    <ul class='userItems'>
-                                        <li><b>Josh Object</b></li>
-                                        <li>4324 Broadway Blvd, NotOmaha, NE 23168</li>
-                                    </ul>
-                                </label>
-                            </div>
-                        </li>
-                    </ul>
-
-
-                </div>
-                <div class="btn btn-yellow my-2" id="add-address-btn">Add address</div>
-
-                <!-- end saved address -->
-                <div class="hide-form">
-                    <div id='addressForm' class='address-form form-collapse mb-3'>
-                        <form action="">
-                            <!-- single form  row -->
-
-                            <h5 class='text-danger' id='addressFormError'>Invalid Information</h5>
-                            <!-- end form row -->
-                            <!-- single form  row -->
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="fname">First Name</label>
-                                        <input type="text" class="form-control" id="fname" placeholder="first name">
-                                    </div>
+            <!-- 2nd child -->
+            <div class="row mt-3 test2">
+                <div class="col-md-12 order-detail">
+                    <h5 class='my-4'>2. ADDRESS</h5>
+                    <h6 class="checkLabel">Contact Detail</h6>
+                    <!-- saved addresses saved here -->
+                    <div>
+                        <ul class="saved-addresses">
+                            <li>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="address-radio" id="address"
+                                        value="option1" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        <ul class='userItems'>
+                                            <li><b id='user-name'>John Smith</b></li>
+                                            <li id='user-address'>123 Main st, Omaha, NE 65343</li>
+                                        </ul>
+                                    </label>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="lname">Last Name</label>
-                                        <input type="text" class="form-control" id="lname" placeholder="last name">
-                                    </div>
+                            </li>
+                            <li>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="address-radio" id="address"
+                                        value="option1" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        <ul class='userItems'>
+                                            <li><b>Josh Object</b></li>
+                                            <li>4324 Broadway Blvd, NotOmaha, NE 23168</li>
+                                        </ul>
+                                    </label>
                                 </div>
-                            </div>
-                            <!-- end form row -->
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <input type="text" class="form-control" id="address" placeholder="123 Main St">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="city">City</label>
-                                        <input type="text" class="form-control" id="city" placeholder="City">
-                                    </div>
-                                </div>
+                            </li>
+                        </ul>
+    
+    
+                    </div>
+                    <div class="btn btn-yellow my-2" id="add-address-btn">Add address</div>
+    
+                    <!-- end saved address -->
+                    <div class="hide-form">
+                        <div id='addressForm' class='address-form form-collapse mb-3'>
+                            <form action="">
+                                <!-- single form  row -->
+    
+                                <h5 class='text-danger' id='addressFormError'>Invalid Information</h5>
+                                <!-- end form row -->
+                                <!-- single form  row -->
                                 <div class="form-row">
-                                    <div class="col-6 col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="state">State</label>
-                                            <input type="text" class="form-control" id="state" placeholder="CA">
+                                            <label for="fname">First Name</label>
+                                            <input type="text" class="form-control" id="fname" placeholder="first name">
                                         </div>
                                     </div>
-                                    <div class="col-6 col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="zip">ZIP</label>
-                                            <input type="text" class="form-control" id="zip" placeholder="90844">
+                                            <label for="lname">Last Name</label>
+                                            <input type="text" class="form-control" id="lname" placeholder="last name">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="btn btn-yellow" id='addAddress'>Submit</div>
-
-                            <!-- end row -->
-                        </form>
-                        <!-- end shipping info form -->
+                                <!-- end form row -->
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <input type="text" class="form-control" id="address" placeholder="123 Main St">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="city">City</label>
+                                            <input type="text" class="form-control" id="city" placeholder="City">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-6 col-md-3">
+                                            <div class="form-group">
+                                                <label for="state">State</label>
+                                                <input type="text" class="form-control" id="state" placeholder="CA">
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="form-group">
+                                                <label for="zip">ZIP</label>
+                                                <input type="text" class="form-control" id="zip" placeholder="90844">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn btn-yellow" id='addAddress'>Submit</div>
+    
+                                <!-- end row -->
+                            </form>
+                            <!-- end shipping info form -->
+                        </div>
                     </div>
+    
+    
+                    <!-- btns for navigation -->
+    
                 </div>
-
-
-                <!-- btns for navigation -->
-
             </div>
-        </div>
-        <!-- end shipping-->
-
-
-        <!-- add payment  -->
+            <!-- end shipping-->
+            <!-- 3rd child -->
+                    <!-- add payment  -->
         <div class="checkoutField">
             <div class="row mt-3" id='paymentForm'>
-                <div class="col-md-8 order-detail">
+                <div class="col-md-12 order-detail">
                     <h5 class='my-4'>3. PAYMENT INFORMATION</h5>
                     <h6 class="checkLabel">Card Information</h6>
                     <div class="saved-cards b-3">
@@ -298,6 +260,56 @@
 
             <!-- end payment info -->
         </div>
+            
+
+
+
+            </div>
+            <!-- end of left side -->
+
+            <!-- order summary part with total $-->
+            <div class="col-md-3 order-detail order">
+                <h5 class='text-capitalize mt-3'>order summary</h5>
+                <ul>
+                    <li>Price</li>
+                    <li></li><b id='items-price'>$0</b></li>
+                </ul>
+                <ul>
+                    <li>Shipping</li>
+                    <li><b id='shipping'>$0</b></li>
+                </ul>
+                <ul>
+                    <li>Tax</li>
+                    <li><b id='tax'>$0</b></li>
+                </ul>
+                <hr>
+                <ul>
+                    <li>TOTAL</li>
+                    <li><b class="text-orange" id='totalPrice'>$0</b></li>
+                </ul>
+                <form method="POST" action="{% url 'checkout' %}" id='orders-form'>
+                    
+                    {% csrf_token %}
+                    <input type="hidden" name='items' id='save-cart-django' value=""/>
+                    <input type="hidden" name='name' id='save-order-name' value="noy"/>
+                    <input type="hidden" name='address' id='save-order-address' value="noy"/>
+
+
+                    <div class="btn btn-yellow btn-lg m-3" id='submit-order' type='submit'>Place Order</div>
+                </form>
+           </div>
+        </div>
+
+        <!-- end items -->
+        <!-- peron info div -->
+        <!--  -->
+
+
+
+
+
+
+
 
     </div>
 
