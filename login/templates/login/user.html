@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
 {% block content %}
+{% load  item_filter%}
 <div class="container">
     <h1>your user page</h1>
     <div class="row d-flex justify-content-between">
@@ -12,9 +13,9 @@
                 {% for item in address.all %}
                 <div><b class="text-capitalize">{{ item.name }}</b></div>
                 <ul class='d-flex userItems'>
-                    <li>{{ item.address }},</li>
+                    <li>{{ item.name }},</li>
                     <li> {{ item.city }},</li>
-                    <li>{{ item.state }}</li>
+                    <li>{{ item.city }},</li>
                     <li>{{ item.zip }}</li>
                 </ul>
                 <hr>
@@ -81,7 +82,7 @@
             <!-- end add payment detail -->
             <h5>My payment</h5>
             {% for item in payment.all %}
-            <div><b class="text-capitalize">{{ item.uer }}</b></div>
+            <div><b class="text-capitalize">{{ item.user }}</b></div>
             <ul class='d-flex userItems'>
                 <li> Last 4 {{ item.cardNum }},</li>
                 <li> expiration{{ item.exMonth }}/</li>
@@ -141,9 +142,18 @@
         </div>
     </div>
     <!-- end of 2 columns  -->
-    {% for item in items.all %}
-        <p>{{ item.title}}</p>
-    {% endfor %}
+    <!-- past orders go here -->
+    <div>
+        {% for item in orders.all %}
+                <p>{{ item.items|cut }}</p>
+                {% for i in item.items|cut %}
+                <p>{{i}}</p>
+                {% endfor %}
+
+        
+        {% endfor %}
+    </div>
+    <!-- end past orders -->
 
   
 </div>

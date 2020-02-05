@@ -29,6 +29,8 @@ function getLocation(myPage) {
     applyFilterStore();
     defaultItemView();
     navigationBtnsClick();
+    activeBtnBorder()
+
   }
   // home page
   else if (myPage == "/") {
@@ -52,7 +54,8 @@ function getLocation(myPage) {
     addPayment();
     optionInitDisplay();
     orderSummary();
-    placeOrderModal();
+    // placeOrderModal();
+    callModal()
     linkRedirect() 
     assignOption()
     updateItemPrice()
@@ -244,6 +247,7 @@ function filterFunction(filterData) {
    allItems.forEach(function(item) {
     if(filterData == 'all'){
       item.style.display = "block";
+      localStorage.setItem("filter", 'all');
     }
     else{
       localStorage.setItem("filter", filterData);
@@ -370,6 +374,8 @@ function getNumberOfPages(){
   }
   let numsPerPage = 12
   let pagesNeeded = Math.ceil(amount/numsPerPage)
+  console.log(pagesNeeded)
+
   return pagesNeeded
 }
 
@@ -380,7 +386,7 @@ function buttonCreation(){
   let btnContainer = document.getElementById('navigation-btns')
   for(let i = 0; i<buttonsNeeded; i++){
     let addedBtn = `
-      <div class='btn btn-yellow mx-1 one-navigation-btn'>${i+1}</div> 
+      <div class='btn btn-yellow mx-1 one-navigation-btn border'>${i+1}</div> 
     `
     let itemTry = document.createElement("li");
     itemTry.innerHTML = addedBtn;
@@ -442,6 +448,26 @@ function paginateView(min, max){
   }
 }
 
+// highlight buttons that respond to paginated page
+// apply border to btn
+function activeBtnBorder(){
+  let allNavigationBtns = document.querySelectorAll('.one-navigation-btn');
+  allNavigationBtns.forEach(function(item){
+    item.addEventListener('click', function(event){
+      removeBtnBorder()
+      item.classList.add('border')
+      item.classList.add('border-dark')
+    })
+  })
+}
+// remove border on all btns
+function removeBtnBorder(){
+  let allNavigationBtns = document.querySelectorAll('.one-navigation-btn');
+  allNavigationBtns.forEach(function(item){
+    item.classList.remove('border')
+    item.classList.remove('border-dark')
+  })
+}
 
 // ####################################################
 // #################### CHECKOUT PAGE #################
@@ -655,8 +681,8 @@ function cartLocalStorage() {
   if (localStorage.getItem("cart") == null) {
     let cart = {};
   } else {
-    cart = JSON.parse(localStorage.getItem("cart"));
-  }
+    let cart = JSON.parse(localStorage.getItem("cart"));
+  
   for (item in cart) {
     let itemId = item;
     let itemQuantity = cart[item][0];
@@ -666,7 +692,7 @@ function cartLocalStorage() {
     let itemImgSrc = cart[item][3];
     let itemDiv = document.getElementById("item_list");
     let itemString = `
-                <div class="row d-flex align-items-baseline my-2 py-2 my-auto" id = '${itemId}' >
+                <div class="row d-flex align-items-baseline my-3 py-2 my-auto" id = '${itemId}' >
                     <div class="col-sm-2">
                         <img src="${itemImgSrc}" alt="img" class='img-fluid'>
                 </div>
@@ -694,6 +720,7 @@ function cartLocalStorage() {
     itemTry.innerHTML = itemString;
     itemDiv.appendChild(itemTry);
   }
+}
 }
 
 // make list of quantity selected
@@ -755,6 +782,8 @@ function updateItemPrice(){
       let itemPrice = prices[i]
       totalPrice.innerHTML = '$' + itemPrice * valueSelected
       updateItemAmount(i, valueSelected)
+      orderSummary()
+
     });
   }
 }
@@ -835,7 +864,7 @@ function orderSummary() {
       // console.log(parseFloat(onePrice));
     }
     finPrice.innerHTML = "$" + totAmount;
-    finShip.innerHTML = "$20";
+    finShip.innerHTML = "$0";
     finTax.innerHTML = "$" + (totAmount * 0.1).toFixed(2);
     total.innerHTML = "$" + (totAmount + 20 + totAmount * 0.1).toFixed(2);
   }
@@ -863,6 +892,29 @@ function deleteItem() {
     });
   });
 }
+
+
+// ### placing order ### //
+
+
+// check if have address, payment and address
+function CheckRequired(){
+  let itemsCheck = document.querySelector('#item_list').childElementCount
+  let addressCheck = document.querySelector('.saved-addresses').childElementCount
+  let paymentCheck = document.querySelector('.all-payments').childElementCount
+  // console.log(itemsCheck)
+  if(itemsCheck <1 || addressCheck <1 || paymentCheck <1 ){
+    return false
+  }
+}
+
+// calling modal function if didn't find any errors
+function callModal(){
+  if(CheckRequired() != false){
+    placeOrderModal()
+  }
+}
+
 
 // place order on button submit by bringing up modal
 // check if have all fields needed
@@ -925,6 +977,7 @@ function placeOrderModal() {
         }
       }
     }
+
     function addItemsModal() {
       for (item in cart) {
         let ulSummary = document.getElementById("order-summary");

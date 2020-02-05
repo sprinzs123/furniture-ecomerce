@@ -580,6 +580,10 @@ body {
   color: var(--MainOrange);
   /* background: var(--mainGrey); */
 }
+.fa-trash-alt:hover{
+  color: red;
+  cursor: pointer;
+}
 
 
 /* when box is open */
@@ -647,6 +651,8 @@ body {
   color: orangered;
   cursor: pointer;
 }
+
+
 
 
 

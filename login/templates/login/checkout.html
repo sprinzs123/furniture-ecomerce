@@ -22,7 +22,7 @@
 <!-- end summary modal -->
 
 <div class="fluid-container check-main">
-    <div class="container mt-4 p-4">
+    <div class="container p-4">
         <div class="row my-auto d-flex justify-content-between">
             <!-- item that go on left side -->
             <div class="col-md-8">
@@ -36,8 +36,8 @@
                             </ul>
                         </div>
                         <!-- left part with payment -->
-                        <div id='order-list'>
-                            <!-- single item -->
+                        <!-- example item -->
+                        <!-- <div id='order-list'>
                             <div class="row d-flex align-items-baseline my-2 py-2 my-auto">
                                 <div class="col-2">
                                     <img src="{% static 'img/start.jpg' %}" alt="img" class='img-fluid'>
@@ -60,8 +60,7 @@
                                     <i class="far fa-trash-alt"></i>
                                 </div>
                             </div>
-                            <!-- end single item -->
-                        </div>
+                        </div> -->
                         <!-- end order div  with all item-->
                 </div>
             </div>
@@ -73,6 +72,26 @@
                     <h6 class="checkLabel">Contact Detail</h6>
                     <!-- saved addresses saved here -->
                     <div>
+                        {% if user.is_authenticated %}
+                        <ul class="saved-addresses">
+                            {% for item in address.all %}
+                            <li>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="address-radio" id="address"
+                                        value="option1" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        <ul class='userItems'>
+                                            <li><b id='user-name'>{{ item.name }}</b></li>
+                                            <li id='user-address'>{{ item.name }}, {{ item.city }}, {{ item.city }}, {{ item.zip }}</li>
+                                        </ul>
+                                    </label>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        {% else %}
+
                         <ul class="saved-addresses">
                             <li>
                                 <div class="form-check">
@@ -99,6 +118,8 @@
                                 </div>
                             </li>
                         </ul>
+                        {% endif %}
+
     
     
                     </div>
@@ -116,13 +137,13 @@
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="fname">First Name</label>
+                                            <!-- <label for="fname">First Name</label> -->
                                             <input type="text" class="form-control" id="fname" placeholder="first name">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="lname">Last Name</label>
+                                            <!-- <label for="lname">Last Name</label> -->
                                             <input type="text" class="form-control" id="lname" placeholder="last name">
                                         </div>
                                     </div>
@@ -131,26 +152,26 @@
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="address">Address</label>
+                                            <!-- <label for="address">Address</label> -->
                                             <input type="text" class="form-control" id="address" placeholder="123 Main St">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="city">City</label>
+                                            <!-- <label for="city">City</label> -->
                                             <input type="text" class="form-control" id="city" placeholder="City">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-6 col-md-3">
                                             <div class="form-group">
-                                                <label for="state">State</label>
+                                                <!-- <label for="state">State</label> -->
                                                 <input type="text" class="form-control" id="state" placeholder="CA">
                                             </div>
                                         </div>
                                         <div class="col-6 col-md-3">
                                             <div class="form-group">
-                                                <label for="zip">ZIP</label>
+                                                <!-- <label for="zip">ZIP</label> -->
                                                 <input type="text" class="form-control" id="zip" placeholder="90844">
                                             </div>
                                         </div>
@@ -179,6 +200,25 @@
                     <h6 class="checkLabel">Card Information</h6>
                     <div class="saved-cards b-3">
                         <ul class='all-payments'>
+                            {% if user.is_authenticated %}
+                                {% for item in payment.all %}
+                                <li>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios"
+                                            id="exampleRadios1" value="option1" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            <ul class='userItems'>
+                                                <li><b>{{ item.cardName }}</b></li>
+                                                <li>last 4 - {{ item.cardNum }}</li>
+                                                <li>expiration {{ item.exMonth }}/{{ item.exYear }}</li>
+    
+                                            </ul>
+                                        </label>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            {% else %}    
+
                             <li>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="exampleRadios"
@@ -206,6 +246,7 @@
                                     </label>
                                 </div>
                             </li>
+                            {% endif %}
                         </ul>
                         <div class="btn btn-yellow" id='addCardBtn'>Add Card</div>
                     </div>
@@ -216,13 +257,13 @@
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="cardName">Name on Card</label>
+                                            <!-- <label for="cardName">Name on Card</label> -->
                                             <input type="text" class="form-control" id="cardName" placeholder="name">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="cardNum">Card Number</label>
+                                            <!-- <label for="cardNum">Card Number</label> -->
                                             <input type="text" class="form-control" id="cardNum"
                                                 placeholder="card number">
                                         </div>
@@ -232,19 +273,19 @@
                                 <div class="form-row">
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="code">CVV</label>
+                                            <!-- <label for="code">CVV</label> -->
                                             <input type="text" class="form-control" id="code" placeholder="123">
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-6">
                                         <div class="form-group">
-                                            <label for="code">Month</label>
+                                            <!-- <label for="code">Month</label> -->
                                             <input type="text" class="form-control" id="month" placeholder="01">
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-6">
                                         <div class="form-group">
-                                            <label for="code">Year</label>
+                                            <!-- <label for="code">Year</label> -->
                                             <input type="text" class="form-control" id="year" placeholder="2026">
                                         </div>
                                     </div>

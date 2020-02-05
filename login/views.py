@@ -45,14 +45,17 @@ def logout(request):
 
 @login_required
 def user_page(request):
+    if request.method == 'POST':
         addtest(request)
         addAddress(request)
-        payInfo = Payment.objects.all()
-        addresInfo = ContactInfo.objects.all()
-        userPay = payInfo.filter(user=request.user)
-        userName = request.user.username
-        userAddress = addresInfo.filter(user=request.user)
-        return render(request, 'login/user.html', {'payment': userPay, 'address': userAddress, 'userName': userName})
+    payInfo = Payment.objects.all()
+    addresInfo = ContactInfo.objects.all()
+    orders = Orders.objects.all()
+    userPay = payInfo.filter(user=request.user)
+    userOrder = orders.filter(user=request.user)
+    userName = request.user.username
+    userAddress = addresInfo.filter(user=request.user)
+    return render(request, 'login/user.html', {'payment': userPay, 'address': userAddress, 'userName': userName,  'orders':userOrder})
 
 
 def addAddress(request):
@@ -75,7 +78,15 @@ def addAddress(request):
 
 def checkout(request):
     addOrders(request)
-    return render(request, 'login/checkout.html')
+    if request.user.is_authenticated:
+        payInfo = Payment.objects.all()
+        userPay = payInfo.filter(user=request.user)
+        addresInfo = ContactInfo.objects.all()
+        userAddress = addresInfo.filter(user=request.user)
+        return render(request, 'login/checkout.html', {'address': userAddress, 'payment': userPay,})
+    else:
+        return render(request, 'login/checkout.html')
+
 
 
 def addtest(request):
@@ -90,12 +101,13 @@ def addtest(request):
 
 def addOrders(request):
     order = Orders()
-    order.user = request.user
-    order.name = request.POST.get('name', 'default')
-    order.address = request.POST.get('address', 'default')
-    order.items = request.POST.get('items', 'default')
-    order.save()
-    order = Orders()
+    if request.user.is_authenticated:
+        order.user = request.user
+        order.name = request.POST.get('name', 'default')
+        order.address = request.POST.get('address', 'default')
+        order.items = request.POST.get('items', 'default')
+        order.save()
+        order = Orders()
 
 
 
