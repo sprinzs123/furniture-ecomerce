@@ -9,7 +9,7 @@
         </div>
         <div class="col-7">
             <div class="userDetail border p-3 my-3">
-                <h5>Your Address</h5>
+                <h5><b>My Addresses</b></h5>
                 {% for item in address.all %}
                 <div><b class="text-capitalize">{{ item.name }}</b></div>
                 <ul class='d-flex userItems'>
@@ -80,7 +80,7 @@
                     </div>
                 </div>
             <!-- end add payment detail -->
-            <h5>My payment</h5>
+            <h5><b>My payments</b></h5>
             {% for item in payment.all %}
             <div><b class="text-capitalize">{{ item.user }}</b></div>
             <ul class='d-flex userItems'>
@@ -143,15 +143,42 @@
     </div>
     <!-- end of 2 columns  -->
     <!-- past orders go here -->
-    <div>
-        {% for item in orders.all %}
-                <p>{{ item.items|cut }}</p>
-                {% for i in item.items|cut %}
-                <p>{{i}}</p>
-                {% endfor %}
+    <div class='border userDetail my-4'>
+        <div class="p-3">
+            <h5><b>Past Orders</b></h5>
 
+            {% for item in orders.all %}
+            <div>
+                <h6 class='text-orange'><b>{{ item.orderTime}}</b></h6>
+            </div>
+            <h6>{{ item.address}}</h6>
+            <div class="row d-flex">
+                {% for i in item.items|cut %}
+
+                <div class="col-md-4 mb-3">
+                    <!-- <p>{{ item.items|cut }}</p> -->
+
+                            <div class="d-flex">
+                                <a href="/store/item{{ i.4 }}" class='user-order-link'><div class="text-capitalize">{{ i.1 }}</div></a>
+                                <div class="col-2">
+                                    <p>Qty:{{ i.0}}</p>
+                                </div>
+                            </div>
+                            <img src="{{ i.3 }}" alt="" style="width: 100%;">
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    <!-- <p>{{ i.3 }}</p> -->
+            
+    
+    
+                    <br>
+            {% endfor %}
+           
+        </div>
         
-        {% endfor %}
+
     </div>
     <!-- end past orders -->
 

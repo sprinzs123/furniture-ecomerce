@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date
 
 class ContactInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -13,7 +14,6 @@ class ContactInfo(models.Model):
         return f'{self.user.username} contact'
 
 class Payment(models.Model):
-
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cardNum = models.IntegerField(default='0000000')
     exMonth = models.IntegerField(default='0000000')
@@ -33,7 +33,10 @@ class Orders(models.Model):
     name =  models.CharField(max_length=300)
     address = models.CharField(max_length=300)
     items = models.CharField(max_length=30000)
+    orderTime = models.DateField(default=date.today)
 
+    def __str__(self):
+        return f'{self.user.username}'
 
 
 

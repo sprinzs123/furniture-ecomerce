@@ -543,8 +543,14 @@ body {
 }
 .item-name-carousel:hover{
   text-decoration: none;
-  color: red;
+  color: orangered;
+ 
 }
+.item-name-carousel>h6:hover{
+  text-decoration: none;
+  color: orangered;
+}
+
 /* carousel picture zooming in on hover */
 .carousel-img:hover{
   transform: scale(1.2);
@@ -658,7 +664,7 @@ body {
 
 /* #############-USER PAGE ####################### */
 .userDetail{
-  border-radius: 2.5%;
+  border-radius: 1%;
   border-color: var(--SecondGrey);
   border: 1px;
   color: var(--SecondGrey);
@@ -667,3 +673,10 @@ body {
   padding-right: 4px;
 }
 
+.user-order-link{
+  color: var(--SecondGrey);
+}
+.user-order-link:hover{
+  color: orangered;
+  text-decoration: none;
+}

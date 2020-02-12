@@ -101,7 +101,7 @@ def addtest(request):
 
 def addOrders(request):
     order = Orders()
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.method == 'POST':
         order.user = request.user
         order.name = request.POST.get('name', 'default')
         order.address = request.POST.get('address', 'default')

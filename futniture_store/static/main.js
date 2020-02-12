@@ -929,8 +929,7 @@ function placeOrderModal() {
   // close modal
   modalCloseBtn.addEventListener("click", function(event) {
     modal.classList.add("hidden");
-    document.getElementById("orders-form").submit(); 
-    localStorage.removeItem('cart')
+    // localStorage.removeItem('cart')
   });
   // open modal
   submitBtn.addEventListener("click", function(event) {
@@ -938,6 +937,21 @@ function placeOrderModal() {
     addItemsModal();
     addActiveAddress();
     orderInputValue();
+    closeAndVerify();
+    // document.getElementById("orders-form").submit(); 
+
+
+    // close modal after verifying data/clicking submit button
+    function closeAndVerify(){
+      let confirmBtn = document.querySelector('.order-verified')
+      confirmBtn.addEventListener('click', function(){
+        // document.getElementByClass("order-verified").submit(); 
+        // confirmBtn.submit()
+        localStorage.removeItem('cart')
+        modal.classList.add("hidden");
+        window.location.href = '/'
+      })
+    }
 
     // gathering right information to sent to database
     // assign inputs
@@ -977,7 +991,8 @@ function placeOrderModal() {
         }
       }
     }
-
+    
+    // dynamically adding items info to modal
     function addItemsModal() {
       for (item in cart) {
         let ulSummary = document.getElementById("order-summary");
