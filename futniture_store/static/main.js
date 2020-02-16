@@ -678,10 +678,24 @@ function slideCardForm() {
 // display item that were added to card dynamically with template
 // items are added to check out page
 function cartLocalStorage() {
-  if (localStorage.getItem("cart") == null) {
-    let cart = {};
+  if (localStorage.getItem("cart") == null || localStorage.getItem("cart") == '{}') {
+    let cartMessage = document.getElementById('item_list')
+    let itemTry = document.createElement("li");
+    itemTry.innerHTML = 'No items selected';
+    cartMessage.appendChild(itemTry);
+    console.log('itemTry')
   } else {
     let cart = JSON.parse(localStorage.getItem("cart"));
+
+      // add options from 1-30 to item selected/items on cart
+    function addMoreOptions(){
+      let selectDiv = document.getElementById('item-select')
+      for(i=1; i<31; i++){
+        let outerOption = document.createElement('option')
+        outerOption.innerHTML = i
+        selectDiv.appendChild(outerOption)
+      }
+  }
   
   for (item in cart) {
     let itemId = item;
@@ -702,10 +716,6 @@ function cartLocalStorage() {
                         </div>
                         <div class="col-sm-2 btn ">
                             <select size="1" id='item-select'>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
                             </select>
                         </div>
                         <div class="col-sm-2">
@@ -720,13 +730,15 @@ function cartLocalStorage() {
     itemTry.innerHTML = itemString;
     itemDiv.appendChild(itemTry);
   }
+  addMoreOptions()
+
 }
 }
 
 // make list of quantity selected
 // use list when assigning item amount
 function showAmount(){
-  if (localStorage.getItem("cart") == null) {
+  if (localStorage.getItem("cart") == null || localStorage.getItem("cart") == '{}') {
     let cart = {};
   } else {
     cart = JSON.parse(localStorage.getItem("cart"));
@@ -741,14 +753,17 @@ function showAmount(){
 
 // looping through items and assign amount using list that created before
 function assignOption(){
-  let amountList = showAmount()
-  let cartItems = document.getElementById('item_list')
-  let cartChildren = cartItems.children
-  for(let i=0; i< cartChildren.length; i++){
-    let oneAmount = amountList[i]
-    let selectedItem = cartChildren[i]
-    let selectValue = selectedItem.querySelector('#item-select')
-    selectValue.value = oneAmount
+  if(localStorage.getItem("cart").length >= 3){
+    console.log(localStorage.getItem("cart").length)
+    let amountList = showAmount()
+    let cartItems = document.getElementById('item_list')
+    let cartChildren = cartItems.children
+    for(let i=0; i< cartChildren.length; i++){
+      let oneAmount = amountList[i]
+      let selectedItem = cartChildren[i]
+      let selectValue = selectedItem.querySelector('#item-select')
+      selectValue.value = oneAmount
+    }
   }
 }
 
@@ -770,22 +785,26 @@ function itemPriceList(){
 
 // update total price for item
 function updateItemPrice(){
-  let cartItems = document.getElementById('item_list')
-  let cartChildren = cartItems.children
-  let prices = itemPriceList()
-  for(let i=0; i< cartChildren.length; i++){
-    let selectedItem = cartChildren[i]
-    let numSelector = selectedItem.querySelector('#item-select')
-    let totalPrice = selectedItem.querySelector('#price')
-    numSelector.addEventListener('click', function(event){
-      let valueSelected = numSelector.value
-      let itemPrice = prices[i]
-      totalPrice.innerHTML = '$' + itemPrice * valueSelected
-      updateItemAmount(i, valueSelected)
-      orderSummary()
-
-    });
+  if(localStorage.getItem("cart").length >= 3){
+    let cartItems = document.getElementById('item_list')
+    let cartChildren = cartItems.children
+    let prices = itemPriceList()
+    for(let i=0; i< cartChildren.length; i++){
+      let selectedItem = cartChildren[i]
+      let numSelector = selectedItem.querySelector('#item-select')
+      let totalPrice = selectedItem.querySelector('#price')
+      numSelector.addEventListener('click', function(event){
+        let valueSelected = numSelector.value
+        let itemPrice = prices[i]
+        totalPrice.innerHTML = '$' + itemPrice * valueSelected
+        updateItemAmount(i, valueSelected)
+        orderSummary()
+  
+      });
+    }
   }
+
+
 }
 
 
@@ -848,11 +867,11 @@ function orderSummary() {
   let finShip = document.querySelector("#shipping");
   let finTax = document.querySelector("#tax");
   let total = document.querySelector("#totalPrice");
-  if (localStorage.getItem("cart") == "null") {
-    finPrice.innerHTML = 0;
-    finShip.innerHTML = 0;
-    finTax.innerHTML = 0;
-    total.innerHTML = 0;
+  if (localStorage.getItem("cart") == "null" || localStorage.getItem("cart") == '{}') {
+    finPrice.innerHTML = '$0';
+    finShip.innerHTML = '$0';
+    finTax.innerHTML = '$0';
+    total.innerHTML = '$0';
   } else {
     let totAmount = 0;
     let allItems = document.getElementById("item_list");
@@ -903,7 +922,7 @@ function CheckRequired(){
   let addressCheck = document.querySelector('.saved-addresses').childElementCount
   let paymentCheck = document.querySelector('.all-payments').childElementCount
   // console.log(itemsCheck)
-  if(itemsCheck <1 || addressCheck <1 || paymentCheck <1 ){
+  if(itemsCheck <2 || addressCheck <1 || paymentCheck <1 ){
     return false
   }
 }
