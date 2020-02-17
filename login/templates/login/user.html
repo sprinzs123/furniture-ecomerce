@@ -84,8 +84,8 @@
             {% for item in payment.all %}
             <div><b class="text-capitalize">{{ item.user }}</b></div>
             <ul class='d-flex userItems'>
-                <li> Last 4 {{ item.cardNum }},</li>
-                <li> expiration{{ item.exMonth }}/</li>
+                <li><span>Last 4</span> {{ item.cardNum|last_four }} ,</li>
+                <li> expiration {{ item.exMonth }}/</li>
                 <li>{{ item.exYear }}</li>
             </ul>
             <hr>
