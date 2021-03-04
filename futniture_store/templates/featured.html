@@ -12,7 +12,7 @@
             {% for item in items|slice:":6" %}
             <div class="col-10 mx-auto col-md-6 col-lg-4">
                 <div class="featured-container p-3">
-                    <img src="{{ item.picture }}" alt="product image"   id='image' class='img-fluid'>
+                    <img src="{% static item.picture %}" alt="product image"   id='image' class='img-fluid'>
                     <span class="featured-search-icon" data-toggle="model" data-target="#productModal">
                         <a href="/store/item{{item.id}}"><i class="fas fa-search go-single-page"></i></a></span>
                     <div class="featured-store-link text-capitalized" id='addCart'>add to cart</div>

@@ -13,6 +13,11 @@
 a:link {
   text-decoration: none;
 }
+
+a:hover{
+  text-decoration: none;
+}
+
 .h1,h2,h3,h4{
   letter-spacing: 0.25rem;
   color: var(--mainBlack);
@@ -354,9 +359,16 @@ body {
 .click:hover{
   color: var(--mainYellow);
 }
-.price-input{
- width: 55%;
+
+.price-input-parent{
+  display: flex;
 }
+
+.price-input{
+  flex: 1;
+  max-width: 50px;
+}
+
 .products-color-black{
   background: black;
 }
