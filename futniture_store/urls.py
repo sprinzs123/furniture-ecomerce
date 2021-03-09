@@ -21,5 +21,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('store.urls')),
-    path('', include('login.urls'))
-    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', include('login.urls')),
+    path('dashboard/', include('accounts.urls'))
+
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

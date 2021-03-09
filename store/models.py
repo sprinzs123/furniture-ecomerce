@@ -7,6 +7,7 @@ class Product(models.Model):
     picture = models.CharField(max_length=300)
     category = models.CharField(max_length=200)
     sub_category = models.CharField(max_length=200)
+    inventory_amount = models.IntegerField(default=10)
 
     def __str__(self):
         return self.title
