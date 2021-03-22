@@ -6,6 +6,8 @@ items = Product.objects.all()
 featured = Featured.objects.all()
 
 def front(request):
+    items = Product.objects.all()
+    items = items.exclude(inventory_amount=0)
     return render(request, 'store/front_page.html', {'items': items, 'featured':featured})
 
 

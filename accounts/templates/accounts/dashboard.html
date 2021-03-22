@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    hest
-</body>
-</html>
+{% extends 'accounts/main.html' %}
+{% block content %}
+
+{% include 'accounts/status.html' %}
+
+<br>
+<div class="container">
+		<div class="col-md-12">
+			<h5>ORDERS</h5>
+			<hr>
+			<div class="card card-body">
+				<a class="btn btn-warning  btn-sm btn-block" href="">Create Order</a>
+
+				<table class="table table-sm">
+					<tr>
+						{% for order in orders %}
+						<th><a href="customer{{order.order_customer.id}}">{{ order.order_customer.name }}</a></th>
+						<th>{{ order.order_customer.phone  }}</th>
+						<th>{{ order.order_customer.email }}</th>
+						<th><a href="/store/item{{ order.order_item.id }}">{{ order.order_item.title }}</a></th>
+						<th>{{ order.date_created}}</th>
+						<th>{{ order.status}}</th>
+						<th class="btn btn-info m-2">Update</th>
+						<th class="btn btn-danger m-2">Remove</th>
+						</tr>
+						{% endfor %}
+				</table>
+			</div>
+		</div>	
+	</div>
+
+{% endblock %}

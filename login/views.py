@@ -3,7 +3,6 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import ContactInfo, Payment, Test, Orders
-import futniture_store as mainBrach
 
 
 def login(request):
@@ -88,7 +87,6 @@ def checkout(request):
         return render(request, 'login/checkout.html')
 
 
-
 def addtest(request):
     # if request.method == 'POST':
         test = Test()
@@ -99,9 +97,11 @@ def addtest(request):
         test = Test()
         # return redirect('login/user.html')
 
+
 def addOrders(request):
-    order = Orders()
     if request.user.is_authenticated and request.method == 'POST':
+        order = Orders()
+
         order.user = request.user
         order.name = request.POST.get('name', 'default')
         order.address = request.POST.get('address', 'default')
