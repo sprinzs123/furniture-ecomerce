@@ -12,7 +12,7 @@ def login(request):
             auth.login(request, user)
             return redirect('front')
         else:
-            return render(request, 'accounts/login.html',{'error':'username or password is incorrect.'})
+            return render(request, 'login/login.html', {'error': 'username or password is incorrect.'})
     else:
         return render(request, 'login/login.html')
 
@@ -23,11 +23,11 @@ def signup(request):
         if request.POST['password1'] == request.POST['password2']:
             try:
                 user = User.objects.get(username=request.POST['username'])
-                return render(request, 'accounts/signup.html', {'error':'Username has already been taken'})
+                return render(request, 'login/signup.html', {'error':'Username has already been taken'})
             except User.DoesNotExist:
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
                 auth.login(request,user)
-                return redirect('home')
+                return redirect('/')
     else:
         return render(request, 'login/signup.html')
 

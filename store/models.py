@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Product(models.Model):
@@ -24,12 +25,15 @@ class Featured(models.Model):
 
 
 class Address(models.Model):
+    name = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=200)
     zip = models.IntegerField(default='00000')
 
 
 class Customer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
