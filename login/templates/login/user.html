@@ -18,7 +18,6 @@
                     <li>{{ item.address }},</li>
                     <li>{{ item.city }}</li>
                     <li>{{ item.state }},</li>
-
                     <li>{{ item.zip }}</li>
                 </ul>
                 <hr>
@@ -93,6 +92,26 @@
             <h5><b>Past Orders</b></h5>
             {{user_order}}
             {% for order in user_order%}
+            <div class="row">
+                <div class="col-2">
+                    {{order.order_item.picture}}
+                </div>
+                <div class="col-2">
+                    {{order.order_item.title}}
+                </div>
+                <div class="col-1">
+                    {{order.quantity}}
+                </div>
+                <div class="col-4">
+                    {{order.address}}
+                </div>
+                <div class="col-1">
+                    {{order.date_created}}
+                </div>
+                <div class="col-2">
+                    {{order.status}}
+                </div>
+            </div>
             {% endfor%}
             <div>
                 <h6 class='text-orange'><b>{{ item.orderTime}}</b></h6>

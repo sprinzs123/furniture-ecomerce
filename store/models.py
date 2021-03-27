@@ -58,6 +58,7 @@ class Order(models.Model):
     order_item = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS, default='Pending')
+    quantity = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.status) + " " + " " + str(self.date_created) + " " + str(self.order_item)
