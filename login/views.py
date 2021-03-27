@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import ContactInfo, Payment, Test, Orders
+# from .models import ContactInfo, Payment, Test, Orders
+from store.models import Customer, Address, Order
 
 
 def login(request):
     if request.method == 'POST':
-        user = auth.authenticate(username=request.POST['username'],password=request.POST['password'])
+        user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
         if user is not None:
             auth.login(request, user)
             return redirect('front')
@@ -45,21 +46,21 @@ def logout(request):
 @login_required
 def user_page(request):
     if request.method == 'POST':
-        addtest(request)
         addAddress(request)
-    payInfo = Payment.objects.all()
-    addresInfo = ContactInfo.objects.all()
-    orders = Orders.objects.all()
-    userPay = payInfo.filter(user=request.user)
-    userOrder = orders.filter(user=request.user)
-    userName = request.user.username
-    userAddress = addresInfo.filter(user=request.user)
-    return render(request, 'login/user.html', {'payment': userPay, 'address': userAddress, 'userName': userName,  'orders':userOrder})
+    address_info = Address.objects.all()
+    orders = Order.objects.all()
+    user_name = request.user
+    user_order = orders.filter(user=request.user)
+    user_address = address_info.filter(user=request.user)
+    user_name = request.user
+    # user_address = address_info.filter(user=request.user)
+    content = {'user_name': user_name,  'user_order': user_order, 'user_address': user_address}
+    return render(request, 'login/user.html', content)
 
 
 def addAddress(request):
-    # if request.method == 'POST':
-        address = ContactInfo()
+    if request.method == 'POST':
+        address = Address()
         address.user = request.user
         address.firstName = request.POST.get('fname', '')
         address.lastName = request.POST.get('lname', '')
@@ -68,21 +69,19 @@ def addAddress(request):
         address.city = request.POST.get('city', '')
         address.state = request.POST.get('state', '')
         address.zip = request.POST.get('zip', '1')
-        newAddress = ContactInfo(user=address.user, name=address.fullName, address=address.address, city=address.city, state=address.state, zip=address.zip)
+        new_address = Address(user=address.user, first_name=address.firstName, last_name=address.lastName,  address=address.address, city=address.city, state=address.state, zip=address.zip)
         if address.fullName != '':
-            newAddress.save()
-            newAddress = ContactInfo()
+            new_address.save()
             return reversed('login/user.html')
 
 
 def checkout(request):
     addOrders(request)
     if request.user.is_authenticated:
-        payInfo = Payment.objects.all()
-        userPay = payInfo.filter(user=request.user)
+
         addresInfo = ContactInfo.objects.all()
         userAddress = addresInfo.filter(user=request.user)
-        return render(request, 'login/checkout.html', {'address': userAddress, 'payment': userPay,})
+        return render(request, 'login/checkout.html', {'address': userAddress})
     else:
         return render(request, 'login/checkout.html')
 

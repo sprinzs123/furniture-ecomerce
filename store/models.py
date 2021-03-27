@@ -25,7 +25,10 @@ class Featured(models.Model):
 
 
 class Address(models.Model):
-    name = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=200)
     zip = models.IntegerField(default='00000')
@@ -33,7 +36,6 @@ class Address(models.Model):
 
 class Customer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
     name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
@@ -50,7 +52,7 @@ class Order(models.Model):
         ('Out for delivery', 'Out for delivery'),
         ('Delivered', 'Delivered')
     )
-    order_customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=300)
     address = models.CharField(max_length=300)
     order_item = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)

@@ -1,8 +1,8 @@
 {% extends 'base.html'%}
 {% block content %}
 {% load  item_filter%}
-<div class="container">
-    <h1>your user page</h1>
+<div class="container mt-4">
+    <h2>Welcome back {{ user_name}}</h2>
     <div class="row d-flex justify-content-between">
         <div class="col-3">
             <img src="" alt="user image goe here">
@@ -10,12 +10,15 @@
         <div class="col-7">
             <div class="userDetail border p-3 my-3">
                 <h5><b>My Addresses</b></h5>
-                {% for item in address.all %}
+                {% for item in user_address %}
                 <div><b class="text-capitalize">{{ item.name }}</b></div>
                 <ul class='d-flex userItems'>
-                    <li>{{ item.name }},</li>
-                    <li> {{ item.city }},</li>
-                    <li>{{ item.city }},</li>
+                    <li>{{ item.first_name }},</li>
+                    <li>{{ item.last_name }},</li>
+                    <li>{{ item.address }},</li>
+                    <li>{{ item.city }}</li>
+                    <li>{{ item.state }},</li>
+
                     <li>{{ item.zip }}</li>
                 </ul>
                 <hr>
@@ -80,64 +83,6 @@
                     </div>
                 </div>
             <!-- end add payment detail -->
-            <h5><b>My payments</b></h5>
-            {% for item in payment.all %}
-            <div><b class="text-capitalize">{{ item.user }}</b></div>
-            <ul class='d-flex userItems'>
-                <li><span>Last 4</span> {{ item.cardNum|last_four }} ,</li>
-                <li> expiration {{ item.exMonth }}/</li>
-                <li>{{ item.exYear }}</li>
-            </ul>
-            <hr>
-            {% endfor %}
-            <div class="btn btn-yellow" id='addCardBtn'>Add Card</div>
-            <!-- add new payment to database -->
-            <div class="hide-form">
-                <div class='addCardForm form-collapse'>
-                    <form action="">
-                        <h5 class='text-danger mt-2' id='cardFormError'>Invalid Information</h5>
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="cardName">Name on Card</label>
-                                    <input type="text" class="form-control" id="cardName" placeholder="name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="cardNum">Card Number</label>
-                                    <input type="text" class="form-control" id="cardNum"
-                                        placeholder="card number">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single form  row -->
-                        <div class="form-row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="code">CVV</label>
-                                    <input type="text" class="form-control" id="code" placeholder="123">
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-6">
-                                <div class="form-group">
-                                    <label for="code">Month</label>
-                                    <input type="text" class="form-control" id="month" placeholder="01">
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-6">
-                                <div class="form-group">
-                                    <label for="code">Year</label>
-                                    <input type="text" class="form-control" id="year" placeholder="2026">
-                                </div>
-                            </div>
-
-                            <!-- end form row -->
-                        </div>
-                        <div class="btn btn-yellow" id='addPaymentBtn'>Submit</div>
-                    </form>
-                </div>
-            </div>
         </div>
         </div>
     </div>
@@ -146,39 +91,29 @@
     <div class='border userDetail my-4'>
         <div class="p-3">
             <h5><b>Past Orders</b></h5>
-
-            {% for item in orders.all %}
+            {{user_order}}
+            {% for order in user_order%}
+            {% endfor%}
             <div>
                 <h6 class='text-orange'><b>{{ item.orderTime}}</b></h6>
             </div>
             <h6>{{ item.address}}</h6>
             <div class="row d-flex">
-                {% for i in item.items|cut %}
-
-                <div class="col-md-4 mb-3">
-                    <!-- <p>{{ item.items|cut }}</p> -->
-
-                            <div class="d-flex">
-                                <a href="/store/item{{ i.4 }}" class='user-order-link'><div class="text-capitalize">{{ i.1 }}</div></a>
-                                <div class="col-2">
-                                    <p>Qty:{{ i.0}}</p>
-                                </div>
-                            </div>
-                            <img src="{{ i.3 }}" alt="" style="width: 100%;">
+    
+                <div class="col-md-4 mb-3">  
+                    <div class="d-flex">
+                        <a href="/store/item{{ i.4 }}" class='user-order-link'>
+                            <div class="text-capitalize">{{ i.1 }}</div>
+                        </a>
+                        <div class="col-2">
+                            <p>Qty:{{ i.0}}</p>
                         </div>
-                        {% endfor %}
-
                     </div>
-                    <!-- <p>{{ i.3 }}</p> -->
-            
-    
-    
-                    <br>
-            {% endfor %}
-           
+                    <img src="{{ i.3 }}" alt="" style="width: 100%;">
+                </div>
+                </div>
+            <br>
         </div>
-        
-
     </div>
     <!-- end past orders -->
 

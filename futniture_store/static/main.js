@@ -502,7 +502,7 @@ function addAddress() {
       state.classList.add("error-border");
       errors += 1;
     }
-    if (zip.value.length != 2 || isNaN(zip.value)) {
+    if (zip.value.length >= 6 || isNaN(zip.value)) {
       errorMsg.style.display = "block";
       zip.classList.add("error-border");
       errors += 1;
@@ -534,7 +534,9 @@ function addAddress() {
                 `;
       let itemTry = document.createElement("li");
       itemTry.innerHTML = newAddress;
-      addressBook.appendChild(itemTry);
+      if(addressBook != null){
+        addressBook.appendChild(itemTry);
+      }
 
       // hide form and clean input fields after submission
       errorMsg.style.display = "none";
