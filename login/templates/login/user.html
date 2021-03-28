@@ -1,6 +1,8 @@
 {% extends 'base.html'%}
 {% block content %}
 {% load  item_filter%}
+{% load static %}
+
 <div class="container mt-4">
     <h2>Welcome back {{ user_name}}</h2>
     <div class="row d-flex justify-content-between">
@@ -87,56 +89,40 @@
     </div>
     <!-- end of 2 columns  -->
     <!-- past orders go here -->
-    <div class='border userDetail my-4'>
+    <h4><b>Your Orders</b></h4>
+    {% for order in user_order%}
+    <div class="card mb-3">
+        <div class="card-header p-2">
+            <div class="row d-flex justify-content-between">
+                    <ul class="col-sm-6">
+                        <li>ORDER PLACED</li>
+                        <li>{{order.date_created}}</li>
+                    </ul>
+                    <ul class="col-sm-6">
+                        <li>SHIP TO</li>
+                        <LI>{{order.address}}</LI>
+                    </ul>
+            </div>
+        </div>
         <div class="p-3">
-            <h5><b>Past Orders</b></h5>
-            {{user_order}}
-            {% for order in user_order%}
+            <h5> {{order.status}}</h5>
             <div class="row">
-                <div class="col-2">
-                    {{order.order_item.picture}}
+                <div class="col-sm-4">
+                    <img src="{% static order.order_item.picture %}" alt="" class="order-img">                    
                 </div>
-                <div class="col-2">
-                    {{order.order_item.title}}
+                <div class="col-sm-4">
+                    <a href="/store/item{{order.id}}" class="item-name-carousel">{{order.order_item.title}}</a>
                 </div>
-                <div class="col-1">
-                    {{order.quantity}}
-                </div>
-                <div class="col-4">
-                    {{order.address}}
-                </div>
-                <div class="col-1">
-                    {{order.date_created}}
-                </div>
-                <div class="col-2">
-                    {{order.status}}
+                <div class="col-sm-4">
+                    <ul class="d-flex">
+                        quantity: {{order.quantity}}</>
+                    </ul>
                 </div>
             </div>
-            {% endfor%}
-            <div>
-                <h6 class='text-orange'><b>{{ item.orderTime}}</b></h6>
-            </div>
-            <h6>{{ item.address}}</h6>
-            <div class="row d-flex">
-    
-                <div class="col-md-4 mb-3">  
-                    <div class="d-flex">
-                        <a href="/store/item{{ i.4 }}" class='user-order-link'>
-                            <div class="text-capitalize">{{ i.1 }}</div>
-                        </a>
-                        <div class="col-2">
-                            <p>Qty:{{ i.0}}</p>
-                        </div>
-                    </div>
-                    <img src="{{ i.3 }}" alt="" style="width: 100%;">
-                </div>
-                </div>
-            <br>
+
         </div>
     </div>
-    <!-- end past orders -->
-
-  
+    {% endfor%} 
 </div>
 
 

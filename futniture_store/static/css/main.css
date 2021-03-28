@@ -692,3 +692,23 @@ body {
   color: orangered;
   text-decoration: none;
 }
+
+/* ######## user page */
+.card-header{
+  background-color: #f6f6f6;
+  color: #565959;
+}
+
+.order-img{
+  width: 100%;
+  height: auto;
+}
+
+a{
+  color: var(--mainBlack);
+}
+
+a:hover{
+  text-decoration: none;
+  color: var(--SecondGrey);
+}
