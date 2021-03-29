@@ -712,3 +712,7 @@ a:hover{
   text-decoration: none;
   color: var(--SecondGrey);
 }
+
+#add-address-btn{
+  cursor: pointer;
+}

@@ -6,21 +6,16 @@
 <div class="container mt-4">
     <h2>Welcome back {{ user_name}}</h2>
     <div class="row d-flex justify-content-between">
-        <div class="col-3">
-            <img src="" alt="user image goe here">
+        <div class="col-sm-4 pt-3">
+            <img src="https://devtalk.blender.org/uploads/default/original/2X/c/cbd0b1a6345a44b58dda0f6a355eb39ce4e8a56a.png" class='order-img' alt="user image goe here">
         </div>
-        <div class="col-7">
+        <div class="col-sm-8">
             <div class="userDetail border p-3 my-3">
                 <h5><b>My Addresses</b></h5>
                 {% for item in user_address %}
                 <div><b class="text-capitalize">{{ item.name }}</b></div>
-                <ul class='d-flex userItems'>
-                    <li>{{ item.first_name }},</li>
-                    <li>{{ item.last_name }},</li>
-                    <li>{{ item.address }},</li>
-                    <li>{{ item.city }}</li>
-                    <li>{{ item.state }},</li>
-                    <li>{{ item.zip }}</li>
+                <ul class='d-flex'>
+                    <li>{{ item.first_name }}, {{ item.last_name }}, {{ item.address }}, {{ item.city }} {{ item.state }} {{ item.zip }}</li>
                 </ul>
                 <hr>
                 {% endfor %}
