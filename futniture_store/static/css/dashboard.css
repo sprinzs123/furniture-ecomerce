@@ -25,3 +25,19 @@ a:hover{
   color: var(--SecondGrey);
 }
 
+.btn-yellow{
+	background: var(--mainYellow)!important;
+	text-transform: capitalize;
+	font-size: 1.2rem;
+	color: var(--mainBlack);
+	border-radius: 0!important;
+  }
+  .btn-yellow:hover{
+	background: var(--mainBlack)!important;
+	color: var(--mainYellow)!important;
+  }
+
+/* dashboard page */
+.filter-dashboard div{
+	margin-right: 10px;
+}
