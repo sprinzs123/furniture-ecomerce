@@ -7,23 +7,31 @@
 <div class="container">
 		<div class="col-md-12">
 			<h5>ORDERS</h5>
-			<hr>
-			<div class="card card-body">
-				<a class="btn btn-warning  btn-sm btn-block" href="">Create Order</a>
 
+			<div class="card card-body">
 				<table class="table table-sm">
 					<tr>
-						{% for order in orders %}
-						<th><a href="customer{{order.order_customer.id}}">{{ order.order_customer.name }}</a></th>
-						<th>{{ order.order_customer.phone  }}</th>
-						<th>{{ order.order_customer.email }}</th>
-						<th><a href="/store/item{{ order.order_item.id }}">{{ order.order_item.title }}</a></th>
-						<th>{{ order.date_created}}</th>
-						<th>{{ order.status}}</th>
-						<th class="btn btn-info m-2">Update</th>
-						<th class="btn btn-danger m-2">Remove</th>
+						<th>Item</th>
+						<th>User</th>
+						<th>Date Ordered</th>
+						<th>Address</th>
+						<th>Qnty</th>
+						<th>Status</th>
+						<th>Update</th>
+						<th>Remove</th>
+					</tr>
+					{% for order in orders %}
+						<tr>
+							<td><a href="/store/item{{ order.order_item.id }}">{{ order.order_item.title }}</a></td>
+							<td><a href="customer{{order.order_customer.id}}">{{ order.user }}</a></td>
+							<td>{{ order.date_created}}</td>
+							<td>{{order.name}}, {{ order.address }}</td>
+							<td>{{ order.quantity }}</td>
+							<td>{{ order.status }}</td>
+							<td><li  class="btn btn-info m-2">Update</li></td>							
+							<td><li class="btn btn-danger m-2">Remove</li></td>
 						</tr>
-						{% endfor %}
+					{% endfor %}	
 				</table>
 			</div>
 		</div>	

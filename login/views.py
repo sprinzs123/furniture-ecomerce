@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-# from .models import ContactInfo, Payment, Test, Orders
+from .models import ContactInfo
 from store.models import Customer, Address, Order
 
 
@@ -79,9 +79,10 @@ def checkout(request):
     addOrders(request)
     if request.user.is_authenticated:
 
-        addresInfo = ContactInfo.objects.all()
-        userAddress = addresInfo.filter(user=request.user)
-        return render(request, 'login/checkout.html', {'address': userAddress})
+        address_info = Address.objects.all()
+        user_address = address_info.filter(user=request.user)
+        content = {'user_address': user_address}
+        return render(request, 'login/checkout.html', content)
     else:
         return render(request, 'login/checkout.html')
 

@@ -1,6 +1,6 @@
 {% extends 'base.html'%}
 {% block content %}
-{% load  item_filter%}
+{% load  item_filter %}
 {% load static %}
 
 <div class="container mt-4">
@@ -15,7 +15,7 @@
                 {% for item in user_address %}
                 <div><b class="text-capitalize">{{ item.name }}</b></div>
                 <ul class='d-flex'>
-                    <li>{{ item.first_name }}, {{ item.last_name }}, {{ item.address }}, {{ item.city }} {{ item.state }} {{ item.zip }}</li>
+                    <li>{{ item.first_name }} {{ item.last_name }}, {{ item.address }}, {{ item.city }} {{ item.state }} {{ item.zip }}</li>
                 </ul>
                 <hr>
                 {% endfor %}
