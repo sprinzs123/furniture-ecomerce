@@ -53,6 +53,15 @@
 		{% endfor %}
 	</table>
 	<h1>In stock items</h1>
+
+	<div class="card">
+		<form action="" method="get" class="p-3">
+		{{my_filter.form}}
+		<button class="btn btn-yellow">Submit</button>
+
+		</form>
+	</div>
+
 		<table>
 		{% for item in in_stock %}
 		<tr>

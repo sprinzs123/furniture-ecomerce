@@ -41,3 +41,7 @@ a:hover{
 .filter-dashboard div{
 	margin-right: 10px;
 }
+
+.filter-form{
+  display: inline !important;
+}

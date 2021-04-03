@@ -1,36 +1,8 @@
 {% block content %}
-<div class="card mb-4">
-    <div class="p-2 row filter-dashboard">
-        <div class="col-2">
-            <select name="" id="">
-                <option value="volvo">Status</option>
-                <option value="volvo">Pending</option>
-                <option value="volvo">Out for delivery</option>
-                <option value="volvo">Delivered</option>
-            </select>
-        </div>
-        <div class="col-2">
-            <select name="" id="">
-                <option value="volvo">Item</option>
-
-                <option value="volvo">Volvo</option>
-                <option value="volvo">Volvo</option>
-            </select>
-        </div>
-        <div class="col-2">
-            <input type="text" placeholder="user name" class="w-100">
-           
-        </div>
-        <div class="col-2">
-                <input type="text" placeholder="Start date" class="w-100">
-            </select>
-        </div>
-        <div class="col-2 ">
-                <input type="text" placeholder="End date" class="w-100">
-            </select>
-        </div>
-    </div>
-    <button class="btn btn-yellow">Search</button>
+<div class="card my-4 pb-3">
+    <form action="" method="get" class="p-3 filter-form">
+        {{myFilter.form}}
+        <button class="btn btn-yellow" type="submit">Search</button>
+    </form>
 </div>
-
 {% endblock %}
